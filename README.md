@@ -7,11 +7,11 @@ Classes, exams, assignments, oh my!
 ## Table of Contents
 1. [Development](#development)
    1. [GitHub](#github)
-   2. [Android Studio](#android-studio)
-   3. [Contributing](#contributing)
-   4. [Testing](#testing)
-2. [Running](#running)
-3. [Help](#help)
+   1. [Android Studio](#android-studio)
+1. [Contributing](#contributing)
+1. [Testing](#testing)
+1. [Running](#running)
+1. [Help](#help)
 
 ## Development
 
@@ -27,7 +27,7 @@ You may use the Git integration if you want, however it is not necessary.
 To initialize, you can just clone the repo wherever you want, and then open that new directory with Android Studio.
 This project will be programed with Java. Whom'st'd'
 
-### Contributing
+## Contributing
 
 Pick an [Issue](https://github.com/FaceInCake/ThePrincipleApp/issues) you wish to solve, then assign yourself to it.
 Or, write a comment on it, stating your intentions.
@@ -39,7 +39,7 @@ Be sure to check out the [Testing] section to help verify your program is stable
 You must create a Pull Reqeust (PR), when merging into main.
 Remember to link the [Issue](https://github.com/FaceInCake/ThePrincipleApp/issues) you're solving in the PR.
 
-### Testing
+## Testing
 
 JUnit is the goto for unit testing, as you may guess.
 Any Java class that doesn't interact with the Android system should just be a JUnit test.
