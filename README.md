@@ -22,7 +22,7 @@ It follows an automated Kanban style with reviewing. More can be read in the [Co
 
 ### Android Studio
 
-[Android-Studio](https://developer.android.com/studio) is used for development.
+[Android-Studio](https://developer.android.com/studio) (version 2021.1.1 or newer) is used for development.
 You may use the Git integration if you want, however it is not necessary.
 To initialize, you can just clone the repo wherever you want, and then open that new directory with Android Studio.
 This project will be programed with Java. Whom'st'd'
