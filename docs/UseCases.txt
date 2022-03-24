@@ -1,0 +1,33 @@
+
+User can set their school 
+User can set their school info
+
+User can create a class for a course
+^ Edit / Delete
+
+User can create a Meeting time for a class
+^ Edit / Delete
+
+User can create a Task (Assignment / Test / Exam)
+^ Edit / Delete
+
+================================================================
+
+User can set the grade acquired for a Task
+
+User can generate a report of their overall grades
+
+================================================================
+
+User can view a Calendar view of events (Meetings / Task due dates)
+
+User can see near upcoming events for the week on the home page???
+
+================================================================
+
+User can create an account
+User can log in to their account
+
+================================================================
+
+-- Cloud saving -- ??
