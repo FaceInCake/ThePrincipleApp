@@ -10,7 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThePrincipleApp">
         <activity
-            android:name=".MainActivity"
+            android:name=".UserSettings"
+            android:exported="false"
+            android:label="@string/title_activity_user_settings" />
+        <activity
+            android:name=".HomePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
