@@ -66,15 +66,12 @@ public class NewTask extends AppCompatActivity {
                 // openDateCalendar and dueDateCalendar has dates,
                 // (defaults to today of non filled entries)
 
-                // go back
                 //TODO: Save New Task
                 finish();
             }
         });
 
         btnCancel.setOnClickListener(view -> {
-            // go back
-            //TODO: Save New Task
             finish();
         });
 
