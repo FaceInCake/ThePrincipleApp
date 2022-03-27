@@ -8,7 +8,7 @@
             android:key="nightmode"
             android:title="Night mode" />
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="weekends"
             android:title="Show weekends" />
         <SwitchPreference
@@ -31,6 +31,18 @@
             android:singleLine="true"
             android:title="School address" />
 
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Account">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="stayloggedin"
+            android:title="Stay logged in" />
+        <EditTextPreference
+            android:key="editpass"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Change password" />
     </PreferenceCategory>
 
 </PreferenceScreen>
