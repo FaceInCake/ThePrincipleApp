@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ThePrincipleApp</string>
     <string name="title_activity_user_settings">UserSettings</string>
+    <string name="title_activity_new_task">NewTask</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -16,4 +17,19 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="new_task_title">New Task</string>
+    <string name="name_label">Name</string>
+    <string name="enter_name_input_label">Enter Name</string>
+    <string name="choose_time_new_task_input_label">Choose Time</string>
+    <string name="choose_year_new_task_input_label">Choose year</string>
+    <string name="due_date_new_task_label">Due Date</string>
+    <string name="open_date_new_task_label">Open Date</string>
+    <string name="cancel_new_task_button">Cancel</string>
+    <string name="description_new_task_input_label">Description</string>
+    <string name="task_type_new_task_label">Task Type</string>
+    <string name="location_new_task_label">Location</string>
+    <string name="enter_location_new_task_input_label">Enter Location</string>
+    <string name="enter_description_new_task_input_label">Enter Description…</string>
+    <string name="submit_new_task_button">Submit</string>
+    <string name="new_task_spinner_content_description">Choose Task Type</string>
 </resources>
