@@ -35,14 +35,17 @@ public class NewClass extends AppCompatActivity {
                 description = et_description.getText().toString();
                 professor = et_professor.getText().toString();
                 section = Integer.parseInt(et_section.getText().toString());
-                // go back
+
+                //TODO: Save Class changes
+                finish();
             }
         });
 
         button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // go back
+                //TODO: Save Class changes
+                finish();
             }
         });
 

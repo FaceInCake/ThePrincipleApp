@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter Class Code (Format: ABCD-1234)"
+                android:hint="Enter Class Code "
                 android:inputType="textPersonName"
                 android:minHeight="48dp" />
 
