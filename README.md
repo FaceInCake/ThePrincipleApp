@@ -1,4 +1,4 @@
-[![Android CI](https://github.com/FaceInCake/ThePrincipleApp/actions/workflows/android.yml/badge.svg?branch=main)](https://github.com/FaceInCake/ThePrincipleApp/actions/workflows/android.yml)
+[![Android](https://github.com/FaceInCake/ThePrincipleApp/actions/workflows/Android.yml/badge.svg?branch=main)](https://github.com/FaceInCake/ThePrincipleApp/actions/workflows/Android.yml)
 
 # ThePrincipleApp
 
