@@ -1,3 +1,5 @@
+[![Android CI](https://github.com/FaceInCake/ThePrincipleApp/actions/workflows/android.yml/badge.svg?branch=main)](https://github.com/FaceInCake/ThePrincipleApp/actions/workflows/android.yml)
+
 # ThePrincipleApp
 
 Android application for the Comp4200 course, class of Winter 2022, group 7.
