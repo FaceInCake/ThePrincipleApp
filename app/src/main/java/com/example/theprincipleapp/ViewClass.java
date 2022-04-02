@@ -51,16 +51,12 @@ public class ViewClass extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"add",Toast.LENGTH_LONG).show();
                 return true;
             case R.id.action_edit:
-                //TODO: add a class
+                //TODO: edit a class
                 Toast.makeText(getApplicationContext(),"edit",Toast.LENGTH_LONG).show();
                 return true;
             case R.id.action_view:
                 //TODO: view meetings
                 Toast.makeText(getApplicationContext(),"view",Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.action_back:
-                //TODO: go back
-                Toast.makeText(getApplicationContext(),"back",Toast.LENGTH_LONG).show();
                 return true;
             case R.id.action_delete:
                 //TODO: delete a class
