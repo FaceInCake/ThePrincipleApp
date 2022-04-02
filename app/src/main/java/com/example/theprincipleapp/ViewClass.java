@@ -1,16 +1,20 @@
 package com.example.theprincipleapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewClass extends AppCompatActivity {
 
     TextView tv_classCode, tv_fullName, tv_section, tv_description, tv_professor;
-    Button btn_edit, btn_delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,26 +27,46 @@ public class ViewClass extends AppCompatActivity {
         tv_description = findViewById(R.id.tv_descriptioninfo);
         tv_professor = findViewById(R.id.tv_professorinfo);
 
-        btn_edit = findViewById(R.id.button_editclass);
-        btn_delete = findViewById(R.id.button_deleteclass);
+
 
         //TODO: Display Class info in TextViews
 
 
-        btn_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: Edit Class
-                finish();
-            }
-        });
 
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: Delete Class
-                finish();
-            }
-        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_layout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_add:
+                //TODO: add a class
+                Toast.makeText(getApplicationContext(),"add",Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.action_edit:
+                //TODO: add a class
+                Toast.makeText(getApplicationContext(),"edit",Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.action_view:
+                //TODO: view meetings
+                Toast.makeText(getApplicationContext(),"view",Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.action_back:
+                //TODO: go back
+                Toast.makeText(getApplicationContext(),"back",Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.action_delete:
+                //TODO: delete a class
+                Toast.makeText(getApplicationContext(),"delete",Toast.LENGTH_LONG).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
