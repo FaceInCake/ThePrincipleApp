@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThePrincipleApp">
         <activity
+            android:name=".ViewClass"
+            android:exported="false"
+            android:parentActivityName=".HomePage"/>
+        <activity
             android:name=".NewTask"
             android:exported="false"
-            android:label="@string/title_activity_new_task"/>
+            android:label="@string/title_activity_new_task" />
         <activity
             android:name=".UserSettings"
             android:exported="false"
