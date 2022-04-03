@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.theprincipleapp.helpers.TaskTypeEnum;
+import com.example.theprincipleapp.db.TaskTypeEnum;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

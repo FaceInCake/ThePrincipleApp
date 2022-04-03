@@ -25,7 +25,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="New Class"
-                android:textColor="#000000"
                 android:textSize="34sp" />
 
             <TextView
@@ -33,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Class Code"
-                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -50,7 +48,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Full Name"
-                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -67,7 +64,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Section"
-                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -84,7 +80,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Description"
-                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -101,7 +96,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Professor"
-                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
