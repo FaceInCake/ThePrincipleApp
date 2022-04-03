@@ -37,9 +37,10 @@ public class ViewAllClasses extends AppCompatActivity {
         btnNextTerm = findViewById(R.id.btnNextTerm);
 
 //         Getting all the class ids and related course and storing them as a pair
-        for(Class _class: userdb.classDao().getAll()){
-            cardData.add(Pair.create(userdb.courseDao().get(_class.oid), _class.cid));
-        }
+        //TODO: Initialize view as empty, query classes, populate view when query complete
+//        for(Class _class:
+//            cardData.add(Pair.create(userdb.courseDao().get(_class.oid), _class.cid));
+//        }
 
         viewAllClassesRecyclerAdapter = new ViewAllClassesRecyclerAdapter(this, cardData);
         recyclerViewAllCourses.setLayoutManager(new LinearLayoutManager(this));

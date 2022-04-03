@@ -8,6 +8,7 @@ import androidx.room.Index;
 import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 import androidx.room.Update;
+import io.reactivex.rxjava3.core.Completable;
 
 
 @Entity(
@@ -26,8 +27,8 @@ public class Meeting {
 
     @Dao
     public interface DAO {
-        @Insert void insert (Meeting... meetings);
-        @Delete void delete (Meeting... meetings);
-        @Update void update (Meeting... meetings);
+        @Insert Completable insert (Meeting... meetings);
+        @Delete Completable delete (Meeting... meetings);
+        @Update Completable update (Meeting... meetings);
     }
 }

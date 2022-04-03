@@ -7,10 +7,9 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.Insert;
 import androidx.room.PrimaryKey;
-import androidx.room.Query;
 import androidx.room.Update;
 import java.util.Date;
-import java.util.List;
+import io.reactivex.rxjava3.core.Completable;
 
 /**
  * Base Class Entity.
@@ -30,11 +29,8 @@ public class Class {
 
     @Dao
     public interface DAO {
-        @Insert void insert (Class... classes);
-        @Delete void delete (Class... classes);
-        @Update void update (Class... classes);
-
-        @Query("SELECT * FROM Class")
-        List<Class> getAll ();
+        @Insert Completable insert (Class... classes);
+        @Delete Completable delete (Class... classes);
+        @Update Completable update (Class... classes);
     }
 }
