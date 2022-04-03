@@ -8,9 +8,11 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.Insert;
 import androidx.room.PrimaryKey;
+import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity(
     indices={@Index(value="cid")},
@@ -23,15 +25,21 @@ public class Task {
     public String name;
     public String description;
     public String location;
-    public TaskTypeEnum taskType;
-    public Date openDate;
-    public Date dueDate;
-    public boolean isFinished;
+    public TaskTypeEnum type;
+    public Date open;
+    public Date due;
+    public boolean finished;
 
     @Dao
     public interface DAO {
         @Insert void insert (Task... tasks);
         @Delete void delete (Task... tasks);
         @Update void update (Task... tasks);
+        @Query("SELECT * FROM Task WHERE tid = :tid")
+        Task get (int tid);
+        @Query("SELECT * FROM Task WHERE cid = :cid")
+        List<Task> getAll (int cid);
+        @Query("SELECT * FROM Task WHERE NOT finished AND open < (SELECT strftime('%s', 'now')) AND due > (SELECT strftime('%s', 'now'))")
+        List<Task> todo ();
     }
 }
