@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15sp"
+    android:layout_marginBottom="15sp"
+    android:clipToPadding="false"
+    android:paddingLeft="10sp"
+    android:paddingTop="5sp"
+    android:paddingRight="10sp"
+    android:paddingBottom="5sp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="21dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/viewColourBar"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#D32626" />
+
+            <TextView
+                android:id="@+id/textViewCourseShortName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15sp"
+                android:paddingLeft="10sp"
+                android:paddingTop="5sp"
+                android:paddingRight="10sp"
+                android:text="Des&amp;Anal of Comp Algorithms"
+                android:textColor="@android:color/black"
+                android:textSize="29sp" />
+
+            <TextView
+                android:id="@+id/textViewCourseCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="COMP-4540"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
