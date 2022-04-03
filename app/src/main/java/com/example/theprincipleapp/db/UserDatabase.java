@@ -32,6 +32,7 @@ public abstract class UserDatabase extends RoomDatabase {
         try {
             UDB = Room.databaseBuilder(c, UserDatabase.class, "local-user-db").build();
         } catch (Exception e) {
+            //TODO: Popup that asks to retry or quit app
             Toast.makeText(c, e.toString(), Toast.LENGTH_LONG).show();
             UDB = null; // Double check no residue
             return false;
@@ -43,6 +44,7 @@ public abstract class UserDatabase extends RoomDatabase {
     public abstract Course.DAO courseDao();
     public abstract Task.DAO taskDao();
     public abstract Meeting.DAO meetingDao();
+    public abstract UserClass.DAO userClassDao();
 
     public static class Converters {
         @TypeConverter
