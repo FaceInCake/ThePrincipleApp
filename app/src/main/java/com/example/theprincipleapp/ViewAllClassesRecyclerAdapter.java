@@ -67,7 +67,7 @@ public class ViewAllClassesRecyclerAdapter extends RecyclerView.Adapter<ViewAllC
             itemView.setOnClickListener(v -> {
 
                 // When item is clicked open a new ViewClass intent, passing the class id as extra
-                Intent intent = new Intent(this, ViewClass.class);
+                Intent intent = new Intent(ctx, ViewClass.class);
                 intent.putExtra("cid", cardData.get(getLayoutPosition()).second);
                 ctx.startActivity(intent);
 
