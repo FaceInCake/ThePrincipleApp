@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Database(
     entities = {Class.class, Course.class, Task.class, Meeting.class},
-    exportSchema = false, //TODO: exportSchema
+    exportSchema = true,
     version = 1
 )
 @TypeConverters({UserDatabase.Converters.class})
