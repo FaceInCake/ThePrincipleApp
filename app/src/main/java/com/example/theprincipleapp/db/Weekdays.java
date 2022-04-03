@@ -61,7 +61,7 @@ public class Weekdays {
         sb.append("Weekdays{");
         for (Weekday wd : Weekday.values())
             if ((this.a & wd.getId()) > 0) {
-                if (sb.length() != 0)
+                if (sb.length() > 9)
                     sb.append(',');
                 sb.append(wd);
             }
