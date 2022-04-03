@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10sp"
+    android:layout_marginRight="10sp"
+    android:orientation="vertical"
+    tools:context=".ViewAllClasses">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48sp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnPreviousTerm"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="Previous Term"
+            android:maxWidth="60sp"
+            app:icon="@drawable/ic_baseline_chevron_left_24"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textViewTerm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Fall 2020"
+            android:textSize="34sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnNextTerm"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:contentDescription="Next Term"
+            android:maxWidth="60sp"
+            android:background="@android:color/transparent"
+            app:icon="@android:drawable/ic_media_next"
+            app:iconGravity="textEnd"
+            app:iconTint="@color/black" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAllCourses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        tools:listitem="@layout/view_all_classes_class_card" />
+</LinearLayout>
