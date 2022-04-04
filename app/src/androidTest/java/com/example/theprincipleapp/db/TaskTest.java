@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(AndroidJUnit4.class)
-public class ClassTest extends TestCase {
+public class TaskTest extends TestCase {
     Context appCon;
     UserDatabase udb;
 
