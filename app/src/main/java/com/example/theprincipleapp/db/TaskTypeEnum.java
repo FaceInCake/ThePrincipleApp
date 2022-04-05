@@ -1,4 +1,4 @@
-package com.example.theprincipleapp.helpers;
+package com.example.theprincipleapp.db;
 
 import androidx.annotation.NonNull;
 
@@ -10,7 +10,7 @@ public enum TaskTypeEnum {
     EXAM("Exam"),
     PROJECT("Project");
 
-    private String friendlyName;
+    private final String friendlyName;
 
     TaskTypeEnum(String friendlyName){
         this.friendlyName = friendlyName;

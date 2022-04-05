@@ -6,12 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.theprincipleapp.db.Class;
+import com.example.theprincipleapp.db.Course;
+
 public class NewClass extends AppCompatActivity {
 
     EditText et_classCode, et_fullName, et_section, et_description, et_professor;
     Button button_ok, button_cancel;
-    String classCode, fullName, description, professor;
-    int section;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,33 +24,16 @@ public class NewClass extends AppCompatActivity {
         et_section = findViewById(R.id.et_section);
         et_description = findViewById(R.id.et_description);
         et_professor = findViewById(R.id.et_professor);
-
         button_ok = findViewById(R.id.button_ok);
         button_cancel = findViewById(R.id.button_cancel);
 
-        button_ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                classCode = et_classCode.getText().toString();
-                fullName = et_fullName.getText().toString();
-                description = et_description.getText().toString();
-                professor = et_professor.getText().toString();
-                section = Integer.parseInt(et_section.getText().toString());
+        button_ok.setOnClickListener(this::insertClass);
+        button_cancel.setOnClickListener(view -> finish());
+    }
 
-                //TODO: Save Class changes
-                finish();
-            }
-        });
+    void insertClass (View v) {
 
-        button_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: Save Class changes
-                finish();
-            }
-        });
-
-
-
+        // TODO: Save
+        finish();
     }
 }
