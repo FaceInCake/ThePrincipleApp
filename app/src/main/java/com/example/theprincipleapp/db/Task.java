@@ -11,7 +11,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 import java.util.Date;
 import java.util.List;
-import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 @Entity(
@@ -32,9 +31,13 @@ public class Task {
 
     @Dao
     public interface DAO {
-        @Insert Completable insert (Task... tasks);
-        @Delete Completable delete (Task... tasks);
-        @Update Completable update (Task... tasks);
+        @Insert void insert (Task... tasks);
+        @Delete void delete (Task... tasks);
+        @Update void update (Task... tasks);
+
+        @Query("SELECT * FROM Task WHERE tid = :tid")
+        Task get (int tid);
+
         @Query("SELECT * FROM Task WHERE NOT finished AND open < (SELECT strftime('%s', 'now')) AND due > (SELECT strftime('%s', 'now'))")
         Single<List<Task>> getTodo ();
     }
