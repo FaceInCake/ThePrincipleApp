@@ -6,8 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.Insert;
 import androidx.room.PrimaryKey;
+import androidx.room.Query;
 import androidx.room.Update;
-import io.reactivex.rxjava3.core.Completable;
 
 @Entity(indices = {
         @Index(value={"code"}, unique = true)
@@ -23,9 +23,12 @@ public class Course {
 
     @Dao
     public interface DAO {
-        @Insert Completable insert (Course... courses);
-        @Delete Completable delete (Course... courses);
-        @Update Completable update (Course... courses);
+        @Insert void insert (Course... courses);
+        @Delete void delete (Course... courses);
+        @Update void update (Course... courses);
+
+        @Query("SELECT * FROM Course WHERE oid = :oid")
+        Course get (int oid);
     }
 
 }

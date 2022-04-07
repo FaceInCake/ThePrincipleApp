@@ -1,11 +1,13 @@
 package com.example.theprincipleapp.db;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-public class WeekdaysTest extends TestCase {
+public class WeekdaysTest {
     static byte b0 = 0;
     static byte b5 = 5;
 
+    @Test
     public void testGetByte() {
         Weekdays wds = new Weekdays(b5);
         assertEquals(b5, wds.getByte());
@@ -15,6 +17,7 @@ public class WeekdaysTest extends TestCase {
         assertEquals((byte)17, wds3.getByte());
     }
 
+    @Test
     public void testTestToString() {
         Weekdays wds = new Weekdays();
         assertEquals("Weekdays{}", wds.toString());
@@ -24,6 +27,7 @@ public class WeekdaysTest extends TestCase {
         assertEquals("Weekdays{Tuesday,Friday}", wds3.toString());
     }
 
+    @Test
     public void testAdd() {
         Weekdays wds = new Weekdays();
         wds.add(Weekday.TUESDAY);
@@ -32,12 +36,14 @@ public class WeekdaysTest extends TestCase {
         assertEquals((byte)7, wds.getByte());
     }
 
+    @Test
     public void testRemove() {
         Weekdays wds = new Weekdays(Weekday.MONDAY, Weekday.TUESDAY, Weekday.FRIDAY);
         wds.remove(Weekday.MONDAY, Weekday.FRIDAY);
         assertEquals(Weekday.TUESDAY.getId(), wds.getByte());
     }
 
+    @Test
     public void testToggle() {
         Weekdays wds = new Weekdays(Weekday.MONDAY, Weekday.TUESDAY);
         wds.toggle(Weekday.TUESDAY, Weekday.WEDNESDAY);

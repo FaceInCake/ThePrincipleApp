@@ -1,12 +1,12 @@
 package com.example.theprincipleapp.db;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Embedded;
 import androidx.room.Query;
 import androidx.room.Relation;
 import androidx.room.Transaction;
 import java.util.List;
-import io.reactivex.rxjava3.core.Single;
 
 /**
  * Stores a Class along with related Course, Tasks, and Meetings information.
@@ -26,10 +26,10 @@ public class UserClass {
 
         @Transaction
         @Query("SELECT * FROM Class WHERE cid = :cid")
-        Single<UserClass> get (int cid);
+        UserClass get (int cid);
 
         @Transaction
         @Query("SELECT * FROM Class")
-        Single<List<UserClass>> getAll ();
+        List<UserClass> getAll ();
     }
 }
