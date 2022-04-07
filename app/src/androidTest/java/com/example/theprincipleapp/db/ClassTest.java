@@ -16,6 +16,7 @@ public class ClassTest extends DBTest {
 
     public static Class exampleClass () {
         Class c = new Class();
+        c.cid = 1;
         c.professor = "Mr Bowers";
         c.oid = 1; // Remember to make sure it works with CourseTest.exampleCourse()
         c.start = new Date(1641790800); // Jan 10, 2022, 0:00:00

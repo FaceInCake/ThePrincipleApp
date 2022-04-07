@@ -14,6 +14,7 @@ public class CourseTest extends DBTest {
 
     public static Course exampleCourse () {
         Course c = new Course();
+        c.oid = 1;
         c.code = "COMP-1234";
         c.full_name = "Super Cool Computer Course";
         c.short_name = "Super Cool Comp";

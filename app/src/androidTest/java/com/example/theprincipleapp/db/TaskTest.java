@@ -17,6 +17,7 @@ public class TaskTest extends DBTest {
 
     public static Task exampleTask () {
         Task t = new Task();
+        t.tid = 1;
         t.cid = 1;
         t.name = "My New Task";
         t.description = "This is a new task to do!";
