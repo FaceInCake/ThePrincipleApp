@@ -30,6 +30,6 @@ public class UserClass {
 
         @Transaction
         @Query("SELECT * FROM Class")
-        LiveData<List<UserClass>> getAll ();
+        List<UserClass> getAll ();
     }
 }
