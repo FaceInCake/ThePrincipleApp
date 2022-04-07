@@ -52,7 +52,13 @@ But if your Java class does interact with the Android system, you should use an 
 These tests open an emulator to run the tests with.
 These can be found in the [*(androidTest)*](https://github.com/FaceInCake/ThePrincipleApp/tree/main/app/src/androidTest/java/com/example/theprincipleapp) directory of the main module.
 
+Every public method should have near 100% coverage.
+Else, you should strive for ~>90% test coverage. But you must cover any major runtime errors.
+There's no need to test getters and simple setters, that's stupid, don't do that.
+I will find you and eat your keyboard if I find you doing that.
+
 There exists two build configs for running all instrumented tests, and running all junit tests.
+You can also just go to any of the test classes from within Android Studio and run individual tests or test classes.
 
 ### Database Tests
 - subclass DBTest
@@ -65,17 +71,6 @@ There exists two build configs for running all instrumented tests, and running a
   - Oh, and make one for your class if you can (keep it trivial)
 - create any number of @Test func : a test
 You can check out any other Test class and copy from it aswell
-
-***There's a glitch with Instrumented tests, I don't have a fix for it yet. If you can figure it out I'll love you forever.***
-
-Every public method should have near 100% coverage.
-Else, you should strive for >90% test coverage.
-There's no need to test getters and simple setters, that's stupid, don't do that.
-I will find you and eat your keyboard if I find you doing that.
-
-You can follow the ExampleTest class for how to make one.
-
-In Android Studio, you can go to any of these file individually, if you want to run a certain class or method. There's also a way to run all tests that illudes me, that's easy and requires no setup.
 
 ## Running
 
