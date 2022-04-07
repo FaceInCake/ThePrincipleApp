@@ -12,8 +12,9 @@ Classes, exams, assignments, oh my!
    1. [Android Studio](#android-studio)
 1. [Contributing](#contributing)
 1. [Testing](#testing)
-1. [Running](#running)
-1. [Help](#help)
+   1.  [Database Tests](#database-tests)
+3. [Running](#running)
+4. [Help](#help)
 
 ## Development
 
@@ -50,6 +51,20 @@ You can find these tests in the [*(test)*](https://github.com/FaceInCake/ThePrin
 But if your Java class does interact with the Android system, you should use an Instrumented Test.
 These tests open an emulator to run the tests with.
 These can be found in the [*(androidTest)*](https://github.com/FaceInCake/ThePrincipleApp/tree/main/app/src/androidTest/java/com/example/theprincipleapp) directory of the main module.
+
+There exists two build configs for running all instrumented tests, and running all junit tests.
+
+### Database Tests
+- subclass DBTest
+  - gives you, static UserDatabase : udb
+  - gives you, static Context : appCon
+- import static org.junit.Assert.*;
+- Create a @Before func : prepoluate the UserDatabase
+  - Feel free to use the static methods for creating example objects
+  - ex, CourseTest.exampleCourse() -> Course
+  - Oh, and make one for your class if you can (keep it trivial)
+- create any number of @Test func : a test
+You can check out any other Test class and copy from it aswell
 
 ***There's a glitch with Instrumented tests, I don't have a fix for it yet. If you can figure it out I'll love you forever.***
 
