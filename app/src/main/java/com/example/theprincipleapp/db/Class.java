@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.PrimaryKey;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -30,7 +31,7 @@ public class Class {
 
     @Dao
     public interface DAO {
-        @Insert void insert (Class... classes);
+        @Insert(onConflict = OnConflictStrategy.REPLACE) void insert (Class... classes);
         @Delete void delete (Class... classes);
         @Update void update (Class... classes);
 

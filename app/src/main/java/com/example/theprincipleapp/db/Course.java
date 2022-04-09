@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.PrimaryKey;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -23,9 +24,9 @@ public class Course {
 
     @Dao
     public interface DAO {
-        @Insert void insert (Course... courses);
-        @Delete void delete (Course... courses);
-        @Update void update (Course... courses);
+        @Insert(onConflict = OnConflictStrategy.REPLACE) void insert (Course course);
+        @Delete void delete (Course course);
+        @Update void update (Course course);
 
         @Query("SELECT * FROM Course WHERE oid = :oid")
         Course get (int oid);
