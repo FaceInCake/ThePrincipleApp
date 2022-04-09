@@ -5,16 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.theprincipleapp.db.Task;
 import com.example.theprincipleapp.db.TaskTypeEnum;
+import com.example.theprincipleapp.db.UserDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class NewTask extends AppCompatActivity {
@@ -29,10 +34,15 @@ public class NewTask extends AppCompatActivity {
     final Calendar openDateCalendar = Calendar.getInstance();
     final Calendar dueDateCalendar = Calendar.getInstance();
 
+    Date openDate, dueDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+
+        // temp
+        UserDatabase.createDatabase(getApplicationContext());
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Please select a valid task type.");
@@ -63,10 +73,38 @@ public class NewTask extends AppCompatActivity {
                 description = editTextDescription.getText().toString();
                 taskType = TaskTypeEnum.values()[spinnerSelectedPosition];
 
+                openDate = openDateCalendar.getTime();
+                dueDate = dueDateCalendar.getTime();
+
                 // openDateCalendar and dueDateCalendar has dates,
                 // (defaults to today of non filled entries)
 
-                //TODO: Save New Task
+
+                Task task = new Task();
+                task.location = location;
+                task.name = name;
+                task.description = description;
+                task.type = taskType;
+                task.open = openDate;
+                task.due = dueDate;
+
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        //TODO: Save New Task to database
+
+                        // UserDatabase.UDB.taskDao().insert(task);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Toast.makeText(getApplicationContext(),"Task successfully added", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                });
+
+
                 finish();
             }
         });

@@ -9,11 +9,13 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.PrimaryKey;
 import androidx.room.Query;
 import androidx.room.Update;
 import java.util.Calendar;
 import java.util.Date;
+
 
 /**
  * Base Class Entity.
@@ -76,9 +78,10 @@ public class Class implements Parcelable {
 
     @Dao
     public interface DAO {
-        @Insert void insert (Class... classes);
-        @Delete void delete (Class... classes);
-        @Update void update (Class... classes);
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        long insert (Class cls);
+        @Delete int delete (Class cls);
+        @Update int update (Class cls);
 
         @Query("SELECT * FROM Class WHERE cid=:cid")
         Class get (int cid);
