@@ -8,7 +8,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="402dp"
+        android:layout_width="409dp"
         android:layout_height="381dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="8dp"
@@ -25,8 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="106dp"
+        android:fontFamily="@font/ibm_plex_sans_condensed_bold"
         android:text="WELCOME"
+        android:textColor="#3F51B5"
         android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,25 +45,37 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="206dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginBottom="31dp"
-        android:text="Calendar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingBottom="8dp"
+        android:text="View All Classes"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="179dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="20dp"
-        android:text="Dashboard"
+        android:layout_width="411dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="3dp"
+        android:paddingBottom="8dp"
+        android:text="TO-DO | Calendar"
+        app:iconPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="411dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="444dp"
+        android:paddingBottom="8dp"
+        android:text="Dashboard"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

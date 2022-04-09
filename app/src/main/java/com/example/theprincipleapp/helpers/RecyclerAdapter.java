@@ -39,8 +39,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.textView.setText(al_imageNames.get(position));
-        holder.imageView.setImageResource(al_images.get(position));
+      //  holder.textView.setText(al_imageNames.get(position));
+        //holder.imageView.setImageResource(al_images.get(position));
 
     }
 
@@ -52,16 +52,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        TextView textView;
-        ImageView imageView;
+      // TextView textView;
+     //   ImageView imageView;
 
         public ItemViewHolder(@NonNull View itemView) {
 
 
             super(itemView);
             cardView = itemView.findViewById(R.id.cardView);
-            textView = itemView.findViewById(R.id.textView);
-            imageView = itemView.findViewById(R.id.imageView);
+        //    textView = itemView.findViewById(R.id.textView);
+         //   imageView = itemView.findViewById(R.id.imageView);
         //    itemView.setOnClickListener(V->{});
 
         }
