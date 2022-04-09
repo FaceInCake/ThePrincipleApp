@@ -24,9 +24,9 @@ public class Course {
 
     @Dao
     public interface DAO {
-        @Insert(onConflict = OnConflictStrategy.REPLACE) void insert (Course course);
-        @Delete void delete (Course course);
-        @Update void update (Course course);
+        @Insert(onConflict = OnConflictStrategy.REPLACE) void insert (Course... courses);
+        @Delete void delete (Course... courses);
+        @Update void update (Course... courses);
 
         @Query("SELECT * FROM Course WHERE oid = :oid")
         Course get (int oid);
