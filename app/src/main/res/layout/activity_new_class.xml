@@ -60,22 +60,6 @@
                 android:minHeight="48dp" />
 
             <TextView
-                android:id="@+id/tv_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Section"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/et_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter Section"
-                android:inputType="number"
-                android:minHeight="48dp" />
-
-            <TextView
                 android:id="@+id/tv_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Enter Professor Name"
-                android:inputType="textPassword"
+                android:inputType="textPersonName"
                 android:minHeight="48dp" />
 
             <Button
