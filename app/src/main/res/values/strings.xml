@@ -32,4 +32,5 @@
     <string name="enter_description_new_task_input_label">Enter Description…</string>
     <string name="submit_new_task_button">Submit</string>
     <string name="new_task_spinner_content_description">Choose Task Type</string>
+    <string name="no_view_all_classes">No Classes Available To Show</string>
 </resources>
