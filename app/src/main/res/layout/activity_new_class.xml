@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Enter Professor Name"
-                android:inputType="textPassword"
+                android:inputType="textPersonName"
                 android:minHeight="48dp" />
 
             <Button
