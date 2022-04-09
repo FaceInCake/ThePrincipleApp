@@ -11,8 +11,12 @@ import android.widget.Toast;
 
 import com.example.theprincipleapp.db.Class;
 import com.example.theprincipleapp.db.Course;
+import com.example.theprincipleapp.db.Task;
 import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewClass extends AppCompatActivity {
 
@@ -40,13 +44,15 @@ public class NewClass extends AppCompatActivity {
 
             UserClass userClass = new UserClass();
 
+            List<Task> tasks = new ArrayList<>();
+
             Course course = new Course();
             course.full_name = et_fullName.getText().toString();
             course.code = et_classCode.getText().toString();
             course.description = et_description.getText().toString();
 
             userClass.course = course;
-            userClass.tasks = null;
+            userClass.tasks = tasks;
             userClass.meetings = null;
 
             Class c = new Class();
@@ -57,7 +63,7 @@ public class NewClass extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    // TODO insert UserClass
+
                     UserDatabase.UDB.userClassDao().insert(userClass);
 
 
