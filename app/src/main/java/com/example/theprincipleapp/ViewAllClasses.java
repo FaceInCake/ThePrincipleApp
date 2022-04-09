@@ -6,25 +6,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Pair;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.theprincipleapp.db.Class;
 import com.example.theprincipleapp.db.Course;
+import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
+import com.example.theprincipleapp.db.Class;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ViewAllClasses extends AppCompatActivity {
     RecyclerView recyclerViewAllCourses;
-    TextView textViewTerm;
+    TextView textViewTerm, textViewNoClassesToShow;
     Button btnPreviousTerm, btnNextTerm;
 
     ViewAllClassesRecyclerAdapter viewAllClassesRecyclerAdapter;
-    UserDatabase userdb = UserDatabase.UDB;
+    UserDatabase userDB = UserDatabase.UDB;
 
-    List<Pair<Course, Integer>> cardData = new ArrayList<>();
+    List<Pair<Course, Class>> cardData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +38,31 @@ public class ViewAllClasses extends AppCompatActivity {
         textViewTerm = findViewById(R.id.textViewTerm);
         btnPreviousTerm = findViewById(R.id.btnPreviousTerm);
         btnNextTerm = findViewById(R.id.btnNextTerm);
+        textViewNoClassesToShow = findViewById(R.id.textViewNoClassesToShow);
 
-//         Getting all the class ids and related course and storing them as a pair
-        //TODO: Initialize view as empty, query classes, populate view when query complete
-//        for(Class _class:
-//            cardData.add(Pair.create(userdb.courseDao().get(_class.oid), _class.cid));
-//        }
+        // TODO: Add a way to get which term and term year
 
-        viewAllClassesRecyclerAdapter = new ViewAllClassesRecyclerAdapter(this, cardData);
-        recyclerViewAllCourses.setLayoutManager(new LinearLayoutManager(this));
+
+        viewAllClassesRecyclerAdapter = new ViewAllClassesRecyclerAdapter(ViewAllClasses.this, cardData);
+        recyclerViewAllCourses.setLayoutManager(new LinearLayoutManager(ViewAllClasses.this));
         recyclerViewAllCourses.setAdapter(viewAllClassesRecyclerAdapter);
+
+        updateViewClasses();
+    }
+
+    private void updateViewClasses() {
+        List<UserClass> userClasses = userDB.userClassDao().getAll();
+        if (userClasses.size() > 0) {
+            cardData.clear();
+            // Getting all the user's courses and classes
+            for (UserClass userClass : userClasses)
+                cardData.add(Pair.create(userClass.course, userClass.cls));
+
+            viewAllClassesRecyclerAdapter.notifyDataSetChanged();
+
+            // hiding the "no classes to show" message, and showing the class card(s)
+            textViewNoClassesToShow.setVisibility(View.GONE);
+            recyclerViewAllCourses.setVisibility(View.VISIBLE);
+        }
     }
 }

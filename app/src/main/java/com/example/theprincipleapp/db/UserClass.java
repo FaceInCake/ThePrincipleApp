@@ -31,5 +31,10 @@ public class UserClass {
         @Transaction
         @Query("SELECT * FROM Class")
         List<UserClass> getAll ();
+
+        @Query("SELECT * FROM Class WHERE :dateLower <= start AND start <= :dateUpper")
+        List<UserClass> getAllFromDateRange(long dateLower, long dateUpper);
+
+
     }
 }

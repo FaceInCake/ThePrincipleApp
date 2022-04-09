@@ -60,7 +60,18 @@
         android:id="@+id/recyclerViewAllCourses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp"
         tools:listitem="@layout/view_all_classes_class_card" />
+
+    <TextView
+        android:id="@+id/textViewNoClassesToShow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30sp"
+        android:text="@string/no_view_all_classes"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:visibility="visible" />
 </LinearLayout>
