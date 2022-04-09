@@ -25,6 +25,7 @@ public class NewClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_class);
 
+        // temp
         UserDatabase.createDatabase(getApplicationContext());
 
         et_classCode = findViewById(R.id.et_classcode);
@@ -35,13 +36,16 @@ public class NewClass extends AppCompatActivity {
         button_cancel = findViewById(R.id.button_cancel);
 
         button_ok.setOnClickListener(view -> {
+
+            Course course = new Course();
+            course.full_name = et_fullName.getText().toString();
+            course.code = et_classCode.getText().toString();
+            course.description = et_description.getText().toString();
+
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-                    Course course = new Course();
-                    course.full_name = et_fullName.getText().toString();
-                    course.code = et_classCode.getText().toString();
-                    course.description = et_description.getText().toString();
+
 
                     UserDatabase.UDB.courseDao().insert(course);
 
