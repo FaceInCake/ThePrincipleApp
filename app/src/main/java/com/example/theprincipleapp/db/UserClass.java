@@ -28,7 +28,7 @@ public class UserClass {
 
         @Transaction
         @Query("SELECT * FROM Class WHERE cid = :cid")
-        public abstract UserClass getUserClass (int cid);
+        public abstract UserClass get (int cid);
 
         @Transaction
         @Query("SELECT * FROM Class")
