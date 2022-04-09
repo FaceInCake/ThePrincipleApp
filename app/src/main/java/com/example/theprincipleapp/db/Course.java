@@ -24,7 +24,7 @@ public class Course {
 
     @Dao
     public interface DAO {
-        @Insert(onConflict = OnConflictStrategy.REPLACE) void insert (Course... courses);
+        @Insert(onConflict = OnConflictStrategy.REPLACE) long insert (Course courses);
         @Delete void delete (Course... courses);
         @Update void update (Course... courses);
 

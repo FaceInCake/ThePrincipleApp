@@ -31,7 +31,7 @@ public class Class {
 
     @Dao
     public interface DAO {
-        @Insert(onConflict = OnConflictStrategy.REPLACE) void insert (Class... classes);
+        @Insert(onConflict = OnConflictStrategy.REPLACE) long insert (Class classes);
         @Delete void delete (Class... classes);
         @Update void update (Class... classes);
 

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.theprincipleapp.db.Class;
 import com.example.theprincipleapp.db.Course;
+import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
 
 public class NewClass extends AppCompatActivity {
@@ -37,19 +38,24 @@ public class NewClass extends AppCompatActivity {
 
         button_ok.setOnClickListener(view -> {
 
+            UserClass userClass = new UserClass();
+
             Course course = new Course();
             course.full_name = et_fullName.getText().toString();
             course.code = et_classCode.getText().toString();
             course.description = et_description.getText().toString();
 
+            userClass.course = course;
+            //userClass.cls.professor = et_professor.getText().toString();
+
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
 
+                    // TODO insert UserClass
+                    // crash when inserting
+                    //UserDatabase.UDB.userClassDao().insert(userClass);
 
-                    UserDatabase.UDB.courseDao().insert(course);
-
-                    // TODO insert class
 
                     runOnUiThread(new Runnable() {
                         @Override
