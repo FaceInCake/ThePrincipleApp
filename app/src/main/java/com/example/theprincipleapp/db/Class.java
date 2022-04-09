@@ -2,7 +2,7 @@ package com.example.theprincipleapp.db;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import android.util.Pair;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Entity;
@@ -25,7 +25,7 @@ import java.util.Date;
         indices = {@Index(value = {"oid"})},
         foreignKeys = {@ForeignKey(parentColumns="oid", childColumns="oid", entity=Course.class)}
 )
-public class Class implements Parcelable {
+public class Class {
     @PrimaryKey(autoGenerate=true)
     public int cid;
     public int oid;
@@ -44,15 +44,23 @@ public class Class implements Parcelable {
     }
 
     /**
-     * Gets the term of this class
+     * Gets the term for the given class
      * @return 0=Winter, 1=Summer, 2=Fall
      */
-    public int getTerm() {
+    public int getTerm (Date d) {
         Calendar c = Calendar.getInstance();
-        c.setTime(start);
+        c.setTime(d);
         int m = c.get(Calendar.MONTH);
-        if (m <= 2) return 0;
-        if (m <= 6) return 1;
+        return Class.getTerm(m);
+    }
+
+    /**
+     * Gets the term for the given month
+     * @return 0=Winter, 1=Summer, 2=Fall
+     */
+    public static int getTerm (int month) {
+        if (month <= 2) return 0;
+        if (month <= 6) return 1;
         return 2;
     }
 
@@ -80,6 +88,7 @@ public class Class implements Parcelable {
     public interface DAO {
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         long insert (Class cls);
+
         @Delete int delete (Class cls);
         @Update int update (Class cls);
 
@@ -87,36 +96,4 @@ public class Class implements Parcelable {
         Class get (int cid);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(cid);
-        dest.writeInt(oid);
-        dest.writeLong(start.getTime());
-        dest.writeLong(end.getTime());
-        dest.writeString(professor);
-    }
-
-    // Used to regenerate db.class from parcelable
-    public static final Parcelable.Creator<Class> CREATOR = new Parcelable.Creator<Class>() {
-        public Class createFromParcel(Parcel in) {
-            return new Class(in);
-        }
-
-        public Class[] newArray(int size) {
-            return new Class[size];
-        }
-    };
-
-    private Class(Parcel in){
-        cid = in.readInt();
-        oid = in.readInt();
-        start = new Date(in.readLong());
-        end = new Date(in.readLong());
-        professor = in.readString();
-    }
 }

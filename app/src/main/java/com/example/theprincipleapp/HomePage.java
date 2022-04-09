@@ -21,7 +21,7 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
         UserDatabase.createDatabase(getApplicationContext());
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.home_recview);
         btn_classes = findViewById(R.id.home_btn_allClasses);
         btn_calendar =  findViewById(R.id.home_btn_calendar);
         btn_tasks = findViewById(R.id.home_btn_allTasks);
@@ -29,7 +29,7 @@ public class HomePage extends AppCompatActivity {
         adapter = new HomeRecAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
         recyclerView.setAdapter(adapter);
-        adapter.classes = UserDatabase.UDB.userClassDao().getAll();
+        // prefill classes
 
         btn_classes.setOnClickListener(view -> {
             Intent i = new Intent(this, ViewAllClasses.class);

@@ -1,5 +1,8 @@
 package com.example.theprincipleapp.db;
 
+import android.util.Log;
+import android.util.Pair;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Embedded;
@@ -28,16 +31,28 @@ public class UserClass {
 
         @Transaction
         @Query("SELECT * FROM Class WHERE cid = :cid")
-        abstract UserClass getUserClass (int cid);
+        public abstract UserClass getUserClass (int cid);
 
         @Transaction
         @Query("SELECT * FROM Class")
-        List<UserClass> getAllFromDateRange(long dateLower, long dateUpper);
-        @Query("SELECT * FROM Class WHERE :dateLower <= start AND start <= :dateUpper")
-        abstract List<UserClass> getAll ();
+        public abstract List<UserClass> getAll ();
 
         @Transaction
-        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        @Query("SELECT * FROM Class WHERE :dateLower <= start AND start <= :dateUpper")
+        public abstract List<UserClass> getAllFromDateRange(long dateLower, long dateUpper);
+
+        @Transaction
+        public List<UserClass> getAllFrom(int year, int term) {
+            try {
+                Pair<Long, Long> p = Class.getTermBounds(year, term);
+                return getAllFromDateRange(p.first, p.second);
+            } catch (IllegalArgumentException e) {
+                Log.e("USC", "Invalid term value given");
+                return getAll();
+            }
+        }
+
+        @Transaction
         public long insert (UserClass uc) {
             long oid = UserDatabase.UDB.courseDao().insert(uc.course);
             uc.cls.oid = (int) oid;
