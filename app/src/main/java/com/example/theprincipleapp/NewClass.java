@@ -16,6 +16,7 @@ import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class NewClass extends AppCompatActivity {
@@ -29,9 +30,6 @@ public class NewClass extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_class);
-
-        // temp
-        UserDatabase.createDatabase(getApplicationContext());
 
         et_classCode = findViewById(R.id.et_classcode);
         et_fullName = findViewById(R.id.et_fullname);
@@ -57,6 +55,8 @@ public class NewClass extends AppCompatActivity {
 
             Class c = new Class();
             c.professor = et_professor.getText().toString();
+            c.start = Calendar.getInstance().getTime();
+            c.end = Calendar.getInstance().getTime();
             userClass.cls = c;
 
             AsyncTask.execute(new Runnable() {

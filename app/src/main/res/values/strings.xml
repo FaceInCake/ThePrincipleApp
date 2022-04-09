@@ -33,4 +33,7 @@
     <string name="submit_new_task_button">Submit</string>
     <string name="new_task_spinner_content_description">Choose Task Type</string>
     <string name="no_view_all_classes">No Classes Available To Show</string>
+    <string name="add_new_class">Add new class</string>
+    <string name="previous_term">Previous Term</string>
+    <string name="next_term">Next Term</string>
 </resources>

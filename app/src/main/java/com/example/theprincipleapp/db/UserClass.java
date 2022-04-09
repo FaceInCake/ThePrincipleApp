@@ -2,15 +2,12 @@ package com.example.theprincipleapp.db;
 
 import android.util.Log;
 import android.util.Pair;
-
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Embedded;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Relation;
 import androidx.room.Transaction;
+import com.example.theprincipleapp.helpers.Term;
 import java.util.List;
 
 /**
@@ -42,14 +39,9 @@ public class UserClass {
         public abstract List<UserClass> getAllFromDateRange(long dateLower, long dateUpper);
 
         @Transaction
-        public List<UserClass> getAllFrom(int year, int term) {
-            try {
-                Pair<Long, Long> p = Class.getTermBounds(year, term);
-                return getAllFromDateRange(p.first, p.second);
-            } catch (IllegalArgumentException e) {
-                Log.e("USC", "Invalid term value given");
-                return getAll();
-            }
+        public List<UserClass> getAllFrom(int year, Term term) {
+            Pair<Long, Long> p = Class.getTermBounds(year, term);
+            return getAllFromDateRange(p.first, p.second);
         }
 
         @Transaction

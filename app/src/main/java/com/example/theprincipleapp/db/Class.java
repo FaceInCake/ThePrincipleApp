@@ -13,6 +13,9 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.PrimaryKey;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.example.theprincipleapp.helpers.Term;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,9 +48,9 @@ public class Class {
 
     /**
      * Gets the term for the given class
-     * @return 0=Winter, 1=Summer, 2=Fall
+     * @return Term enum repr. a term
      */
-    public int getTerm (Date d) {
+    public Term getTerm (Date d) {
         Calendar c = Calendar.getInstance();
         c.setTime(d);
         int m = c.get(Calendar.MONTH);
@@ -56,32 +59,32 @@ public class Class {
 
     /**
      * Gets the term for the given month
-     * @return 0=Winter, 1=Summer, 2=Fall
+     * @return Term enum repr. a term
      */
-    public static int getTerm (int month) {
-        if (month <= 2) return 0;
-        if (month <= 6) return 1;
-        return 2;
+    public static Term getTerm (int month) {
+        if (month <= 2) return Term.WINTER;
+        if (month <= 6) return Term.SUMMER;
+        return Term.FALL;
     }
 
     /**
      * Returns the unix min start and max end time of the given year and term
      * @param year The int year in question
-     * @param term int repr of the term. 0=Winter, 1=Summer, 2=Fall
+     * @param term Term enum repr the term
      * @return First: minimum start date of term in unix time, Second: maximum end date of term in unix time
      */
-    public static Pair<Long,Long> getTermBounds (int year, int term) throws IllegalArgumentException {
+    public static Pair<Long,Long> getTermBounds (int year, Term term) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(0);
         c.set(Calendar.YEAR, year);
         long a = c.getTimeInMillis();
         final long month = 2629743;
         switch (term) {
-            case 0: return new Pair<>(a, a+month);
-            case 1: return new Pair<>(a+month*3, a+month*5);
-            case 2: return new Pair<>(a+month*7, a+month*9);
-            default: throw new IllegalArgumentException("term is out of range");
+            case WINTER: return new Pair<>(a, a+month);
+            case SUMMER: return new Pair<>(a+month*3, a+month*5);
+            case FALL: return new Pair<>(a+month*7, a+month*9);
         }
+        throw new IllegalArgumentException("term was an invalid value");
     }
 
     @Dao
