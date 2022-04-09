@@ -46,15 +46,19 @@ public class NewClass extends AppCompatActivity {
             course.description = et_description.getText().toString();
 
             userClass.course = course;
-            //userClass.cls.professor = et_professor.getText().toString();
+            userClass.tasks = null;
+            userClass.meetings = null;
+
+            Class c = new Class();
+            c.professor = et_professor.getText().toString();
+            userClass.cls = c;
 
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
 
                     // TODO insert UserClass
-                    // crash when inserting
-                    //UserDatabase.UDB.userClassDao().insert(userClass);
+                    UserDatabase.UDB.userClassDao().insert(userClass);
 
 
                     runOnUiThread(new Runnable() {
