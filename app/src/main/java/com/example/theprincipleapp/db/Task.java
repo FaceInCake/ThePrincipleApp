@@ -12,7 +12,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 import java.util.Date;
 import java.util.List;
-import io.reactivex.rxjava3.core.Single;
+
 
 @Entity(
     indices={@Index(value="cid")},
@@ -32,14 +32,15 @@ public class Task {
 
     @Dao
     public interface DAO {
-        @Insert(onConflict = OnConflictStrategy.REPLACE) void insert (Task... tasks);
-        @Delete void delete (Task... tasks);
-        @Update void update (Task... tasks);
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        long insert (Task task);
+        @Delete int delete (Task task);
+        @Update int update (Task task);
 
         @Query("SELECT * FROM Task WHERE tid = :tid")
         Task get (int tid);
 
         @Query("SELECT * FROM Task WHERE NOT finished AND open < (SELECT strftime('%s', 'now')) AND due > (SELECT strftime('%s', 'now'))")
-        Single<List<Task>> getTodo ();
+        List<Task> getTodo ();
     }
 }

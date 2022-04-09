@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.Query;
 import androidx.room.Update;
 import java.util.Date;
-import io.reactivex.rxjava3.core.Completable;
+
 
 /**
  * Base Class Entity.
@@ -31,9 +31,10 @@ public class Class {
 
     @Dao
     public interface DAO {
-        @Insert(onConflict = OnConflictStrategy.REPLACE) long insert (Class classes);
-        @Delete void delete (Class... classes);
-        @Update void update (Class... classes);
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        long insert (Class cls);
+        @Delete int delete (Class cls);
+        @Update int update (Class cls);
 
         @Query("SELECT * FROM Class WHERE cid=:cid")
         Class get (int cid);
