@@ -54,6 +54,32 @@
         android:id="@+id/classEnd"
         app:sectionName="End Date"
         app:sectionIcon="@drawable/ic_baseline_alarm_24"
-        app:sectionValue="@string/app_name"/>
+        app:sectionValue="@string/app_name">
+
+    </com.example.theprincipleapp.InfoSection>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <Button
+            android:id="@+id/btn_newTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_task_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_newMeeting"/>
+
+        <Button
+            android:id="@+id/btn_newMeeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_meeting"
+            app:layout_constraintStart_toEndOf="@+id/btn_newTask"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
