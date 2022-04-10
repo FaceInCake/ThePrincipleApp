@@ -35,8 +35,8 @@ public class ViewAllClassesRecyclerAdapter extends RecyclerView.Adapter<ViewAllC
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.viewColourBar.setBackgroundColor(Color.parseColor(colours[position % colours.length]));
-        holder.textViewCourseShortName.setText(classes.get(position).course.short_name);
-        holder.textViewCourseCode.setText(classes.get(position).course.code);
+        holder.textViewCourseShortName.setText(classes.get(position).course.code);
+        holder.textViewCourseCode.setText(classes.get(position).course.full_name);
     }
 
     @Override

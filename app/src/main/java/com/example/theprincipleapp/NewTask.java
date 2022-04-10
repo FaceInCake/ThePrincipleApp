@@ -41,9 +41,6 @@ public class NewTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
 
-        // temp
-        UserDatabase.createDatabase(getApplicationContext());
-
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Please select a valid task type.");
         AlertDialog dialog = alertDialogBuilder.create();

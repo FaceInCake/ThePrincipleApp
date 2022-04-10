@@ -19,13 +19,12 @@ public class Course {
     public int oid;
     public String code;
     public String full_name;
-    public String short_name;
     public String description = "";
 //    public float credits = 3.00f;
 
     @Dao
     public interface DAO {
-        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        @Insert(onConflict = OnConflictStrategy.IGNORE)
         long insert (Course course);
         @Delete int delete (Course course);
         @Update int update (Course course);

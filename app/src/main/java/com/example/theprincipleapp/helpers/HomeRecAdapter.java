@@ -33,8 +33,8 @@ public class HomeRecAdapter extends RecyclerView.Adapter<HomeRecAdapter.ItemView
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.name.setText(classes.get(position).course.short_name);
-        holder.code.setText(classes.get(position).course.code);
+        holder.name.setText(classes.get(position).course.code);
+        holder.code.setText(classes.get(position).course.full_name);
     }
 
     @Override

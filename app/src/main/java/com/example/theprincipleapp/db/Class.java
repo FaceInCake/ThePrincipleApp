@@ -1,7 +1,5 @@
 package com.example.theprincipleapp.db;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Pair;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -13,9 +11,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.PrimaryKey;
 import androidx.room.Query;
 import androidx.room.Update;
-
 import com.example.theprincipleapp.helpers.Term;
-
 import java.util.Calendar;
 import java.util.Date;
 
@@ -50,9 +46,9 @@ public class Class {
      * Gets the term for the given class
      * @return Term enum repr. a term
      */
-    public Term getTerm (Date d) {
+    public Term getTerm () {
         Calendar c = Calendar.getInstance();
-        c.setTime(d);
+        c.setTime(start);
         int m = c.get(Calendar.MONTH);
         return Class.getTerm(m);
     }
@@ -74,17 +70,29 @@ public class Class {
      * @return First: minimum start date of term in unix time, Second: maximum end date of term in unix time
      */
     public static Pair<Long,Long> getTermBounds (int year, Term term) {
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(0);
-        c.set(Calendar.YEAR, year);
-        long a = c.getTimeInMillis();
-        final long month = 2629743;
+        Calendar c0 = Calendar.getInstance(),
+                 c1 = Calendar.getInstance();
+        c0.set(year,0,0,0,0,0);
+        c1.set(year,0,0,0,0,0);
         switch (term) {
-            case WINTER: return new Pair<>(a, a+month);
-            case SUMMER: return new Pair<>(a+month*3, a+month*5);
-            case FALL: return new Pair<>(a+month*7, a+month*9);
+            case WINTER:
+                c0.set(Calendar.MONTH, 0);
+                c1.set(Calendar.MONTH, 3);
+                break;
+            case SUMMER:
+                c0.set(Calendar.MONTH, 3);
+                c1.set(Calendar.MONTH, 7);
+                break;
+            case FALL:
+                c0.set(Calendar.MONTH, 7);
+                c1.roll(Calendar.YEAR, 1);
+                break;
+            default:
+                c0.set(Calendar.MONTH, 0);
+                c1.roll(Calendar.YEAR, 1);
+                break;
         }
-        throw new IllegalArgumentException("term was an invalid value");
+        return new Pair<>(c0.getTime().getTime(), c1.getTime().getTime());
     }
 
     @Dao

@@ -73,7 +73,6 @@ public class ViewAllClasses extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged") // Whole dataset is changed
     private void updateList () {
         AsyncTask.execute(() -> {
-            Calendar c = Calendar.getInstance();
             viewAllClassesRecyclerAdapter.classes = UserDatabase.UDB.userClassDao()
                 .getAllFrom(curYear, curTerm);
             runOnUiThread(() -> {

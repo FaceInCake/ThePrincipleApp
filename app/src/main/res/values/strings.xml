@@ -37,4 +37,10 @@
     <string name="previous_term">Previous Term</string>
     <string name="next_term">Next Term</string>
     <string name="icon_for_the_info_section">Icon for the info section</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="error">Error</string>
+    <string name="okay">Okay</string>
+    <string name="err_invalidClass">Attempted to view an invalid class</string>
+    <string name="err_dbInit">Failed to initialize local database</string>
 </resources>
