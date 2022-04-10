@@ -3,6 +3,6 @@
     <declare-styleable name="InfoSection">
         <attr name="sectionName" format="string"/>
         <attr name="sectionIcon" format="reference"/>
-        <attr name="value" format="string"/>
+        <attr name="sectionValue" format="string"/>
     </declare-styleable>
 </resources>
