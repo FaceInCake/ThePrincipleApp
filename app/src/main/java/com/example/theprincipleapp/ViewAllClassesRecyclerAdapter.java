@@ -1,35 +1,28 @@
 package com.example.theprincipleapp;
 
+import java.util.ArrayList;
+import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.theprincipleapp.db.UserClass;
 
-import com.example.theprincipleapp.db.Class;
-import com.example.theprincipleapp.db.Course;
-import com.example.theprincipleapp.db.UserDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ViewAllClassesRecyclerAdapter extends RecyclerView.Adapter<ViewAllClassesRecyclerAdapter.ItemViewHolder>{
     final Context ctx;
-    final List<Pair<Course, Integer>> cardData; // Course and class cid pair
+    public List<UserClass> classes;
     final String[] colours = {"#06aed5", "#086788", "#f0c808", "#ef6461", "#dd1c1a"}; // https://coolors.co/06aed5-086788-f0c808-5dfdcb-dd1c1a
 
-    public ViewAllClassesRecyclerAdapter(Context ctx, List<Pair<Course, Integer>> cardData){
+    public ViewAllClassesRecyclerAdapter(Context ctx){
         this.ctx = ctx;
-        this.cardData = cardData;
+        classes = new ArrayList<>();
     }
 
     @NonNull
@@ -42,15 +35,12 @@ public class ViewAllClassesRecyclerAdapter extends RecyclerView.Adapter<ViewAllC
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.viewColourBar.setBackgroundColor(Color.parseColor(colours[position % colours.length]));
-        holder.textViewCourseShortName.setText(cardData.get(position).first.short_name);
-        holder.textViewCourseCode.setText(cardData.get(position).first.code);
-
-//        holder.textViewCourseShortName.setText("course short name");
-//        holder.textViewCourseCode.setText("course code");
+        holder.textViewCourseShortName.setText(classes.get(position).course.code);
+        holder.textViewCourseCode.setText(classes.get(position).course.full_name);
     }
 
     @Override
-    public int getItemCount() { return /*classes.size()*/16; }
+    public int getItemCount() { return classes.size(); }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         CardView cardViewCourse;
@@ -65,13 +55,10 @@ public class ViewAllClassesRecyclerAdapter extends RecyclerView.Adapter<ViewAllC
             viewColourBar = itemView.findViewById(R.id.viewColourBar);
 
             itemView.setOnClickListener(v -> {
-
-                // When item is clicked open a new ViewClass intent, passing the class id as extra
+                // When item is clicked open a new ViewClass intent, passing the class parcelable as an extra
                 Intent intent = new Intent(ctx, ViewClass.class);
-                intent.putExtra("cid", cardData.get(getLayoutPosition()).second);
+                intent.putExtra("cid", classes.get(getAdapterPosition()).cls.cid);
                 ctx.startActivity(intent);
-
-//                Toast.makeText(ctx, "item clicked: " + getLayoutPosition(), Toast.LENGTH_SHORT).show();
             });
         }
     }

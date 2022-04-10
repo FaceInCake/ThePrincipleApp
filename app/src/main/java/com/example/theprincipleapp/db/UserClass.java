@@ -1,11 +1,13 @@
 package com.example.theprincipleapp.db;
 
-import androidx.lifecycle.LiveData;
+import android.util.Log;
+import android.util.Pair;
 import androidx.room.Dao;
 import androidx.room.Embedded;
 import androidx.room.Query;
 import androidx.room.Relation;
 import androidx.room.Transaction;
+import com.example.theprincipleapp.helpers.Term;
 import java.util.List;
 
 /**
@@ -22,14 +24,36 @@ public class UserClass {
     public List<Meeting> meetings;
 
     @Dao
-    public interface DAO {
+    public static abstract class DAO {
 
         @Transaction
         @Query("SELECT * FROM Class WHERE cid = :cid")
-        UserClass get (int cid);
+        public abstract UserClass get (int cid);
 
         @Transaction
         @Query("SELECT * FROM Class")
-        List<UserClass> getAll ();
+        public abstract List<UserClass> getAll ();
+
+        @Transaction
+        @Query("SELECT * FROM Class WHERE :dateLower <= start AND start <= :dateUpper")
+        public abstract List<UserClass> getAllFromDateRange(long dateLower, long dateUpper);
+
+        @Transaction
+        public List<UserClass> getAllFrom(int year, Term term) {
+            Pair<Long, Long> p = Class.getTermBounds(year, term);
+            return getAllFromDateRange(p.first, p.second);
+        }
+
+        @Transaction
+        public long insert (UserClass uc) {
+            long oid = UserDatabase.UDB.courseDao().insert(uc.course);
+            uc.cls.oid = (int) oid;
+            long cid = UserDatabase.UDB.classDao().insert(uc.cls);
+            // set meetings cid to above
+            // insert meetings
+            // set tasks cid to above
+            // insert tasks
+            return cid;
+        }
     }
 }

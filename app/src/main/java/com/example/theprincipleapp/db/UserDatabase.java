@@ -1,20 +1,21 @@
 package com.example.theprincipleapp.db;
 
+import android.app.Activity;
 import android.content.Context;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
+import com.example.theprincipleapp.R;
+import com.example.theprincipleapp.helpers.Util;
 import java.util.Date;
+
 
 @Database(
     entities = {Class.class, Course.class, Task.class, Meeting.class},
     exportSchema = true,
-    version = 1
+    version = 2
 )
 @TypeConverters({UserDatabase.Converters.class})
 public abstract class UserDatabase extends RoomDatabase {
@@ -22,18 +23,25 @@ public abstract class UserDatabase extends RoomDatabase {
      * Singleton of the User Database object.
      */
     public static UserDatabase UDB = null;
+    public static Context UDB_CONTEXT = null;
+    public static boolean IS_INITIALIZED = false;
 
     /**
      * Attempts to create the local user database
-     * @param c The Application context
+     * @param activity Activity to tie the database to
      * @return True on success, shows a Toast and returns false on failure
      */
-    public static boolean createDatabase (@NonNull Context c) {
+    public static boolean createDatabase (Activity activity) {
+        if (IS_INITIALIZED) return true;
+        if (activity == null) return false;
         try {
-            UDB = Room.databaseBuilder(c, UserDatabase.class, "local-user-db").build();
+            UDB = Room.databaseBuilder(activity, UserDatabase.class, "local-user-db")
+                .fallbackToDestructiveMigration()
+                .build();
+            UDB_CONTEXT = activity;
+            IS_INITIALIZED = true;
         } catch (Exception e) {
-            //TODO: Popup that asks to retry or quit app
-            Toast.makeText(c, e.toString(), Toast.LENGTH_LONG).show();
+            Util.alertError(activity, R.string.err_dbInit);
             UDB = null; // Double check no residue
             return false;
         }

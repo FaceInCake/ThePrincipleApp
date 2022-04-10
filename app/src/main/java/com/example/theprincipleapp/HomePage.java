@@ -1,46 +1,55 @@
 package com.example.theprincipleapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 import com.example.theprincipleapp.db.UserDatabase;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import com.example.theprincipleapp.helpers.RecyclerAdapter;
-import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.Button;
+import com.example.theprincipleapp.helpers.HomeRecAdapter;
 
 
 public class HomePage extends AppCompatActivity {
     RecyclerView recyclerView;
-    ArrayList<String> al_imageNames = new ArrayList<>();
-    ArrayList<Integer> al_images = new ArrayList<>();
-    RecyclerAdapter adapter;
+    HomeRecAdapter adapter;
+    Button btn_classes, btn_calendar, btn_tasks;
 
+    @SuppressLint("NotifyDataSetChanged") // Entire set is changed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.homepage);
-        UserDatabase.createDatabase(getApplicationContext());
+        setContentView(R.layout.activity_homepage);
+        UserDatabase.createDatabase(this);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        al_imageNames.add("COMP 4110");
-        al_imageNames.add("COMP 4200");
-        al_imageNames.add("COMP 4250");
-        al_imageNames.add("COMP 4540");
-        al_imageNames.add("COMP 4990");
+        recyclerView = findViewById(R.id.home_recview);
+        btn_classes = findViewById(R.id.home_btn_allClasses);
+        btn_calendar =  findViewById(R.id.home_btn_calendar);
+        btn_tasks = findViewById(R.id.home_btn_allTasks);
 
-        al_images.add(R.drawable.image1);
-        al_images.add(R.drawable.image2);
-        al_images.add(R.drawable.image3);
-        al_images.add(R.drawable.image4);
-        al_images.add(R.drawable.image5);
+        adapter = new HomeRecAdapter(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
+        recyclerView.setAdapter(adapter);
+        AsyncTask.execute(() -> {
+            adapter.classes = UserDatabase.UDB.userClassDao().getAll();
+            runOnUiThread(() -> {
+                adapter.notifyDataSetChanged();
+            });
+        });
 
-     adapter = new RecyclerAdapter(HomePage.this, al_imageNames, al_images);
-     recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
-     recyclerView.setAdapter(adapter);
+        btn_classes.setOnClickListener(view -> {
+            Intent i = new Intent(this, ViewAllClasses.class);
+            startActivity(i);
+        });
+
+        // View calendar
+
+        // View all tasks
 
     }
 }

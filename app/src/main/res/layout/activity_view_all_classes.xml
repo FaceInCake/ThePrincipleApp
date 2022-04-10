@@ -9,58 +9,63 @@
     android:orientation="vertical"
     tools:context=".ViewAllClasses">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="48sp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnPreviousTerm"
-            android:layout_width="50sp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/previous_term"
+            android:foreground="@drawable/ic_baseline_arrow_back_ios_24"
             android:background="@android:color/transparent"
-            android:contentDescription="Previous Term"
-            android:maxWidth="60sp"
-            app:icon="@drawable/ic_baseline_arrow_back_ios_24"
-            app:iconGravity="textStart"
-            app:iconTint="@android:color/black" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            app:layout_constraintEnd_toStartOf="@id/textViewTerm"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textViewTerm"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Fall 2020"
+            android:layout_height="match_parent"
+            android:text="@string/app_name"
+            app:layout_constraintStart_toEndOf="@id/btnPreviousTerm"
+            app:layout_constraintEnd_toStartOf="@id/btnNextTerm"
             android:textSize="34sp" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
+        <ImageButton
             android:id="@+id/btnNextTerm"
-            android:layout_width="50sp"
-            android:layout_height="wrap_content"
-            android:contentDescription="Next Term"
-            android:maxWidth="60sp"
+            android:layout_width="0dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/next_term"
+            android:foreground="@drawable/ic_baseline_arrow_forward_ios_24"
             android:background="@android:color/transparent"
-            app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
-            app:iconGravity="textEnd"
-            app:iconTint="@android:color/black" />
-    </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewTerm" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAllCourses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp"
         tools:listitem="@layout/view_all_classes_class_card" />
+
+    <TextView
+        android:id="@+id/textViewNoClassesToShow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30sp"
+        android:text="@string/no_view_all_classes"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:visibility="visible" />
+
 </LinearLayout>

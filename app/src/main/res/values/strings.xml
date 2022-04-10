@@ -32,4 +32,15 @@
     <string name="enter_description_new_task_input_label">Enter Description…</string>
     <string name="submit_new_task_button">Submit</string>
     <string name="new_task_spinner_content_description">Choose Task Type</string>
+    <string name="no_view_all_classes">No Classes Available To Show</string>
+    <string name="add_new_class">Add new class</string>
+    <string name="previous_term">Previous Term</string>
+    <string name="next_term">Next Term</string>
+    <string name="icon_for_the_info_section">Icon for the info section</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="error">Error</string>
+    <string name="okay">Okay</string>
+    <string name="err_invalidClass">Attempted to view an invalid class</string>
+    <string name="err_dbInit">Failed to initialize local database</string>
 </resources>
