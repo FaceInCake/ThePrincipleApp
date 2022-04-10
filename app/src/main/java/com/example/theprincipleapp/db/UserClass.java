@@ -7,6 +7,8 @@ import androidx.room.Embedded;
 import androidx.room.Query;
 import androidx.room.Relation;
 import androidx.room.Transaction;
+import androidx.room.Update;
+
 import com.example.theprincipleapp.helpers.Term;
 import java.util.List;
 
@@ -55,5 +57,13 @@ public class UserClass {
             // insert tasks
             return cid;
         }
+
+        @Update
+        public void update(UserClass uc){
+            long oid = UserDatabase.UDB.courseDao().update(uc.course);
+            uc.cls.oid = (int) oid;
+            long cid = UserDatabase.UDB.classDao().update(uc.cls);
+        }
+
     }
 }
