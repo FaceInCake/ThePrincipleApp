@@ -6,4 +6,130 @@
     android:layout_height="match_parent"
     tools:context=".NewMeeting">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_newmeeting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Meeting"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Type"
+                    android:textSize="24sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_meetingtype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Section"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/et_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter Section number"
+                    android:inputType="number" />
+
+                <TextView
+                    android:id="@+id/tv_weekdays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Weekdays"
+                    android:textSize="24sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_meetingweekday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Start"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/et_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <TextView
+                    android:id="@+id/tv_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="End"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/et_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/et_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter location"
+                    android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/btn_okmeeting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ok" />
+
+                <Button
+                    android:id="@+id/btn_cancelmeeting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="cancel" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
