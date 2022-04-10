@@ -2,17 +2,23 @@ package com.example.theprincipleapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.theprincipleapp.db.Meeting;
 import com.example.theprincipleapp.db.MeetingTypeEnum;
+import com.example.theprincipleapp.db.UserClass;
+import com.example.theprincipleapp.db.UserDatabase;
 import com.example.theprincipleapp.db.Weekday;
+import com.example.theprincipleapp.db.Weekdays;
+import com.example.theprincipleapp.helpers.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,12 +28,12 @@ import java.util.Locale;
 public class NewMeeting extends AppCompatActivity {
 
     Button btn_ok, btn_cancel;
-    Spinner spinnerMeetingType, spinnerWeekday;
+    Spinner spinnerMeetingType;
     EditText et_section, et_location, et_startdate, et_starttime, et_enddate, et_endtime;
+    CheckBox cb_sunday, cb_monday, cb_tuesday, cb_wednesday, cb_thursday, cb_friday, cb_saturday;
 
     int section;
     String location;
-    Weekday weekday;
     MeetingTypeEnum meetingTypeEnum;
 
     final Calendar startCalendar = Calendar.getInstance();
@@ -35,14 +41,17 @@ public class NewMeeting extends AppCompatActivity {
 
     Date startDate, endDate;
 
+    int cid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_meeting);
 
 
+
+
         spinnerMeetingType = findViewById(R.id.spinner_meetingtype);
-        spinnerWeekday = findViewById(R.id.spinner_meetingweekday);
         et_section = findViewById(R.id.et_section);
         et_location = findViewById(R.id.et_location);
         btn_ok = findViewById(R.id.btn_okmeeting);
@@ -53,31 +62,91 @@ public class NewMeeting extends AppCompatActivity {
         et_enddate = findViewById(R.id.et_enddate);
         et_endtime = findViewById(R.id.et_endtime);
 
+        cb_sunday = findViewById(R.id.cb_sunday);
+        cb_monday = findViewById(R.id.cb_monday);
+        cb_tuesday = findViewById(R.id.cb_tuesday);
+        cb_wednesday = findViewById(R.id.cb_wednesday);
+        cb_thursday = findViewById(R.id.cb_thursday);
+        cb_friday = findViewById(R.id.cb_friday);
+        cb_saturday = findViewById(R.id.cb_saturday);
+
+
+
 
 
         spinnerMeetingType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, MeetingTypeEnum.values()));
-        spinnerWeekday.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Weekday.values()));
 
 
         btn_ok.setOnClickListener(view -> {
             int meetingSpinnerPosition = spinnerMeetingType.getLastVisiblePosition();
-            int weekdaySpinnerPosition = spinnerWeekday.getLastVisiblePosition();
 
 
             startDate = startCalendar.getTime();
             endDate = endCalendar.getTime();
-            section = Integer.parseInt(et_section.getText().toString());
+            if(et_section.getText().toString().equals("")){
+                section = -1;
+            }else{
+                section = Integer.parseInt(et_section.getText().toString());
+            }
             location = et_location.getText().toString();
             meetingTypeEnum = MeetingTypeEnum.values()[meetingSpinnerPosition];
-            weekday = Weekday.values()[weekdaySpinnerPosition];
+
+            Weekdays weekdays = new Weekdays();
+            if(cb_sunday.isChecked()){
+                weekdays.add(Weekday.SUNDAY);
+            }
+            if(cb_monday.isChecked()){
+                weekdays.add(Weekday.MONDAY);
+            }
+            if(cb_tuesday.isChecked()){
+                weekdays.add(Weekday.TUESDAY);
+            }
+            if(cb_wednesday.isChecked()){
+                weekdays.add(Weekday.WEDNESDAY);
+            }
+            if(cb_thursday.isChecked()){
+                weekdays.add(Weekday.THURSDAY);
+            }
+            if(cb_friday.isChecked()){
+                weekdays.add(Weekday.FRIDAY);
+            }
+            if(cb_saturday.isChecked()){
+                weekdays.add(Weekday.SATURDAY);
+            }
+
 
 
 
             // TODO: save new meeting to database
+            AsyncTask.execute(() -> {
+                cid = getIntent().getIntExtra("cid", -1);
+                if (cid < 0) {
+                    Util.alertError(this, R.string.err_invalidClass);
+                    finish();
+                }
+                UserClass c = UserDatabase.UDB.userClassDao().get(cid);
+                if (c == null) {
+                    Util.alertError(this, R.string.err_invalidClass);
+                    finish();
+                }
+
+                Meeting meeting = new Meeting();
+                meeting.type = meetingTypeEnum;
+                meeting.section = section;
+                meeting.weekdays = weekdays;
+                meeting.start = startDate;
+                meeting.end = endDate;
 
 
 
-            finish();
+
+
+
+
+
+            });
+
+
 
         });
 
