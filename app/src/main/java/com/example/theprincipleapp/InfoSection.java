@@ -42,7 +42,7 @@ public class InfoSection extends ConstraintLayout {
                 attrs, R.styleable.InfoSection, 0, 0
         );
         section.setText(a.getString(R.styleable.InfoSection_sectionName));
-        value.setText(a.getString(R.styleable.InfoSection_value));
+        value.setText(a.getString(R.styleable.InfoSection_sectionValue));
         icon.setForeground(a.getDrawable(R.styleable.InfoSection_sectionIcon));
         a.recycle();
     }

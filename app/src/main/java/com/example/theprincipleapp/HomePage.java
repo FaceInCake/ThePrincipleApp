@@ -50,6 +50,9 @@ public class HomePage extends AppCompatActivity {
         // View calendar
 
         // View all tasks
+        btn_tasks.setOnClickListener(view ->
+            startActivity(new Intent(this, ViewAllTasks.class))
+        );
 
     }
 }

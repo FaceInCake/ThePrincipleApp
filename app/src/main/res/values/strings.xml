@@ -43,4 +43,5 @@
     <string name="okay">Okay</string>
     <string name="err_invalidClass">Attempted to view an invalid class</string>
     <string name="err_dbInit">Failed to initialize local database</string>
+    <string name="new_meeting">New Meeting</string>
 </resources>

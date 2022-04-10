@@ -2,11 +2,14 @@ package com.example.theprincipleapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
@@ -14,6 +17,8 @@ import com.example.theprincipleapp.helpers.Util;
 
 public class ViewClass extends AppCompatActivity {
     InfoSection oName, oCode, oDesc, cProf, cStart, cEnd;
+    Button btnNewTask, btnNewMeeting;
+    int cid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +31,23 @@ public class ViewClass extends AppCompatActivity {
         cProf = findViewById(R.id.classProf);
         cStart = findViewById(R.id.classStart);
         cEnd = findViewById(R.id.classEnd);
+        btnNewTask = findViewById(R.id.btn_newTask);
+        btnNewMeeting = findViewById(R.id.btn_newMeeting);
+
+        btnNewTask.setOnClickListener(view -> {
+            Intent i = new Intent(this, NewTask.class);
+            i.putExtra("cid", cid);
+            startActivity(i);
+        });
+
+        btnNewMeeting.setOnClickListener(view -> {
+            Intent i = new Intent(this, NewMeeting.class);
+            i.putExtra("cid", cid);
+            startActivity(i);
+        });
 
         AsyncTask.execute(() -> {
-            int cid = getIntent().getIntExtra("cid", -1);
+            cid = getIntent().getIntExtra("cid", -1);
             if (cid < 0) Util.alertError(this, R.string.err_invalidClass);
             UserClass c = UserDatabase.UDB.userClassDao().get(cid);
             if (c == null) Util.alertError(this, R.string.err_invalidClass);
