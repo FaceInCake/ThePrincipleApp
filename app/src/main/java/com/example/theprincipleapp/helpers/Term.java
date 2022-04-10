@@ -1,7 +1,5 @@
 package com.example.theprincipleapp.helpers;
 
-import java.util.Locale;
-
 public enum Term {
     WINTER,
     SUMMER,
@@ -9,6 +7,6 @@ public enum Term {
 
     @Override
     public String toString() {
-        return this.name().toLowerCase(Locale.ROOT);
+        return Util.toTitleCase(this.name());
     }
 }
