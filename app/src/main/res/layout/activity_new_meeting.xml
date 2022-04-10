@@ -80,12 +80,36 @@
                     android:text="Start"
                     android:textSize="24sp" />
 
-                <EditText
-                    android:id="@+id/et_start"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="time" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_startdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15sp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:focusable="false"
+                        android:hint="@string/choose_year_new_task_input_label"
+                        android:inputType="datetime"
+                        android:minHeight="48dp"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+
+                    <EditText
+                        android:id="@+id/et_starttime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15sp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:focusable="false"
+                        android:hint="@string/choose_time_new_task_input_label"
+                        android:inputType="datetime"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_end"
@@ -94,12 +118,36 @@
                     android:text="End"
                     android:textSize="24sp" />
 
-                <EditText
-                    android:id="@+id/et_end"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="time" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_enddate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15sp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:focusable="false"
+                        android:hint="@string/choose_year_new_task_input_label"
+                        android:inputType="datetime"
+                        android:minHeight="48dp"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+
+                    <EditText
+                        android:id="@+id/et_endtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15sp"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:focusable="false"
+                        android:hint="@string/choose_time_new_task_input_label"
+                        android:inputType="datetime"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_location"

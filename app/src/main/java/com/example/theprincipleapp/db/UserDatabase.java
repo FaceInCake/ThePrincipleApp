@@ -15,7 +15,7 @@ import java.util.Date;
 @Database(
     entities = {Class.class, Course.class, Task.class, Meeting.class},
     exportSchema = true,
-    version = 2
+    version = 3
 )
 @TypeConverters({UserDatabase.Converters.class})
 public abstract class UserDatabase extends RoomDatabase {

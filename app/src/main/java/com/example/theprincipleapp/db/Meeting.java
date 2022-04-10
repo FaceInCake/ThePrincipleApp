@@ -9,6 +9,8 @@ import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 import androidx.room.Update;
 
+import java.util.Date;
+
 
 @Entity(
     indices = {@Index(value="cid")},
@@ -23,6 +25,9 @@ public class Meeting {
     public Weekdays weekdays;
 
     public enum Type {Lecture, Lab}
+
+    public Date start;
+    public Date end;
 
     @Dao
     public interface DAO {
