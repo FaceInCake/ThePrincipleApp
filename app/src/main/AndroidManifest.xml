@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThePrincipleApp">
         <activity
+            android:name=".ViewMeeting"
+            android:exported="false" />
+        <activity
             android:name=".NewMeeting"
             android:exported="false" />
         <activity

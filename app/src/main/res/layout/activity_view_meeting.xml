@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ViewTask">
+    tools:context=".ViewMeeting">
 
     <com.example.theprincipleapp.InfoSection
         android:id="@+id/example"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:sectionIcon="@drawable/ic_baseline_add_24"
-        app:sectionName="Example"
+        app:sectionName="example"
         app:sectionValue="example" />
-
 </LinearLayout>
