@@ -28,6 +28,7 @@ public class Task {
     public TaskTypeEnum type;
     public Date open;
     public Date due;
+    public float grade;
     public boolean finished;
 
     @Dao
@@ -39,6 +40,9 @@ public class Task {
 
         @Query("SELECT * FROM Task WHERE tid = :tid")
         Task get (int tid);
+
+        @Query("SELECT * FROM Task where cid = :cid")
+        List<Task> getFrom (int cid);
 
         @Query("SELECT * FROM Task WHERE NOT finished AND open < (SELECT strftime('%s', 'now')) AND due > (SELECT strftime('%s', 'now'))")
         List<Task> getTodo ();

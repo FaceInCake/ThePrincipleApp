@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2,
-    "identityHash": "4e45932eed3290d6470ccbd706e04d0b",
+    "version": 4,
+    "identityHash": "8928ad2292d523905aa11db63f0c8293",
     "entities": [
       {
         "tableName": "Class",
@@ -120,7 +120,7 @@
       },
       {
         "tableName": "Task",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cid` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `location` TEXT, `type` TEXT, `open` INTEGER, `due` INTEGER, `finished` INTEGER NOT NULL, FOREIGN KEY(`cid`) REFERENCES `Class`(`cid`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cid` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `location` TEXT, `type` TEXT, `open` INTEGER, `due` INTEGER, `grade` REAL NOT NULL, `finished` INTEGER NOT NULL, FOREIGN KEY(`cid`) REFERENCES `Class`(`cid`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "tid",
@@ -169,6 +169,12 @@
             "columnName": "due",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "grade",
+            "columnName": "grade",
+            "affinity": "REAL",
+            "notNull": true
           },
           {
             "fieldPath": "finished",
@@ -290,7 +296,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4e45932eed3290d6470ccbd706e04d0b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8928ad2292d523905aa11db63f0c8293')"
     ]
   }
 }

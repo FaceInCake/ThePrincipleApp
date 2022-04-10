@@ -17,7 +17,7 @@ import com.example.theprincipleapp.helpers.Util;
 
 public class ViewClass extends AppCompatActivity {
     InfoSection oName, oCode, oDesc, cProf, cStart, cEnd;
-    Button btnNewTask, btnNewMeeting;
+    Button btnAllTasks, btnAllMeetings;
     int cid;
 
     @Override
@@ -31,17 +31,17 @@ public class ViewClass extends AppCompatActivity {
         cProf = findViewById(R.id.classProf);
         cStart = findViewById(R.id.classStart);
         cEnd = findViewById(R.id.classEnd);
-        btnNewTask = findViewById(R.id.btn_newTask);
-        btnNewMeeting = findViewById(R.id.btn_newMeeting);
+        btnAllTasks = findViewById(R.id.btn_newTask);
+        btnAllMeetings = findViewById(R.id.btn_newMeeting);
 
-        btnNewTask.setOnClickListener(view -> {
-            Intent i = new Intent(this, NewTask.class);
+        btnAllTasks.setOnClickListener(view -> {
+            Intent i = new Intent(this, ViewAllTasks.class);
             i.putExtra("cid", cid);
             startActivity(i);
         });
 
-        btnNewMeeting.setOnClickListener(view -> {
-            Intent i = new Intent(this, NewMeeting.class);
+        btnAllMeetings.setOnClickListener(view -> {
+            Intent i = new Intent(this, ViewAllMeetings.class);
             i.putExtra("cid", cid);
             startActivity(i);
         });

@@ -44,4 +44,6 @@
     <string name="err_invalidClass">Attempted to view an invalid class</string>
     <string name="err_dbInit">Failed to initialize local database</string>
     <string name="new_meeting">New Meeting</string>
+    <string name="view_all_tasks">View All Tasks</string>
+    <string name="view_all_meetings">View All Meetings</string>
 </resources>
