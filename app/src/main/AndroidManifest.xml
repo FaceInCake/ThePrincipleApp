@@ -10,16 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThePrincipleApp">
         <activity
+            android:name=".ViewTask"
+            android:exported="false" />
+        <activity
             android:name=".NewClass"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ViewAllClasses"
-            android:parentActivityName=".HomePage"
-            android:exported="false"/>
+            android:exported="false"
+            android:parentActivityName=".HomePage" />
         <activity
             android:name=".ViewClass"
             android:exported="false"
-            android:parentActivityName=".HomePage"/>
+            android:parentActivityName=".HomePage" />
         <activity
             android:name=".NewTask"
             android:exported="false"
@@ -33,6 +36,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
