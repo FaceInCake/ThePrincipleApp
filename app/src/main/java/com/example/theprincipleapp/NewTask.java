@@ -16,10 +16,10 @@ import android.widget.Toast;
 import com.example.theprincipleapp.db.Task;
 import com.example.theprincipleapp.db.TaskTypeEnum;
 import com.example.theprincipleapp.db.UserDatabase;
+import com.example.theprincipleapp.helpers.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class NewTask extends AppCompatActivity {
@@ -28,13 +28,10 @@ public class NewTask extends AppCompatActivity {
     EditText editTextDescription, editTextName, editTextLocation, editTextOpenDateDate, editTextOpenDateTime, editTextDueDateDate, editTextDueDateTime;
     Spinner spinnerTaskType;
 
-    String description, name, location;
-    TaskTypeEnum taskType;
-
     final Calendar openDateCalendar = Calendar.getInstance();
     final Calendar dueDateCalendar = Calendar.getInstance();
 
-    Date openDate, dueDate;
+    UserDatabase userdb = UserDatabase.UDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +53,7 @@ public class NewTask extends AppCompatActivity {
         editTextDueDateDate = findViewById(R.id.editTextDueDateDate);
         editTextDueDateTime = findViewById(R.id.editTextDueDateTime);
 
-        spinnerTaskType = (Spinner) findViewById(R.id.spinnerTaskType);
+        spinnerTaskType = findViewById(R.id.spinnerTaskType);
         spinnerTaskType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TaskTypeEnum.values()));
 
         btnSubmit.setOnClickListener(view -> {
@@ -64,51 +61,46 @@ public class NewTask extends AppCompatActivity {
 
             if (spinnerSelectedPosition == 0){
                 dialog.show();
+
             } else {
-                location = editTextLocation.getText().toString();
-                name = editTextName.getText().toString();
-                description = editTextDescription.getText().toString();
-                taskType = TaskTypeEnum.values()[spinnerSelectedPosition];
-
-                openDate = openDateCalendar.getTime();
-                dueDate = dueDateCalendar.getTime();
-
-                // openDateCalendar and dueDateCalendar has dates,
-                // (defaults to today of non filled entries)
-
-
-                Task task = new Task();
-                task.location = location;
-                task.name = name;
-                task.description = description;
-                task.type = taskType;
-                task.open = openDate;
-                task.due = dueDate;
-
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        //TODO: Save New Task to database
-
-                        // UserDatabase.UDB.taskDao().insert(task);
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                // Toast.makeText(getApplicationContext(),"Task successfully added", Toast.LENGTH_LONG).show();
-                            }
-                        });
+                AsyncTask.execute(() -> {
+                    int cid = getIntent().getIntExtra("cid", -1);
+                    if (cid == -1){
+                        Util.alertError(this, R.string.err_invalid_class_for_task);
+                        finish();
                     }
+
+                    // Creating a new task
+                    Task task = new Task();
+                    task.location = editTextLocation.getText().toString();
+                    task.name = editTextName.getText().toString();
+                    task.description = editTextDescription.getText().toString();
+                    task.type = TaskTypeEnum.values()[spinnerSelectedPosition];
+                    task.open =  openDateCalendar.getTime();
+                    task.due = dueDateCalendar.getTime();
+                    task.cid = cid;
+
+                    // inserting said task
+                    userdb.taskDao().insert(task);
+
+                    runOnUiThread(() -> {
+                        // alerting user that the new task was added, and resetting all
+                        // input boxes allowing the user to add an additional task
+                        Toast.makeText(getApplicationContext(),"Task successfully added", Toast.LENGTH_LONG).show();
+                        editTextDescription.setText("");
+                        editTextName.setText("");
+                        editTextLocation.setText("");
+                        editTextOpenDateDate.setText("");
+                        editTextOpenDateTime.setText("");
+                        editTextDueDateDate.setText("");
+                        editTextDueDateTime.setText("");
+                    });
                 });
-
-
                 finish();
             }
         });
 
-        btnCancel.setOnClickListener(view -> {
-            finish();
-        });
+        btnCancel.setOnClickListener(view -> finish());
 
 
         // -------------------------- Listeners for choosing open date and time --------------------------
@@ -152,7 +144,7 @@ public class NewTask extends AppCompatActivity {
         editTextDueDateDate.setOnClickListener(view -> new DatePickerDialog(this, dueDateDate, dueDateCalendar.get(Calendar.YEAR), dueDateCalendar.get(Calendar.MONTH), dueDateCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
         editTextDueDateTime.setOnClickListener(view -> new TimePickerDialog(this, dueDateTime, dueDateCalendar.get(Calendar.MINUTE), dueDateCalendar.get(Calendar.HOUR), false).show());
-        // END -------------------------- Listeners for choosing due date and time --------------------------
+        // -------------------------- END Listeners for choosing due date and time --------------------------
 
     }
 }
