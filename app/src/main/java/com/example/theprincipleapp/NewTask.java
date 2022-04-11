@@ -79,6 +79,7 @@ public class NewTask extends AppCompatActivity {
                     task.open =  openDateCalendar.getTime();
                     task.due = dueDateCalendar.getTime();
                     task.cid = cid;
+                    task.type = TaskTypeEnum.values()[spinnerSelectedPosition];
 
                     // inserting said task
                     userdb.taskDao().insert(task);
