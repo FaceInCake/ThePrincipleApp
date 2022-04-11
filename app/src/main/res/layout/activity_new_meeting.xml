@@ -68,10 +68,75 @@
                     android:text="Weekdays"
                     android:textSize="24sp" />
 
-                <Spinner
-                    android:id="@+id/spinner_meetingweekday"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cb_sunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sun" />
+
+                    <CheckBox
+                        android:id="@+id/cb_monday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mon" />
+
+                    <CheckBox
+                        android:id="@+id/cb_tuesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tue" />
+
+                    <CheckBox
+                        android:id="@+id/cb_wednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Wed" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cb_thursday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Thu" />
+
+                    <CheckBox
+                        android:id="@+id/cb_friday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fri" />
+
+                    <CheckBox
+                        android:id="@+id/cb_saturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sat" />
+
+                    <CheckBox
+                        android:id="@+id/cb_align"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="123"
+                        android:visibility="invisible" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_start"
