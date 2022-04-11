@@ -71,16 +71,10 @@ public class EditTask extends AppCompatActivity {
 
         AsyncTask.execute(() -> {
             tid = getIntent().getIntExtra("tid", -1);
-            if (tid == -1){
-                Util.alertError(this, R.string.err_invalid_task);
-                finish();
-            }
+            if (tid == -1) Util.alertError(this, R.string.err_invalid_task);
 
             oldTask = userdb.taskDao().get(tid);
-            if (oldTask == null){
-                Util.alertError(this, R.string.err_invalid_task);
-                finish();
-            }
+            if (oldTask == null) Util.alertError(this, R.string.err_invalid_task);
 
             openDateCalendar.setTime(oldTask.open);
             dueDateCalendar.setTime(oldTask.due);
@@ -118,7 +112,6 @@ public class EditTask extends AppCompatActivity {
 
                     runOnUiThread(() -> {
                         Toast.makeText(getApplicationContext(),"Task successfully updated", Toast.LENGTH_LONG).show();
-                        finish();
                     });
                 });
                 finish();
