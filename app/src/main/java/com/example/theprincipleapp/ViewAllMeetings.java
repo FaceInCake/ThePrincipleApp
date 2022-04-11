@@ -1,7 +1,6 @@
 package com.example.theprincipleapp;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,8 +22,6 @@ public class ViewAllMeetings extends AppCompatActivity {
     ViewAllMeetingAdapter adapter;
     int cid;
     Weekday today;
-    int cid;
-
   
     @SuppressLint("NotifyDataSetChanged")
     @Override
