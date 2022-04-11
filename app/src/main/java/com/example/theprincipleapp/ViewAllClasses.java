@@ -63,11 +63,7 @@ public class ViewAllClasses extends AppCompatActivity {
             updateList();
         });
 
-        viewAllClassesRecyclerAdapter = new ViewAllClassesRecyclerAdapter(ViewAllClasses.this);
-        recyclerViewAllCourses.setLayoutManager(new LinearLayoutManager(ViewAllClasses.this));
-        recyclerViewAllCourses.setAdapter(viewAllClassesRecyclerAdapter);
 
-        updateList();
     }
 
     @SuppressLint("NotifyDataSetChanged") // Whole dataset is changed
@@ -106,5 +102,16 @@ public class ViewAllClasses extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        viewAllClassesRecyclerAdapter = new ViewAllClassesRecyclerAdapter(ViewAllClasses.this);
+        recyclerViewAllCourses.setLayoutManager(new LinearLayoutManager(ViewAllClasses.this));
+        recyclerViewAllCourses.setAdapter(viewAllClassesRecyclerAdapter);
+
+        updateList();
     }
 }

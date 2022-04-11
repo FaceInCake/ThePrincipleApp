@@ -32,15 +32,7 @@ public class HomePage extends AppCompatActivity {
         btn_calendar =  findViewById(R.id.home_btn_calendar);
         btn_tasks = findViewById(R.id.home_btn_allTasks);
 
-        adapter = new HomeRecAdapter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
-        recyclerView.setAdapter(adapter);
-        AsyncTask.execute(() -> {
-            adapter.classes = UserDatabase.UDB.userClassDao().getAll();
-            runOnUiThread(() -> {
-                adapter.notifyDataSetChanged();
-            });
-        });
+
 
         btn_classes.setOnClickListener(view -> {
             Intent i = new Intent(this, ViewAllClasses.class);
@@ -54,5 +46,19 @@ public class HomePage extends AppCompatActivity {
             startActivity(new Intent(this, ViewAllTasks.class))
         );
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter = new HomeRecAdapter(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
+        recyclerView.setAdapter(adapter);
+        AsyncTask.execute(() -> {
+            adapter.classes = UserDatabase.UDB.userClassDao().getAll();
+            runOnUiThread(() -> {
+                adapter.notifyDataSetChanged();
+            });
+        });
     }
 }

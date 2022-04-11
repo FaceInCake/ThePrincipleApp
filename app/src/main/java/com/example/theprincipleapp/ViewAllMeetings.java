@@ -29,18 +29,7 @@ public class ViewAllMeetings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_meetings);
 
-        cid = getIntent().getIntExtra("cid", -1);
-        recyclerView = findViewById(R.id.recyclerViewAllMeetings);
-        adapter = new ViewAllMeetingAdapter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
 
-        AsyncTask.execute(() -> {
-            adapter.meetings = cid < 0
-                    ?   UserDatabase.UDB.meetingDao().getAll()
-                    :   UserDatabase.UDB.meetingDao().getFrom(cid);
-            runOnUiThread(() -> adapter.notifyDataSetChanged());
-        });
     }
 
     @Override
@@ -61,5 +50,23 @@ public class ViewAllMeetings extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        cid = getIntent().getIntExtra("cid", -1);
+        recyclerView = findViewById(R.id.recyclerViewAllMeetings);
+        adapter = new ViewAllMeetingAdapter(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+        AsyncTask.execute(() -> {
+            adapter.meetings = cid < 0
+                    ?   UserDatabase.UDB.meetingDao().getAll()
+                    :   UserDatabase.UDB.meetingDao().getFrom(cid);
+            runOnUiThread(() -> adapter.notifyDataSetChanged());
+        });
     }
 }
