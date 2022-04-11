@@ -48,6 +48,19 @@ public class Weekdays {
                     a ^= wd.getId();
     }
 
+    /**
+     * Checks to see if a weekday is in the byte
+     * @param weekday The weekday to check for
+     * @implNote contains(Weekday.MONDAY)
+     * */
+    public boolean contains(Weekday weekday){
+        if (weekday != null){
+            return (a & weekday.getId()) == (byte)1;
+        }
+        return false;
+    }
+
+
     public byte getByte() { return a; }
 
     public Weekdays () { this.a = 0; }
