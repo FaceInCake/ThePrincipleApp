@@ -80,20 +80,17 @@ public class ViewClass extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.action_delete:
+                UserClass c = UserDatabase.UDB.userClassDao().get(cid);
+                if (c == null) Util.alertError(this, R.string.err_invalidClass);
                 AsyncTask.execute(() -> {
-                    UserClass c = UserDatabase.UDB.userClassDao().get(cid);
-                    if (c == null) Util.alertError(this, R.string.err_invalidClass);
                     UserDatabase.UDB.userClassDao().delete(c);
                     runOnUiThread(() -> {
                          Toast.makeText(getApplicationContext(),"Class successfully deleted",Toast.LENGTH_LONG).show();
                          finish();
                     });
                 });
-                    return true;
-
-
-
-                    }
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }
