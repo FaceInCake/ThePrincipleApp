@@ -60,8 +60,15 @@ public class ViewMeeting extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"edit",Toast.LENGTH_LONG).show();
                 return true;
             case R.id.action_delete:
-                //TODO: delete a meeting
-                Toast.makeText(getApplicationContext(),"delete",Toast.LENGTH_LONG).show();
+                AsyncTask.execute(() -> {
+                    Meeting m = UserDatabase.UDB.meetingDao().get(mid);
+                    UserDatabase.UDB.meetingDao().delete(m);
+                    runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(),"Meeting successfully deleted",Toast.LENGTH_LONG).show();
+                        finish();
+                    });
+                });
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

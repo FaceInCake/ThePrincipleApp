@@ -80,15 +80,12 @@ public class ViewClass extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.action_delete:
-                //TODO: delete a class
-
-
                 AsyncTask.execute(() -> {
                     UserClass c = UserDatabase.UDB.userClassDao().get(cid);
                     if (c == null) Util.alertError(this, R.string.err_invalidClass);
                     UserDatabase.UDB.userClassDao().delete(c);
                     runOnUiThread(() -> {
-                         Toast.makeText(getApplicationContext(),"delete",Toast.LENGTH_LONG).show();
+                         Toast.makeText(getApplicationContext(),"Class successfully deleted",Toast.LENGTH_LONG).show();
                          finish();
                     });
                 });
