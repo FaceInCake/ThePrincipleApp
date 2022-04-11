@@ -20,11 +20,9 @@ public class Meeting {
     @PrimaryKey(autoGenerate = true)
     public int mid;
     public int cid;
-    public Type type;
+    public MeetingTypeEnum type;
     public int section;
     public Weekdays weekdays;
-
-    public enum Type {Lecture, Lab}
 
     public Date start;
     public Date end;

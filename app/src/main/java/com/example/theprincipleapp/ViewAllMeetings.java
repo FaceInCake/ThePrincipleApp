@@ -11,10 +11,15 @@ import android.view.MenuItem;
 
 public class ViewAllMeetings extends AppCompatActivity {
 
+    int cid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_meetings);
+
+        cid = getIntent().getIntExtra("cid", -1);
+
     }
 
     @Override
@@ -29,6 +34,7 @@ public class ViewAllMeetings extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add:
                 Intent i = new Intent(this, NewMeeting.class);
+                i.putExtra("cid", cid);
                 startActivity(i);
                 return true;
             default:
