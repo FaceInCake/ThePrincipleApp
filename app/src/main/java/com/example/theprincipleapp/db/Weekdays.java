@@ -1,11 +1,7 @@
 package com.example.theprincipleapp.db;
 
-import static java.lang.String.join;
-
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.StringJoiner;
 
 /**
  * Stores a set of week days. Mon->Sun.
