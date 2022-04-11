@@ -3,6 +3,7 @@ package com.example.theprincipleapp.db;
 import android.util.Log;
 import android.util.Pair;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Embedded;
 import androidx.room.Query;
 import androidx.room.Relation;
@@ -55,5 +56,13 @@ public class UserClass {
             // insert tasks
             return cid;
         }
+        @Delete
+        public void delete(UserClass uc) {
+            int r = UserDatabase.UDB.classDao().delete(uc.cls);
+            int g = UserDatabase.UDB.courseDao().delete(uc.course);
+
+
+        }
+        }
     }
-}
+

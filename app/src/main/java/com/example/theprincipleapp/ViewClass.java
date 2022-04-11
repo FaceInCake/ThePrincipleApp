@@ -2,6 +2,7 @@ package com.example.theprincipleapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -79,9 +80,22 @@ public class ViewClass extends AppCompatActivity {
                 return true;
             case R.id.action_delete:
                 //TODO: delete a class
-                Toast.makeText(getApplicationContext(),"delete",Toast.LENGTH_LONG).show();
-                return true;
-        }
+
+
+                AsyncTask.execute(() -> {
+                    UserClass c = UserDatabase.UDB.userClassDao().get(cid);
+                    if (c == null) Util.alertError(this, R.string.err_invalidClass);
+                    UserDatabase.UDB.userClassDao().delete(c);
+                    runOnUiThread(() -> {
+                         Toast.makeText(getApplicationContext(),"delete",Toast.LENGTH_LONG).show();
+                         finish();
+                    });
+                });
+                    return true;
+
+
+
+                    }
         return super.onOptionsItemSelected(item);
     }
 }
