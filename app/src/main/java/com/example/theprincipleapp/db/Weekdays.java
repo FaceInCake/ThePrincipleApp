@@ -45,6 +45,16 @@ public class Weekdays {
                     a ^= wd.getId();
     }
 
+    /**
+     * Checks to see if a weekday is in the byte
+     * @param weekday The weekday to check for
+     * @implNote contains(Weekday.MONDAY)
+     * */
+    public boolean contains(Weekday weekday){
+        if (weekday==null) return false;
+        return (a & weekday.getId()) > 0;
+    }
+
     public byte getByte() { return a; }
 
     public Weekdays () { this.a = 0; }
@@ -71,7 +81,7 @@ public class Weekdays {
         for (Weekday wd : Weekday.values()) {
             if ((this.a & wd.getId()) > 0) {
                 if (sb.length() > 0)
-                    sb.append(',');
+                    sb.append(", ");
                 sb.append(wd.toString().substring(0, 3));
             }
         }

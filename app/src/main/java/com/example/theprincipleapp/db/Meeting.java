@@ -25,7 +25,6 @@ public class Meeting {
     public MeetingTypeEnum type;
     public int section;
     public Weekdays weekdays;
-
     public Date start;
     public Date end;
 

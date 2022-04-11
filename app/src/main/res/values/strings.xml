@@ -48,4 +48,8 @@
     <string name="view_all_tasks">View All Tasks</string>
     <string name="view_all_meetings">View All Meetings</string>
     <string name="err_invalidMeeting">Attempted to view an invalid Meeting</string>
+    <string name="section">Section</string>
+    <string name="meeting_type">Meeting Type</string>
+    <string name="meeting_start_time">Meeting Start Time</string>
+    <string name="meeting_days">Meeting Days</string>
 </resources>
