@@ -7,9 +7,11 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.Insert;
 import androidx.room.PrimaryKey;
+import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity(
@@ -32,5 +34,14 @@ public class Meeting {
         @Insert long insert (Meeting meeting);
         @Delete int delete (Meeting meeting);
         @Update int update (Meeting meeting);
+
+        @Query("SELECT * FROM Meeting WHERE mid=:mid")
+        Meeting get (int mid);
+
+        @Query("SELECT * FROM Meeting WHERE cid=:cid")
+        List<Meeting> getFrom (int cid);
+
+        @Query("SELECT * FROM Meeting")
+        List<Meeting> getAll ();
     }
 }

@@ -17,7 +17,7 @@ public enum Weekday {
     private byte id;
     public byte getId() { return id; }
 
-    private String name;
+    private final String name;
     @Override public String toString() { return name; }
 
     Weekday(String name, byte id) {
