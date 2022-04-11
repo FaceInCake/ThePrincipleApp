@@ -4,6 +4,7 @@ import static java.lang.String.join;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.StringJoiner;
 
 /**
@@ -66,6 +67,18 @@ public class Weekdays {
                 sb.append(wd);
             }
         sb.append('}');
+        return sb.toString();
+    }
+
+    public String abbreviate () {
+        StringBuilder sb = new StringBuilder();
+        for (Weekday wd : Weekday.values()) {
+            if ((this.a & wd.getId()) > 0) {
+                if (sb.length() > 0)
+                    sb.append(',');
+                sb.append(wd.toString().substring(0, 3));
+            }
+        }
         return sb.toString();
     }
 }

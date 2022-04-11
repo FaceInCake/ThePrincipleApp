@@ -46,4 +46,5 @@
     <string name="new_meeting">New Meeting</string>
     <string name="view_all_tasks">View All Tasks</string>
     <string name="view_all_meetings">View All Meetings</string>
+    <string name="err_invalidMeeting">Attempted to view an invalid Meeting</string>
 </resources>
