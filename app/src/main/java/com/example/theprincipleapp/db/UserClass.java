@@ -2,6 +2,7 @@ package com.example.theprincipleapp.db;
 
 import android.util.Pair;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Embedded;
 import androidx.room.Query;
 import androidx.room.Relation;
@@ -64,5 +65,11 @@ public class UserClass {
                 +  UserDatabase.UDB.classDao().update(uc.cls);
         }
 
+        @Transaction
+        public int delete(UserClass uc) {
+            if (uc == null) return 0;
+            return UserDatabase.UDB.classDao().delete(uc.cls)
+                +  UserDatabase.UDB.courseDao().delete(uc.course);
+        }
     }
 }
