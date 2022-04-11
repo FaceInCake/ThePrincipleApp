@@ -1,16 +1,14 @@
 package com.example.theprincipleapp.db;
 
-import android.util.Log;
 import android.util.Pair;
 import androidx.room.Dao;
 import androidx.room.Embedded;
 import androidx.room.Query;
 import androidx.room.Relation;
 import androidx.room.Transaction;
-import androidx.room.Update;
-
 import com.example.theprincipleapp.helpers.Term;
 import java.util.List;
+
 
 /**
  * Stores a Class along with related Course, Tasks, and Meetings information.
