@@ -20,7 +20,7 @@ public enum Weekday {
     public byte getId() { return id; }
     public String getLongAbbr() { return longAbbr; }
 
-    private String name;
+    private final String name;
     @Override public String toString() { return name; }
 
     Weekday(String name, byte id, String longAbbr) {

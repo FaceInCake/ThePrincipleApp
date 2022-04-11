@@ -34,10 +34,13 @@ public class Meeting {
         @Delete int delete (Meeting meeting);
         @Update int update (Meeting meeting);
 
-        @Query("SELECT * FROM Meeting where cid = :cid")
+        @Query("SELECT * FROM Meeting WHERE mid=:mid")
+        Meeting get (int mid);
+
+        @Query("SELECT * FROM Meeting WHERE cid=:cid")
         List<Meeting> getFrom (int cid);
 
-        @Query("SELECt * FROM Meeting")
-        List<Meeting> getAll();
+        @Query("SELECT * FROM Meeting")
+        List<Meeting> getAll ();
     }
 }
