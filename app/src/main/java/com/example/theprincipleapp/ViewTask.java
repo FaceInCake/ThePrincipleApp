@@ -15,6 +15,8 @@ import com.example.theprincipleapp.db.Task;
 import com.example.theprincipleapp.db.UserDatabase;
 import com.example.theprincipleapp.helpers.Util;
 
+import java.util.Locale;
+
 
 public class ViewTask extends AppCompatActivity {
     InfoSection name,desc,type,open,close,local,grade;
@@ -35,7 +37,11 @@ public class ViewTask extends AppCompatActivity {
         close = findViewById(R.id.taskClose);
         local = findViewById(R.id.taskLocal);
         grade = findViewById(R.id.taskGrade);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         AsyncTask.execute(() -> {
             Task t = UserDatabase.UDB.taskDao().get(tid);
             runOnUiThread(() -> {
@@ -45,10 +51,9 @@ public class ViewTask extends AppCompatActivity {
                 open.setValue(t.open.toString());
                 close.setValue(t.due.toString());
                 local.setValue(t.location);
-                grade.setValue(String.valueOf(t.grade));
+                grade.setValue(String.format(Locale.getDefault(), "%%%.0f", 100*t.grade));
             });
         });
-
     }
 
     @Override
