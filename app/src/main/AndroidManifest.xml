@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThePrincipleApp">
         <activity
+            android:name=".EditClass"
+            android:exported="false" />
+        <activity
             android:name=".ViewAllMeetings"
             android:exported="false" />
         <activity
