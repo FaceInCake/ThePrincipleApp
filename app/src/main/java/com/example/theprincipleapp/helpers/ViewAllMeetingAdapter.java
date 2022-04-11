@@ -19,6 +19,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.theprincipleapp.R;
+import com.example.theprincipleapp.ViewMeeting;
 import com.example.theprincipleapp.db.Meeting;
 import com.example.theprincipleapp.db.Weekday;
 
@@ -74,7 +75,7 @@ public class ViewAllMeetingAdapter extends RecyclerView.Adapter<ViewAllMeetingAd
 
             itemView.setOnClickListener(v -> {
                 // When item is clicked open a new ViewClass intent, passing the class parcelable as an extra
-                Intent intent = new Intent(context, Meeting.class);
+                Intent intent = new Intent(context, ViewMeeting.class);
                 intent.putExtra("mid", meetings.get(getAdapterPosition()).mid);
                 context.startActivity(intent);
             });

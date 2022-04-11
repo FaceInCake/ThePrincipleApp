@@ -40,6 +40,7 @@ public class ViewAllTasks extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (cid < 0) return false;
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_viewallclasses, menu);
         return super.onCreateOptionsMenu(menu);
@@ -50,6 +51,7 @@ public class ViewAllTasks extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add:
                 Intent i = new Intent(this, NewTask.class);
+                i.putExtra("cid", cid);
                 startActivity(i);
                 return true;
             default:
