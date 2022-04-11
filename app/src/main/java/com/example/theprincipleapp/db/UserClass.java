@@ -1,6 +1,5 @@
 package com.example.theprincipleapp.db;
 
-import android.util.Log;
 import android.util.Pair;
 import androidx.room.Dao;
 import androidx.room.Embedded;
@@ -9,6 +8,7 @@ import androidx.room.Relation;
 import androidx.room.Transaction;
 import com.example.theprincipleapp.helpers.Term;
 import java.util.List;
+
 
 /**
  * Stores a Class along with related Course, Tasks, and Meetings information.
@@ -55,5 +55,14 @@ public class UserClass {
             // insert tasks
             return cid;
         }
+
+        @Transaction
+        public int update(UserClass uc){
+            if (uc == null) return 0;
+            if (uc.course.oid != uc.cls.oid) return 0;
+            return UserDatabase.UDB.courseDao().update(uc.course)
+                +  UserDatabase.UDB.classDao().update(uc.cls);
+        }
+
     }
 }
