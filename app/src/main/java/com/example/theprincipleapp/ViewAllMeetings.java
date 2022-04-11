@@ -24,14 +24,14 @@ public class ViewAllMeetings extends AppCompatActivity {
     ViewAllMeetingAdapter adapter;
     int cid;
     Weekday today;
+    int cid;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+  
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_meetings);
-
 
         cid = getIntent().getIntExtra("cid", -1);
         recyclerView = findViewById(R.id.recyclerViewAllMeetings);
@@ -59,6 +59,7 @@ public class ViewAllMeetings extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add:
                 Intent i = new Intent(this, NewMeeting.class);
+                i.putExtra("cid", cid);
                 startActivity(i);
                 return true;
             default:
