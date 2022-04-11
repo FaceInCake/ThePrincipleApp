@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.theprincipleapp.db.Meeting;
 import com.example.theprincipleapp.db.MeetingTypeEnum;
@@ -23,6 +24,7 @@ import com.example.theprincipleapp.helpers.Util;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class NewMeeting extends AppCompatActivity {
@@ -136,7 +138,14 @@ public class NewMeeting extends AppCompatActivity {
                 meeting.weekdays = weekdays;
                 meeting.start = startDate;
                 meeting.end = endDate;
+                meeting.cid = cid;
 
+                UserDatabase.UDB.meetingDao().insert(meeting);
+
+                runOnUiThread(()->{
+                    Toast.makeText(getApplicationContext(),"Meeting successfully added", Toast.LENGTH_LONG).show();
+                });
+                finish();
 
 
 
