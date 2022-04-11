@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+
 public class NewTask extends AppCompatActivity {
 
     Button btnSubmit, btnCancel;
@@ -30,6 +31,7 @@ public class NewTask extends AppCompatActivity {
 
     final Calendar openDateCalendar = Calendar.getInstance();
     final Calendar dueDateCalendar = Calendar.getInstance();
+    int cid;
 
     UserDatabase userdb = UserDatabase.UDB;
 
@@ -38,13 +40,15 @@ public class NewTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
 
+        cid = getIntent().getIntExtra("cid", -1);
+        if (cid == -1) Util.alertError(this, R.string.err_invalid_class_for_task);
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Please select a valid task type.");
         AlertDialog dialog = alertDialogBuilder.create();
 
         btnSubmit = findViewById(R.id.btnSubmit);
         btnCancel = findViewById(R.id.btnCancel);
-
         editTextDescription = findViewById(R.id.editTextMultilineDescription);
         editTextName = findViewById(R.id.editTextName);
         editTextLocation = findViewById(R.id.editTextLocation);
@@ -61,48 +65,28 @@ public class NewTask extends AppCompatActivity {
 
             if (spinnerSelectedPosition == 0){
                 dialog.show();
-
             } else {
                 AsyncTask.execute(() -> {
-                    int cid = getIntent().getIntExtra("cid", -1);
-                    if (cid == -1){
-                        Util.alertError(this, R.string.err_invalid_class_for_task);
-                        finish();
-                    }
-
                     // Creating a new task
                     Task task = new Task();
                     task.location = editTextLocation.getText().toString();
                     task.name = editTextName.getText().toString();
                     task.description = editTextDescription.getText().toString();
                     task.type = TaskTypeEnum.values()[spinnerSelectedPosition];
-                    task.open =  openDateCalendar.getTime();
+                    task.open = openDateCalendar.getTime();
                     task.due = dueDateCalendar.getTime();
                     task.cid = cid;
-                    task.type = TaskTypeEnum.values()[spinnerSelectedPosition];
-
-                    // inserting said task
                     userdb.taskDao().insert(task);
 
-                    runOnUiThread(() -> {
-                        // alerting user that the new task was added, and resetting all
-                        // input boxes allowing the user to add an additional task
-                        Toast.makeText(getApplicationContext(),"Task successfully added", Toast.LENGTH_LONG).show();
-                        editTextDescription.setText("");
-                        editTextName.setText("");
-                        editTextLocation.setText("");
-                        editTextOpenDateDate.setText("");
-                        editTextOpenDateTime.setText("");
-                        editTextDueDateDate.setText("");
-                        editTextDueDateTime.setText("");
-                    });
+                    // alerting user that the new task was added
+                    runOnUiThread(() -> Toast.makeText(getApplicationContext(),
+                            "Task successfully added", Toast.LENGTH_LONG).show());
                 });
                 finish();
             }
         });
 
         btnCancel.setOnClickListener(view -> finish());
-
 
         // -------------------------- Listeners for choosing open date and time --------------------------
         DatePickerDialog.OnDateSetListener openDateDate = (view, year, month, day) -> {
