@@ -1,13 +1,10 @@
 package com.example.theprincipleapp;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.theprincipleapp.db.UserDatabase;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,7 +17,6 @@ public class HomePage extends AppCompatActivity {
     HomeRecAdapter adapter;
     Button btn_classes, btn_calendar, btn_tasks;
 
-    @SuppressLint("NotifyDataSetChanged") // Entire set is changed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +28,9 @@ public class HomePage extends AppCompatActivity {
         btn_calendar =  findViewById(R.id.home_btn_calendar);
         btn_tasks = findViewById(R.id.home_btn_allTasks);
 
-
+        adapter = new HomeRecAdapter(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
+        recyclerView.setAdapter(adapter);
 
         btn_classes.setOnClickListener(view -> {
             Intent i = new Intent(this, ViewAllClasses.class);
@@ -48,12 +46,10 @@ public class HomePage extends AppCompatActivity {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged") // Entire set is changed
     @Override
     protected void onStart() {
         super.onStart();
-        adapter = new HomeRecAdapter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this));
-        recyclerView.setAdapter(adapter);
         AsyncTask.execute(() -> {
             adapter.classes = UserDatabase.UDB.userClassDao().getAll();
             runOnUiThread(() -> {

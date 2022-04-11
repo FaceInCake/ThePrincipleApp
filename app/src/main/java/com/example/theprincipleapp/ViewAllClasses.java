@@ -41,11 +41,15 @@ public class ViewAllClasses extends AppCompatActivity {
         btnPreviousTerm = findViewById(R.id.btnPreviousTerm);
         btnNextTerm = findViewById(R.id.btnNextTerm);
         textViewNoClassesToShow = findViewById(R.id.textViewNoClassesToShow);
-        {
-            Calendar c = Calendar.getInstance();
+
+        viewAllClassesRecyclerAdapter = new ViewAllClassesRecyclerAdapter(ViewAllClasses.this);
+        recyclerViewAllCourses.setLayoutManager(new LinearLayoutManager(ViewAllClasses.this));
+        recyclerViewAllCourses.setAdapter(viewAllClassesRecyclerAdapter);
+
+        {   Calendar c = Calendar.getInstance();
             curYear = c.get(Calendar.YEAR);
-            curTerm = Class.getTerm(c.get(Calendar.MONTH));
-        }
+            curTerm = Class.getTerm(c.get(Calendar.MONTH)); }
+
         btnPreviousTerm.setOnClickListener(view -> {
             switch (curTerm) {
                 case WINTER: curTerm = Term.FALL; curYear--; break;
@@ -62,8 +66,6 @@ public class ViewAllClasses extends AppCompatActivity {
             }
             updateList();
         });
-
-
     }
 
     @SuppressLint("NotifyDataSetChanged") // Whole dataset is changed
@@ -107,11 +109,6 @@ public class ViewAllClasses extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        viewAllClassesRecyclerAdapter = new ViewAllClassesRecyclerAdapter(ViewAllClasses.this);
-        recyclerViewAllCourses.setLayoutManager(new LinearLayoutManager(ViewAllClasses.this));
-        recyclerViewAllCourses.setAdapter(viewAllClassesRecyclerAdapter);
-
         updateList();
     }
 }

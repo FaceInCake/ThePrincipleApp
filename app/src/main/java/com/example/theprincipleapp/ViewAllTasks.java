@@ -20,11 +20,16 @@ public class ViewAllTasks extends AppCompatActivity {
     TaskAdapter adapter;
     int cid;
 
-    @SuppressLint("NotifyDataSetChanged") // Whole set is changed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_tasks);
+
+        cid = getIntent().getIntExtra("cid", -1);
+        recView = findViewById(R.id.vat_recView);
+        adapter = new TaskAdapter(this);
+        recView.setLayoutManager(new LinearLayoutManager(this));
+        recView.setAdapter(adapter);
     }
 
     @Override
@@ -48,22 +53,15 @@ public class ViewAllTasks extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged") // Whole set is changed
     @Override
     protected void onStart() {
         super.onStart();
-
-        cid = getIntent().getIntExtra("cid", -1);
-        recView = findViewById(R.id.vat_recView);
-        adapter = new TaskAdapter(this);
-        recView.setLayoutManager(new LinearLayoutManager(this));
-        recView.setAdapter(adapter);
-
         AsyncTask.execute(() -> {
             adapter.tasks = cid < 0
-                    ?   UserDatabase.UDB.taskDao().getAll()
-                    :   UserDatabase.UDB.taskDao().getFrom(cid);
+            ?   UserDatabase.UDB.taskDao().getAll()
+            :   UserDatabase.UDB.taskDao().getFrom(cid);
             runOnUiThread(() -> adapter.notifyDataSetChanged());
         });
-
     }
 }
