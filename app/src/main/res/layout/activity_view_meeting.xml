@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,11 +7,58 @@
     android:orientation="vertical"
     tools:context=".ViewMeeting">
 
-    <com.example.theprincipleapp.InfoSection
-        android:id="@+id/example"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:sectionIcon="@drawable/ic_baseline_add_24"
-        app:sectionName="example"
-        app:sectionValue="example" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.example.theprincipleapp.InfoSection
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/meetType"
+            app:sectionIcon="@drawable/ic_baseline_edit_24"
+            app:sectionName="Type"
+            app:sectionValue="@string/app_name"/>
+
+        <com.example.theprincipleapp.InfoSection
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/meetSection"
+            app:sectionIcon="@drawable/ic_baseline_123_24"
+            app:sectionName="Section"
+            app:sectionValue="@string/app_name"/>
+
+        <com.example.theprincipleapp.InfoSection
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/meetWeekdays"
+            app:sectionIcon="@drawable/ic_baseline_format_list_numbered_24"
+            app:sectionName="Weekdays"
+            app:sectionValue="@string/app_name"/>
+
+        <com.example.theprincipleapp.InfoSection
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/meetStart"
+            app:sectionIcon="@drawable/ic_baseline_calendar_today_24"
+            app:sectionName="Start"
+            app:sectionValue="@string/app_name"/>
+
+        <com.example.theprincipleapp.InfoSection
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/meetEnd"
+            app:sectionIcon="@drawable/ic_baseline_alarm_24"
+            app:sectionName="End"
+            app:sectionValue="@string/app_name"/>
+
+        <com.example.theprincipleapp.InfoSection
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/meetLocal"
+            app:sectionIcon="@drawable/ic_outline_meeting_room_24"
+            app:sectionName="Location"
+            app:sectionValue="@string/app_name"/>
+
+    </LinearLayout>
+</ScrollView>

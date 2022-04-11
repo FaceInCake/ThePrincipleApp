@@ -2,19 +2,40 @@ package com.example.theprincipleapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.recyclerview.widget.RecyclerView;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.example.theprincipleapp.db.UserDatabase;
+import com.example.theprincipleapp.helpers.TaskAdapter;
+
 
 public class ViewAllTasks extends AppCompatActivity {
+    RecyclerView recView;
+    TaskAdapter adapter;
+    int cid;
 
+    @SuppressLint("NotifyDataSetChanged") // Whole set is changed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_tasks);
+
+        cid = getIntent().getIntExtra("cid", -1);
+        recView = findViewById(R.id.vat_recView);
+        adapter = new TaskAdapter(this);
+        recView.setAdapter(adapter);
+
+        AsyncTask.execute(() -> {
+            adapter.tasks = cid < 0
+            ?   UserDatabase.UDB.taskDao().getAll()
+            :   UserDatabase.UDB.taskDao().getFrom(cid);
+            runOnUiThread(() -> adapter.notifyDataSetChanged());
+        });
     }
 
     @Override

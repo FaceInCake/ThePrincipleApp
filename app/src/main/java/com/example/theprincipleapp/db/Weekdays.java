@@ -1,10 +1,7 @@
 package com.example.theprincipleapp.db;
 
-import static java.lang.String.join;
-
 import androidx.annotation.NonNull;
 
-import java.util.StringJoiner;
 
 /**
  * Stores a set of week days. Mon->Sun.
@@ -48,6 +45,16 @@ public class Weekdays {
                     a ^= wd.getId();
     }
 
+    /**
+     * Checks to see if a weekday is in the byte
+     * @param weekday The weekday to check for
+     * @implNote contains(Weekday.MONDAY)
+     * */
+    public boolean contains(Weekday weekday){
+        if (weekday==null) return false;
+        return (a & weekday.getId()) > 0;
+    }
+
     public byte getByte() { return a; }
 
     public Weekdays () { this.a = 0; }
@@ -66,6 +73,18 @@ public class Weekdays {
                 sb.append(wd);
             }
         sb.append('}');
+        return sb.toString();
+    }
+
+    public String abbreviate () {
+        StringBuilder sb = new StringBuilder();
+        for (Weekday wd : Weekday.values()) {
+            if ((this.a & wd.getId()) > 0) {
+                if (sb.length() > 0)
+                    sb.append(", ");
+                sb.append(wd.toString().substring(0, 3));
+            }
+        }
         return sb.toString();
     }
 }

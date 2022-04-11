@@ -43,8 +43,14 @@
     <string name="okay">Okay</string>
     <string name="err_invalidClass">Attempted to view an invalid class</string>
     <string name="err_dbInit">Failed to initialize local database</string>
+    <string name="err_invalid_class_for_task">Attempted to create a new task without a valid class existing</string>
     <string name="new_meeting">New Meeting</string>
     <string name="view_all_tasks">View All Tasks</string>
     <string name="view_all_meetings">View All Meetings</string>
     <string name="err_invalidTask">Attempted to view invalid task</string>
+    <string name="err_invalidMeeting">Attempted to view an invalid Meeting</string>
+    <string name="section">Section</string>
+    <string name="meeting_type">Meeting Type</string>
+    <string name="meeting_start_time">Meeting Start Time</string>
+    <string name="meeting_days">Meeting Days</string>
 </resources>
