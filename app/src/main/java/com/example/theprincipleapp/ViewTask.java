@@ -3,6 +3,7 @@ package com.example.theprincipleapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,7 +26,7 @@ public class ViewTask extends AppCompatActivity {
         setContentView(R.layout.activity_view_task);
 
         tid = getIntent().getIntExtra("tid", -1);
-        if (tid == 1) Util.alertError(this, R.string.err_invalidTask);
+        if (tid == -1) Util.alertError(this, R.string.err_invalidTask);
 
         name = findViewById(R.id.taskName);
         desc = findViewById(R.id.taskDesc);
@@ -61,9 +62,11 @@ public class ViewTask extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.action_edit:
-                //TODO: edit a task
-                Toast.makeText(getApplicationContext(),"edit",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, EditTask.class);
+                intent.putExtra("tid", tid);
+                startActivity(intent);
                 return true;
+
             case R.id.action_delete:
                 //TODO: delete a task
                 Toast.makeText(getApplicationContext(),"delete",Toast.LENGTH_LONG).show();
