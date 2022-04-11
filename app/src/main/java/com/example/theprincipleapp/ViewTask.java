@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.theprincipleapp.db.Meeting;
 import com.example.theprincipleapp.db.Task;
 import com.example.theprincipleapp.db.UserDatabase;
 import com.example.theprincipleapp.helpers.Util;
@@ -65,8 +66,16 @@ public class ViewTask extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"edit",Toast.LENGTH_LONG).show();
                 return true;
             case R.id.action_delete:
-                //TODO: delete a task
-                Toast.makeText(getApplicationContext(),"delete",Toast.LENGTH_LONG).show();
+                tid = getIntent().getIntExtra("tid", -1);
+                if (tid < 0) Util.alertError(this, R.string.err_invalidTask);
+                AsyncTask.execute(() -> {
+                    Task t = UserDatabase.UDB.taskDao().get(tid);
+                    UserDatabase.UDB.taskDao().delete(t);
+                    runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(),"Task successfully deleted",Toast.LENGTH_LONG).show();
+                        finish();
+                    });
+                });
                 return true;
         }
         return super.onOptionsItemSelected(item);
