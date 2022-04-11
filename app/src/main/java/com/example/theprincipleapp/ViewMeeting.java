@@ -31,7 +31,11 @@ public class ViewMeeting extends AppCompatActivity {
         start = findViewById(R.id.meetStart);
         end = findViewById(R.id.meetEnd);
         local = findViewById(R.id.meetLocal);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         AsyncTask.execute(() -> {
             Meeting m = UserDatabase.UDB.meetingDao().get(mid);
             runOnUiThread(() -> {

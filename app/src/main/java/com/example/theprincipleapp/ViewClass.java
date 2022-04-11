@@ -46,7 +46,11 @@ public class ViewClass extends AppCompatActivity {
             i.putExtra("cid", cid);
             startActivity(i);
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         AsyncTask.execute(() -> {
             cid = getIntent().getIntExtra("cid", -1);
             if (cid < 0) runOnUiThread(()->Util.alertError(this, R.string.err_invalidClass));
