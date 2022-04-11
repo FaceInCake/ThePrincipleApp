@@ -1,21 +1,24 @@
 package com.example.theprincipleapp.helpers;
 
 import android.app.Activity;
+
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AlertDialog;
 import com.example.theprincipleapp.R;
 
 public class Util {
 
+    @UiThread
     public static void alertError (Activity act, int message_id) {
         AlertDialog.Builder adb = new AlertDialog.Builder(act);
         adb.setTitle(R.string.error);
         adb.setIcon(R.mipmap.ic_launcher_round);
         adb.setCancelable(false);
         adb.setMessage(message_id);
-        adb.setNeutralButton(R.string.okay, null);
-        adb.setOnDismissListener(null);
-        adb.create().show();
-        act.finish();
+        adb.setNeutralButton(R.string.okay, (d,i) -> act.finish());
+        adb.setOnDismissListener(d -> act.finish());
+        AlertDialog ad = adb.create();
+        ad.show();
     }
 
     public static String toTitleCase (String string) {
