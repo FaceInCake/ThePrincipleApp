@@ -1,20 +1,16 @@
 package com.example.theprincipleapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
 import com.example.theprincipleapp.helpers.Util;
 
-import java.nio.channels.AsynchronousByteChannel;
 
 public class EditClass extends AppCompatActivity {
 
@@ -50,10 +46,7 @@ public class EditClass extends AppCompatActivity {
             et_fullName.setText(c.course.full_name);
             et_description.setText(c.course.description);
             et_professor.setText(c.cls.professor);
-
-
         });
-
 
         button_ok.setOnClickListener(view -> {
 
@@ -75,20 +68,11 @@ public class EditClass extends AppCompatActivity {
 
                 UserDatabase.UDB.userClassDao().update(c);
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),"Course successfully updated", Toast.LENGTH_LONG).show();
-
-                    }
-                });
+                runOnUiThread(() ->
+                    Toast.makeText(getApplicationContext(),"Course successfully updated", Toast.LENGTH_LONG).show()
+                );
             });
-
-            Intent i = new Intent(this, HomePage.class);
-            startActivity(i);
-
+            finish();
         });
-
-
     }
 }
