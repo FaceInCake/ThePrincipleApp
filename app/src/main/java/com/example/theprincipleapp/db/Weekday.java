@@ -1,31 +1,30 @@
 package com.example.theprincipleapp.db;
 
+import androidx.annotation.NonNull;
+import com.example.theprincipleapp.helpers.Util;
+
+
 /**
  * Enum for storing a Week Day. Also has a flag id and pretty name.
  */
 public enum Weekday {
-    MONDAY    ("Monday",    (byte)0x01, "Mon"),
-    TUESDAY   ("Tuesday",   (byte)0x02, "Tue"),
-    WEDNESDAY ("Wednesday", (byte)0x04, "Wed"),
-    THURSDAY  ("Thursday",  (byte)0x08, "Thur"),
-    FRIDAY    ("Friday",    (byte)0x10, "Fri"),
-    SATURDAY  ("Saturday",  (byte)0x20, "Sat"),
-    SUNDAY    ("Sunday",    (byte)0x40, "Sun");
+    MONDAY    ((byte)0x01),
+    TUESDAY   ((byte)0x02),
+    WEDNESDAY ((byte)0x04),
+    THURSDAY  ((byte)0x08),
+    FRIDAY    ((byte)0x10),
+    SATURDAY  ((byte)0x20),
+    SUNDAY    ((byte)0x40);
 
     public static byte MASK = 0x7F;
 
     private byte id;
-    private String longAbbr;
-
     public byte getId() { return id; }
-    public String getLongAbbr() { return longAbbr; }
 
-    private final String name;
-    @Override public String toString() { return name; }
+    @NonNull @Override public
+    String toString() { return Util.toTitleCase(this.name()); }
 
-    Weekday(String name, byte id, String longAbbr) {
-        this.name = name;
+    Weekday(byte id) {
         this.id = id;
-        this.longAbbr = longAbbr;
     }
 }

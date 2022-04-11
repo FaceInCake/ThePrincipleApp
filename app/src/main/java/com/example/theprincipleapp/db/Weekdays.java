@@ -51,12 +51,9 @@ public class Weekdays {
      * @implNote contains(Weekday.MONDAY)
      * */
     public boolean contains(Weekday weekday){
-        if (weekday != null){
-            return (a & weekday.getId()) == (byte)1;
-        }
-        return false;
+        if (weekday==null) return false;
+        return (a & weekday.getId()) > 0;
     }
-
 
     public byte getByte() { return a; }
 
@@ -84,7 +81,7 @@ public class Weekdays {
         for (Weekday wd : Weekday.values()) {
             if ((this.a & wd.getId()) > 0) {
                 if (sb.length() > 0)
-                    sb.append(',');
+                    sb.append(", ");
                 sb.append(wd.toString().substring(0, 3));
             }
         }

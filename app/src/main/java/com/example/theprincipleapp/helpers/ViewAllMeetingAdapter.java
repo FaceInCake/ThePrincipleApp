@@ -1,6 +1,5 @@
 package com.example.theprincipleapp.helpers;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -41,30 +40,13 @@ public class ViewAllMeetingAdapter extends RecyclerView.Adapter<ViewAllMeetingAd
         return new MeetingViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(MeetingViewHolder holder, int position) {
         holder.viewColourBar.setBackgroundColor(Color.parseColor(colours[position % colours.length]));
-        holder.textViewMeetingSection.setText("Section: " + meetings.get(position).section);
-        holder.textViewMeetingStartTime.setText("Begins at: " + timeFormat.format(meetings.get(position).start));
+        holder.textViewMeetingSection.setText(String.format(Locale.CANADA, "Section: %d", meetings.get(position).section));
+        holder.textViewMeetingStartTime.setText(String.format(Locale.CANADA, "Begins at: %s", timeFormat.format(meetings.get(position).start)));
         holder.textViewMeetingType.setText(meetings.get(position).type.toString());
-
-        StringBuilder sb = new StringBuilder();
-        byte weekdays = meetings.get(position).weekdays.getByte();
-        for (Weekday wd : Weekday.values()){
-            if ((weekdays & wd.getId()) > 0) {
-                if (sb.length() > 1){
-                    sb.append(", ");
-                }
-                sb.append(wd.getLongAbbr());
-            }
-        }
-
-        if (sb.length() == 0){
-            holder.textViewMeetingDays.setText("N/A");
-        } else {
-            holder.textViewMeetingDays.setText(sb.toString());
-        }
+        holder.textViewMeetingDays.setText(meetings.get(position).weekdays.abbreviate());
 
         if (meetings.get(position).weekdays.contains(getToday())){
             holder.cardViewMeeting.setBackgroundColor(Color.parseColor("#D3D3D3"));
@@ -100,29 +82,14 @@ public class ViewAllMeetingAdapter extends RecyclerView.Adapter<ViewAllMeetingAd
     }
 
     private static Weekday getToday(){
-        int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-
-        switch (dayOfWeek){
-            case Calendar.MONDAY:
-                return Weekday.MONDAY;
-
-            case Calendar.TUESDAY:
-                return Weekday.TUESDAY;
-
-            case Calendar.WEDNESDAY:
-                return Weekday.WEDNESDAY;
-
-            case Calendar.THURSDAY:
-                return Weekday.THURSDAY;
-
-            case Calendar.FRIDAY:
-                return Weekday.FRIDAY;
-
-            case Calendar.SATURDAY:
-                return Weekday.SATURDAY;
-
-            default:
-                return Weekday.SUNDAY;
+        switch (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)){
+            case Calendar.MONDAY:    return Weekday.MONDAY;
+            case Calendar.TUESDAY:   return Weekday.TUESDAY;
+            case Calendar.WEDNESDAY: return Weekday.WEDNESDAY;
+            case Calendar.THURSDAY:  return Weekday.THURSDAY;
+            case Calendar.FRIDAY:    return Weekday.FRIDAY;
+            case Calendar.SATURDAY:  return Weekday.SATURDAY;
+            default:                 return Weekday.SUNDAY;
         }
     }
 }
