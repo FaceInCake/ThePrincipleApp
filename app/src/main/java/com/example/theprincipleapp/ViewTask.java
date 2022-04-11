@@ -25,7 +25,7 @@ public class ViewTask extends AppCompatActivity {
         setContentView(R.layout.activity_view_task);
 
         tid = getIntent().getIntExtra("tid", -1);
-        if (tid == 1) Util.alertError(this, R.string.err_invalidTask);
+        if (tid < 0) Util.alertError(this, R.string.err_invalidTask);
 
         name = findViewById(R.id.taskName);
         desc = findViewById(R.id.taskDesc);

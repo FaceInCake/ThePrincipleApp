@@ -2,6 +2,7 @@ package com.example.theprincipleapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -28,6 +29,7 @@ public class ViewAllTasks extends AppCompatActivity {
         cid = getIntent().getIntExtra("cid", -1);
         recView = findViewById(R.id.vat_recView);
         adapter = new TaskAdapter(this);
+        recView.setLayoutManager(new LinearLayoutManager(this));
         recView.setAdapter(adapter);
 
         AsyncTask.execute(() -> {
