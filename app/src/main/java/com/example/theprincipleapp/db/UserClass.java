@@ -58,11 +58,12 @@ public class UserClass {
             return cid;
         }
 
-        @Update
-        public void update(UserClass uc){
-            long oid = UserDatabase.UDB.courseDao().update(uc.course);
-            uc.cls.oid = (int) oid;
-            long cid = UserDatabase.UDB.classDao().update(uc.cls);
+        @Transaction
+        public int update(UserClass uc){
+            if (uc == null) return 0;
+            if (uc.course.oid != uc.cls.oid) return 0;
+            return UserDatabase.UDB.courseDao().update(uc.course)
+                +  UserDatabase.UDB.classDao().update(uc.cls);
         }
 
     }

@@ -74,7 +74,6 @@ public class ViewClass extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.action_edit:
-                //TODO: edit a class
                 Intent i = new Intent(this, EditClass.class);
                 i.putExtra("cid", cid);
                 startActivity(i);
