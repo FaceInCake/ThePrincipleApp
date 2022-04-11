@@ -46,5 +46,8 @@ public class Task {
 
         @Query("SELECT * FROM Task WHERE NOT finished AND open < (SELECT strftime('%s', 'now')) AND due > (SELECT strftime('%s', 'now'))")
         List<Task> getTodo ();
+
+        @Query("SELECt * FROM Task")
+        List<Task> getAll();
     }
 }
