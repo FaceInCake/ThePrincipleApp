@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15sp"
-                    android:text="@string/name_label"
+                    android:text="@string/name"
                     android:textSize="24sp" />
 
                 <EditText
@@ -199,7 +199,7 @@
                         android:id="@+id/btnSubmit"
                         android:layout_width="125dp"
                         android:layout_height="65dp"
-                        android:text="@string/submit_new_task_button"
+                        android:text="@string/submit"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
@@ -212,7 +212,7 @@
                         android:id="@+id/btnCancel"
                         android:layout_width="125dp"
                         android:layout_height="65dp"
-                        android:text="@string/cancel_new_task_button"
+                        android:text="@string/cancel"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 

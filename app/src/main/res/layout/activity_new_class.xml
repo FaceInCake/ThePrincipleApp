@@ -1,108 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foregroundGravity="center_horizontal"
+    android:layout_margin="6dp"
     tools:context=".NewClass">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_newclass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:text="@string/new_class"
+            android:padding="4dp"
+            android:textSize="34sp" />
 
-            <TextView
-                android:id="@+id/tv_newclass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="New Class"
-                android:textSize="34sp" />
+        <TextView
+            android:id="@+id/tv_classcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/class_code"
+            android:paddingTop="6dp"
+            android:paddingHorizontal="4dp"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_classcode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Class Code"
-                android:textSize="20sp" />
+        <EditText
+            android:id="@+id/et_classcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_class_code"
+            android:padding="4dp"
+            android:minHeight="48dp"
+            android:importantForAutofill="no"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/et_classcode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter Class Code "
-                android:inputType="textPersonName"
-                android:minHeight="48dp" />
+        <TextView
+            android:id="@+id/tv_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingHorizontal="4dp"
+            android:text="@string/name"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_fullname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Full Name"
-                android:textSize="20sp" />
+        <EditText
+            android:id="@+id/et_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:hint="@string/enter_name_input_label"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
-            <EditText
-                android:id="@+id/et_fullname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter Full Name"
-                android:inputType="textPersonName"
-                android:minHeight="48dp" />
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingHorizontal="4dp"
+            android:text="@string/description_new_task_input_label"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textSize="20sp" />
+        <EditText
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:inputType="textLongMessage"
+            android:importantForAutofill="no"
+            android:hint="@string/enter_description_new_task_input_label"
+            android:minHeight="48dp" />
 
-            <EditText
-                android:id="@+id/et_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter Description"
-                android:inputType="textPersonName"
-                android:minHeight="48dp" />
+        <TextView
+            android:id="@+id/tv_professor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingHorizontal="4dp"
+            android:text="@string/professor"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_professor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Professor"
-                android:textSize="20sp" />
+        <EditText
+            android:id="@+id/et_professor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:autofillHints="name"
+            android:hint="@string/enter_professor_name"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
-            <EditText
-                android:id="@+id/et_professor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter Professor Name"
-                android:inputType="textPersonName"
-                android:minHeight="48dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingHorizontal="4dp"
+            android:textSize="20sp"
+            android:text="@string/start_date"/>
 
-            <Button
-                android:id="@+id/button_ok"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ok" />
+        <EditText
+            android:id="@+id/et_startDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:padding="4dp"
+            android:minHeight="48dp"
+            android:hint="@string/yyyy_mm_dd"
+            android:importantForAutofill="no" />
 
-            <Button
-                android:id="@+id/button_cancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="cancel" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="4dp"
+            android:paddingTop="6dp"
+            android:text="@string/end_date"
+            android:textSize="20sp" />
 
-        </LinearLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/et_endDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/yyyy_mm_dd"
+            android:importantForAutofill="no"
+            android:inputType="date"
+            android:minHeight="48dp"
+            android:padding="4dp" />
+
+        <Button
+            android:id="@+id/button_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/okay" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" />
+
+    </LinearLayout>
+</ScrollView>

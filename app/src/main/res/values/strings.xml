@@ -14,45 +14,58 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+
+    <!-- Error messages -->
+    <string name="err_invalidTask">Attempted to view invalid task</string>
+    <string name="err_invalidMeeting">Attempted to view an invalid Meeting</string>
+    <string name="err_invalidClass">Attempted to view an invalid class</string>
+    <string name="err_dbInit">Failed to initialize local database</string>
+    <string name="err_invalid_class_for_task">Attempted to create a new task without a valid class existing</string>
+    <string name="err_invalid_task">Attempted to edit an invalid task</string>
+
+    <!-- Basic -->
+    <string name="okay">Okay</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="error">Error</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="name">Name</string>
+
+    <!-- Other -->
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="new_task_title">New Task</string>
-    <string name="name_label">Name</string>
     <string name="enter_name_input_label">Enter Name</string>
     <string name="choose_time_new_task_input_label">Choose Time</string>
     <string name="choose_year_new_task_input_label">Choose year</string>
     <string name="due_date_new_task_label">Due Date</string>
     <string name="open_date_new_task_label">Open Date</string>
-    <string name="cancel_new_task_button">Cancel</string>
     <string name="description_new_task_input_label">Description</string>
     <string name="task_type_new_task_label">Task Type</string>
     <string name="location_new_task_label">Location</string>
     <string name="enter_location_new_task_input_label">Enter Location</string>
     <string name="enter_description_new_task_input_label">Enter Description…</string>
-    <string name="submit_new_task_button">Submit</string>
     <string name="new_task_spinner_content_description">Choose Task Type</string>
     <string name="no_view_all_classes">No Classes Available To Show</string>
     <string name="add_new_class">Add new class</string>
     <string name="previous_term">Previous Term</string>
     <string name="next_term">Next Term</string>
     <string name="icon_for_the_info_section">Icon for the info section</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="error">Error</string>
-    <string name="okay">Okay</string>
-    <string name="err_invalidClass">Attempted to view an invalid class</string>
-    <string name="err_dbInit">Failed to initialize local database</string>
-    <string name="err_invalid_class_for_task">Attempted to create a new task without a valid class existing</string>
-    <string name="err_invalid_task">Attempted to edit an invalid task</string>
     <string name="new_meeting">New Meeting</string>
     <string name="view_all_tasks">View All Tasks</string>
     <string name="view_all_meetings">View All Meetings</string>
     <string name="title_activity_edit_task">EditTask</string>
-    <string name="err_invalidTask">Attempted to view invalid task</string>
-    <string name="err_invalidMeeting">Attempted to view an invalid Meeting</string>
     <string name="section">Section</string>
     <string name="meeting_type">Meeting Type</string>
     <string name="meeting_start_time">Meeting Start Time</string>
     <string name="meeting_days">Meeting Days</string>
+    <string name="yyyy_mm_dd">YYYY/MM/DD</string>
+    <string name="start_date">Start Date</string>
+    <string name="new_class">New Class</string>
+    <string name="class_code">Class Code</string>
+    <string name="enter_class_code">Enter Class Code</string>
+    <string name="professor">Professor</string>
+    <string name="enter_professor_name">Enter Professor Name</string>
+    <string name="end_date">End Date</string>
 </resources>

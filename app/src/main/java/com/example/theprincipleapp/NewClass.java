@@ -20,11 +20,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class NewClass extends AppCompatActivity {
-
     EditText et_classCode, et_fullName, et_description, et_professor;
     Button button_ok, button_cancel;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,33 +56,14 @@ public class NewClass extends AppCompatActivity {
             c.end = Calendar.getInstance().getTime();
             userClass.cls = c;
 
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-
-
-                    UserDatabase.UDB.userClassDao().insert(userClass);
-
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),"Course successfully added", Toast.LENGTH_LONG).show();
-                            et_professor.setText("");
-                            et_fullName.setText("");
-                            et_description.setText("");
-                            et_classCode.setText("");
-                        }
-                    });
-                }
+            AsyncTask.execute(() -> {
+                UserDatabase.UDB.userClassDao().insert(userClass);
+                runOnUiThread(() -> {
+                    Toast.makeText(getApplicationContext(),"Course successfully added", Toast.LENGTH_LONG).show();
+                });
             });
+            finish();
         });
         button_cancel.setOnClickListener(view -> finish());
-    }
-
-    void insertClass (View v) {
-
-        // TODO: Save
-        finish();
     }
 }
