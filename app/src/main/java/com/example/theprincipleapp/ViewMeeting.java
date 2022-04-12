@@ -46,7 +46,7 @@ public class ViewMeeting extends AppCompatActivity {
                 wds.setValue(m.weekdays.abbreviate());
                 start.setValue(m.start.toString());
                 end.setValue(m.end.toString());
-                local.setValue(""); // TODO: Migrate
+                local.setValue(m.location);
             });
         });
     }

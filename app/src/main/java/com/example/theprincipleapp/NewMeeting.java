@@ -94,12 +94,13 @@ public class NewMeeting extends AppCompatActivity {
 
             AsyncTask.execute(() -> {
                 int cid = getIntent().getIntExtra("cid", -1);
-                if (cid < 0) Util.alertError(this, R.string.err_invalidClass);
+                if (cid < 0) Util.alertError(this, R.string.err_invalidMeeting);
 
                 Meeting meeting = new Meeting();
                 meeting.type = meetingTypeEnum;
                 meeting.section = section;
                 meeting.weekdays = weekdays;
+                meeting.location = location;
                 meeting.start = startDate;
                 meeting.end = endDate;
                 meeting.cid = cid;

@@ -89,13 +89,13 @@ public class EditMeeting extends AppCompatActivity {
             oldMeeting = userdb.meetingDao().get(mid);
             if (oldMeeting == null) runOnUiThread(() -> Util.alertError(this, R.string.err_invalidMeeting));
             et_section.setText(String.valueOf(oldMeeting.section));
+            et_location.setText(oldMeeting.location);
             startCalendar.setTime(oldMeeting.start);
             endCalendar.setTime(oldMeeting.end);
             et_startdate.setText(dateFormat.format(startCalendar.getTime()));
             et_enddate.setText(dateFormat.format(endCalendar.getTime()));
             et_starttime.setText(timeFormat.format(startCalendar.getTime()));
             et_endtime.setText(timeFormat.format(endCalendar.getTime()));
-            //TODO: LOCATION
 
             Weekdays weekdays;
             weekdays = oldMeeting.weekdays;
@@ -141,6 +141,7 @@ public class EditMeeting extends AppCompatActivity {
                 oldMeeting.weekdays = weekdays;
                 oldMeeting.start = startDate;
                 oldMeeting.end = endDate;
+                oldMeeting.location = location;
 
                 userdb.meetingDao().update(oldMeeting);
 
