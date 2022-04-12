@@ -2,6 +2,8 @@ package com.example.theprincipleapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -60,8 +62,9 @@ public class ViewMeeting extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.action_edit:
-                //TODO: edit a meeting
-                Toast.makeText(getApplicationContext(),"edit",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, EditMeeting.class);
+                intent.putExtra("mid", mid);
+                startActivity(intent);
                 return true;
             case R.id.action_delete:
                 AsyncTask.execute(() -> {

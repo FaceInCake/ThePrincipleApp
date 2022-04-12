@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThePrincipleApp">
-        <activity                  
+        <activity
+            android:name=".EditMeeting"
+            android:exported="false" />
+        <activity
             android:name=".EditTask"
             android:exported="false" />
         <activity
