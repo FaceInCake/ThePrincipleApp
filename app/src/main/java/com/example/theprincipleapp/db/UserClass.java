@@ -65,13 +65,10 @@ public class UserClass {
                 +  UserDatabase.UDB.classDao().update(uc.cls);
         }
 
-        @Delete
-        public void delete(UserClass uc) {
-            int r = UserDatabase.UDB.classDao().delete(uc.cls);
-            int g = UserDatabase.UDB.courseDao().delete(uc.course);
-
-
+        @Transaction
+        public int delete(UserClass uc) {
+            if (uc == null) return 0;
+            return UserDatabase.UDB.classDao().delete(uc.cls)
+                +  UserDatabase.UDB.courseDao().delete(uc.course);
         }
-        }
-
     }

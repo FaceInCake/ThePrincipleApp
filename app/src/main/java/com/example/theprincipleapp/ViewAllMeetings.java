@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,18 +11,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
 import com.example.theprincipleapp.db.UserDatabase;
-import com.example.theprincipleapp.db.Weekday;
 import com.example.theprincipleapp.helpers.ViewAllMeetingAdapter;
+
 
 public class ViewAllMeetings extends AppCompatActivity {
     RecyclerView recyclerView;
     ViewAllMeetingAdapter adapter;
     int cid;
-    Weekday today;
-  
-    @SuppressLint("NotifyDataSetChanged")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,13 +30,6 @@ public class ViewAllMeetings extends AppCompatActivity {
         adapter = new ViewAllMeetingAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-        AsyncTask.execute(() -> {
-            adapter.meetings = cid < 0
-                    ?   UserDatabase.UDB.meetingDao().getAll()
-                    :   UserDatabase.UDB.meetingDao().getFrom(cid);
-            runOnUiThread(() -> adapter.notifyDataSetChanged());
-        });
     }
 
     @Override
@@ -61,5 +50,17 @@ public class ViewAllMeetings extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged") // Whole set is changed
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AsyncTask.execute(() -> {
+            adapter.meetings = cid < 0
+            ?   UserDatabase.UDB.meetingDao().getAll()
+            :   UserDatabase.UDB.meetingDao().getFrom(cid);
+            runOnUiThread(() -> adapter.notifyDataSetChanged());
+        });
     }
 }

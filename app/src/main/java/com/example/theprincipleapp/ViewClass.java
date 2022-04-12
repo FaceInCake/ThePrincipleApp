@@ -46,12 +46,16 @@ public class ViewClass extends AppCompatActivity {
             i.putExtra("cid", cid);
             startActivity(i);
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         AsyncTask.execute(() -> {
             cid = getIntent().getIntExtra("cid", -1);
-            if (cid < 0) Util.alertError(this, R.string.err_invalidClass);
+            if (cid < 0) runOnUiThread(()->Util.alertError(this, R.string.err_invalidClass));
             UserClass c = UserDatabase.UDB.userClassDao().get(cid);
-            if (c == null) Util.alertError(this, R.string.err_invalidClass);
+            if (c == null) runOnUiThread(()->Util.alertError(this, R.string.err_invalidClass));
 
             runOnUiThread(() -> {
                 oName.setValue(c.course.full_name);
@@ -80,9 +84,9 @@ public class ViewClass extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.action_delete:
-                UserClass c = UserDatabase.UDB.userClassDao().get(cid);
-                if (c == null) Util.alertError(this, R.string.err_invalidClass);
                 AsyncTask.execute(() -> {
+                    UserClass c = UserDatabase.UDB.userClassDao().get(cid);
+                    if (c == null) runOnUiThread(() -> Util.alertError(this, R.string.err_invalidClass));
                     UserDatabase.UDB.userClassDao().delete(c);
                     runOnUiThread(() -> {
                          Toast.makeText(getApplicationContext(),"Class successfully deleted",Toast.LENGTH_LONG).show();
