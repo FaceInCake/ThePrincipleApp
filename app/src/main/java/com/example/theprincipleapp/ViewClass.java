@@ -16,8 +16,12 @@ import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
 import com.example.theprincipleapp.helpers.Util;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class ViewClass extends AppCompatActivity {
     InfoSection oName, oCode, oDesc, cProf, cStart, cEnd;
+    SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
     Button btnAllTasks, btnAllMeetings;
     int cid;
 
@@ -62,8 +66,8 @@ public class ViewClass extends AppCompatActivity {
                 oCode.setValue(c.course.code);
                 oDesc.setValue(c.course.description);
                 cProf.setValue(c.cls.professor);
-                cStart.setValue(c.cls.start.toString());
-                cEnd.setValue(c.cls.end.toString());
+                cStart.setValue(sdf.format(c.cls.start));
+                cEnd.setValue(sdf.format(c.cls.end));
             });
         });
     }
