@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".HomePage">
 
+
     <TextView
         android:id="@+id/home_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="WELCOME"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/EmeraldGreen"
         android:textSize="34sp"
         android:textStyle="bold"
-        android:layout_margin="16dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,34 +25,47 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_title"
         app:layout_constraintBottom_toTopOf="@id/home_btn_allClasses"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_title"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/card_layout" />
 
     <Button
         android:id="@+id/home_btn_allClasses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View All Classes"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@id/home_btn_calendar"/>
+        android:background="#246EE9"
+        android:text="View All Classes"
+        android:textColorHighlight="@color/RoyalBlue"
+        android:textColorLink="@color/RoyalBlue"
+        app:layout_constraintBottom_toTopOf="@id/home_btn_calendar"
+        app:rippleColor="@color/RoyalBlue"
+        tools:layout_editor_absoluteX="16dp" />
 
     <Button
         android:id="@+id/home_btn_calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:background="#246EE9"
         android:text="Calendar"
-        app:layout_constraintBottom_toTopOf="@id/home_btn_allTasks"/>
+        android:textColorHighlight="@color/RoyalBlue"
+        android:textColorLink="@color/RoyalBlue"
+        app:layout_constraintBottom_toTopOf="@id/home_btn_allTasks"
+        tools:layout_editor_absoluteX="16dp" />
 
     <Button
         android:id="@+id/home_btn_allTasks"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:background="#246EE9"
         android:text="All tasks"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
