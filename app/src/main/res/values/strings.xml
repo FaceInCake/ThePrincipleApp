@@ -68,4 +68,6 @@
     <string name="professor">Professor</string>
     <string name="enter_professor_name">Enter Professor Name</string>
     <string name="end_date">End Date</string>
+    <string name="edit_class">Edit Class</string>
+    <string name="save_changes">Save Changes</string>
 </resources>

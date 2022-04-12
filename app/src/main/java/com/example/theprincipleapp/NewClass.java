@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class NewClass extends AppCompatActivity {
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
     EditText et_classCode, et_fullName, et_description, et_professor, et_startDate, et_endDate;
     Calendar c;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
     Date start, end;
     Button button_ok, button_cancel;
 
