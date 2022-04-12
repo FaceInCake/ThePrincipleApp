@@ -84,11 +84,11 @@ public class EditMeeting extends AppCompatActivity {
 
         AsyncTask.execute(() -> {
             mid = getIntent().getIntExtra("mid", -1);
-            if (mid == -1) runOnUiThread(() -> Util.alertError(this, R.string.err_invalidClass));
+            if (mid == -1) runOnUiThread(() -> Util.alertError(this, R.string.err_invalidMeeting));
 
             oldMeeting = userdb.meetingDao().get(mid);
-            if (oldMeeting == null) runOnUiThread(() -> Util.alertError(this, R.string.err_invalidClass));
-            et_section.setText(oldMeeting.section);
+            if (oldMeeting == null) runOnUiThread(() -> Util.alertError(this, R.string.err_invalidMeeting));
+            et_section.setText(String.valueOf(oldMeeting.section));
             startCalendar.setTime(oldMeeting.start);
             endCalendar.setTime(oldMeeting.end);
             et_startdate.setText(dateFormat.format(startCalendar.getTime()));
