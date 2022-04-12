@@ -72,3 +72,4 @@ public class UserClass {
                 +  UserDatabase.UDB.courseDao().delete(uc.course);
         }
     }
+}

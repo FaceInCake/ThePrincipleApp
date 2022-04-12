@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.theprincipleapp.db.Meeting;
 import com.example.theprincipleapp.db.MeetingTypeEnum;
-import com.example.theprincipleapp.db.TaskTypeEnum;
 import com.example.theprincipleapp.db.UserDatabase;
 import com.example.theprincipleapp.db.Weekday;
 import com.example.theprincipleapp.db.Weekdays;
@@ -78,7 +77,6 @@ public class EditMeeting extends AppCompatActivity {
         tv_meeting = findViewById(R.id.tv_newmeeting);
 
 
-
         spinnerMeetingType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, MeetingTypeEnum.values()));
 
         tv_meeting.setText("Edit Meeting");
@@ -86,66 +84,33 @@ public class EditMeeting extends AppCompatActivity {
 
         AsyncTask.execute(() -> {
             mid = getIntent().getIntExtra("mid", -1);
-            if (mid == -1) Util.alertError(this, R.string.err_invalidClass);
+            if (mid == -1) runOnUiThread(() -> Util.alertError(this, R.string.err_invalidClass));
 
             oldMeeting = userdb.meetingDao().get(mid);
-            if (oldMeeting == null) Util.alertError(this, R.string.err_invalidClass);
-            et_section.setText(Integer.toString(oldMeeting.section));
+            if (oldMeeting == null) runOnUiThread(() -> Util.alertError(this, R.string.err_invalidClass));
+            et_section.setText(oldMeeting.section);
             startCalendar.setTime(oldMeeting.start);
             endCalendar.setTime(oldMeeting.end);
             et_startdate.setText(dateFormat.format(startCalendar.getTime()));
             et_enddate.setText(dateFormat.format(endCalendar.getTime()));
             et_starttime.setText(timeFormat.format(startCalendar.getTime()));
             et_endtime.setText(timeFormat.format(endCalendar.getTime()));
-
+            //TODO: LOCATION
 
             Weekdays weekdays;
             weekdays = oldMeeting.weekdays;
 
-            if (weekdays.contains(Weekday.SUNDAY))
-            {
-                cb_sunday.setChecked(true);
-
-            }
-            if (weekdays.contains(Weekday.MONDAY))
-            {
-                cb_monday.setChecked(true);
-
-            }
-            if (weekdays.contains(Weekday.TUESDAY))
-            {
-                cb_tuesday.setChecked(true);
-
-            }
-            if (weekdays.contains(Weekday.WEDNESDAY))
-            {
-                cb_wednesday.setChecked(true);
-
-            }
-            if (weekdays.contains(Weekday.THURSDAY))
-            {
-                cb_thursday.setChecked(true);
-
-            }
-            if (weekdays.contains(Weekday.FRIDAY))
-            {
-                cb_friday.setChecked(true);
-
-            }
-            if (weekdays.contains(Weekday.SATURDAY))
-            {
-                cb_saturday.setChecked(true);
-
-            }
+            if (weekdays.contains(Weekday.SUNDAY))    cb_sunday.setChecked(true);
+            if (weekdays.contains(Weekday.MONDAY))    cb_monday.setChecked(true);
+            if (weekdays.contains(Weekday.TUESDAY))   cb_tuesday.setChecked(true);
+            if (weekdays.contains(Weekday.WEDNESDAY)) cb_wednesday.setChecked(true);
+            if (weekdays.contains(Weekday.THURSDAY))  cb_thursday.setChecked(true);
+            if (weekdays.contains(Weekday.FRIDAY))    cb_friday.setChecked(true);
+            if (weekdays.contains(Weekday.SATURDAY))  cb_saturday.setChecked(true);
 
             spinnerMeetingType.setSelection(Arrays.asList(MeetingTypeEnum.values()).indexOf(oldMeeting.type));
 
         });
-
-
-
-//TODO LOCATION
-
 
         btn_ok.setOnClickListener(view -> {
             int meetingSpinnerPosition = spinnerMeetingType.getLastVisiblePosition();
@@ -158,6 +123,7 @@ public class EditMeeting extends AppCompatActivity {
             }
             location = et_location.getText().toString();
             meetingTypeEnum = MeetingTypeEnum.values()[meetingSpinnerPosition];
+            //TODO: LOCATION
 
             Weekdays weekdays = new Weekdays();
             if(cb_sunday.isChecked())    weekdays.add(Weekday.SUNDAY);
@@ -177,8 +143,6 @@ public class EditMeeting extends AppCompatActivity {
                 oldMeeting.end = endDate;
 
                 userdb.meetingDao().update(oldMeeting);
-
-
 
                 runOnUiThread(()->{
                     Toast.makeText(getApplicationContext(),"Meeting successfully added", Toast.LENGTH_LONG).show();
@@ -208,7 +172,6 @@ public class EditMeeting extends AppCompatActivity {
         et_startdate.setOnClickListener(view -> new DatePickerDialog(this, openDateDate, startCalendar.get(Calendar.YEAR), startCalendar.get(Calendar.MONTH), startCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
         et_starttime.setOnClickListener(view -> new TimePickerDialog(this, openDateTime, startCalendar.get(Calendar.MINUTE), startCalendar.get(Calendar.HOUR), false).show());
-
 
         // end listeners
         DatePickerDialog.OnDateSetListener dueDateDate = (view, year, month, day) -> {

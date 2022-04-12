@@ -62,14 +62,9 @@ public class ViewMeeting extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.action_edit:
-                //TODO: edit a meeting
-
                 Intent intent = new Intent(this, EditMeeting.class);
                 intent.putExtra("mid", mid);
                 startActivity(intent);
-
-
-                Toast.makeText(getApplicationContext(),"edit",Toast.LENGTH_LONG).show();
                 return true;
             case R.id.action_delete:
                 AsyncTask.execute(() -> {
