@@ -1,21 +1,17 @@
 package com.example.theprincipleapp.db;
 
 import androidx.annotation.NonNull;
+import com.example.theprincipleapp.helpers.Util;
+
 
 public enum MeetingTypeEnum {
-    LECTURE("Lecture"),
-    LAB("Lab");
-
-    private final String meetingName;
-
-    MeetingTypeEnum(String meetingName){
-        this.meetingName = meetingName;
-    }
+    LECTURE,
+    LAB;
 
     @NonNull
     @Override
     public String toString(){
-        return meetingName;
+        return Util.toTitleCase(this.name());
     }
 
 }

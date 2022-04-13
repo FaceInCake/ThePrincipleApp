@@ -1,7 +1,8 @@
 package com.example.theprincipleapp;
 
+import static com.example.theprincipleapp.helpers.Util.*;
+
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.DatePickerDialog;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,17 +17,12 @@ import com.example.theprincipleapp.db.UserDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 
 public class NewClass extends AppCompatActivity {
-    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
     protected EditText et_classCode, et_fullName, et_description, et_professor, et_startDate, et_endDate;
-    protected Calendar c;
-    protected Date start, end;
+    protected Calendar start, end;
     protected Button button_ok, button_cancel;
 
     @Override
@@ -43,13 +39,12 @@ public class NewClass extends AppCompatActivity {
         button_ok = findViewById(R.id.button_ok);
         button_cancel = findViewById(R.id.button_cancel);
 
-        c = Calendar.getInstance();
-        start = c.getTime();
-        c.roll(Calendar.MONTH, 4);
-        end = c.getTime();
+        start = Calendar.getInstance();
+        end = Calendar.getInstance();
+        end.roll(Calendar.MONTH, 4);
 
-        et_startDate.setOnClickListener(view -> updateDate(start, et_startDate));
-        et_endDate.setOnClickListener(view -> updateDate(end, et_endDate));
+        et_startDate.setOnClickListener(view -> showDatePicker(this, start, et_startDate));
+        et_endDate.setOnClickListener(view -> showDatePicker(this, end, et_endDate));
 
         button_ok.setOnClickListener(this::attemptInsertion);
         button_cancel.setOnClickListener(view -> finish());
@@ -109,20 +104,4 @@ public class NewClass extends AppCompatActivity {
             finish();
         });
     }
-
-    public void updateDate (Date date, EditText et) {
-        c.setTime(date);
-        new DatePickerDialog(
-            this,
-            (datePicker, y, m, d) -> {
-                c.set(y, m, d);
-                date.setTime(c.getTime().getTime());
-                et.setText(sdf.format(date));
-            },
-            c.get(Calendar.YEAR),
-            c.get(Calendar.MONTH),
-            c.get(Calendar.DAY_OF_MONTH)
-        ).show();
-    }
-
 }

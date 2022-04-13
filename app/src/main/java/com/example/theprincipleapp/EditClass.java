@@ -42,10 +42,10 @@ public class EditClass extends NewClass {
                 et_fullName.setText(c.course.full_name);
                 et_description.setText(c.course.description);
                 et_professor.setText(c.cls.professor);
-                start = c.cls.start;
-                end = c.cls.end;
-                et_startDate.setText(NewClass.sdf.format(start));
-                et_endDate.setText(NewClass.sdf.format(end));
+                start.setTime(c.cls.start);
+                end.setTime(c.cls.end);
+                et_startDate.setText(Util.sdf.format(start));
+                et_endDate.setText(Util.sdf.format(end));
             }
         });
     }

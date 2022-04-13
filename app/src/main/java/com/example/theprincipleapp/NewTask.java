@@ -1,9 +1,7 @@
 package com.example.theprincipleapp;
 
+import static com.example.theprincipleapp.helpers.Util.*;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -11,24 +9,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.example.theprincipleapp.db.Task;
 import com.example.theprincipleapp.db.TaskTypeEnum;
 import com.example.theprincipleapp.db.UserDatabase;
 import com.example.theprincipleapp.helpers.Util;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 
 public class NewTask extends AppCompatActivity {
-    public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
-    public static SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
     Button btnSubmit, btnCancel;
     EditText editTextDescription, editTextName, editTextLocation, editTextOpenDateDate,
@@ -63,13 +54,13 @@ public class NewTask extends AppCompatActivity {
         btnCancel.setOnClickListener(view -> finish());
 
         editTextOpenDateDate.setOnClickListener(view
-            -> showDatePicker(openDateCalendar, editTextOpenDateDate));
+            -> showDatePicker(this, openDateCalendar, editTextOpenDateDate));
         editTextOpenDateTime.setOnClickListener(view
-            -> showTimePicker(openDateCalendar, editTextOpenDateTime));
+            -> showTimePicker(this, openDateCalendar, editTextOpenDateTime));
         editTextDueDateDate.setOnClickListener(view
-            -> showDatePicker(dueDateCalendar, editTextOpenDateDate));
+            -> showDatePicker(this, dueDateCalendar, editTextOpenDateDate));
         editTextDueDateTime.setOnClickListener(view
-            -> showTimePicker(dueDateCalendar, editTextDueDateTime));
+            -> showTimePicker(this, dueDateCalendar, editTextDueDateTime));
     }
 
     @Override
@@ -121,34 +112,4 @@ public class NewTask extends AppCompatActivity {
         return task;
     }
 
-    protected void showDatePicker (Calendar cal, EditText view) {
-        new DatePickerDialog(
-            this,
-            (dp,y,m,d) -> mapDate(cal, view, y, m, d),
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)
-        ).show();
-    }
-
-    protected void showTimePicker (Calendar cal, EditText view) {
-        new TimePickerDialog(
-            this,
-            (tp,i,j) -> mapTime(cal, view, tp),
-            cal.get(Calendar.MINUTE),
-            cal.get(Calendar.HOUR),
-            false
-        ).show();
-    }
-
-    protected void mapDate (Calendar cal, EditText view, int y, int m, int d) {
-        cal.set(y, m, d);
-        view.setText(dateFormat.format(cal.getTime()));
-    }
-
-    protected void mapTime (Calendar cal, EditText view, TimePicker timePicker) {
-        cal.set(Calendar.MINUTE, timePicker.getMinute());
-        cal.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-        view.setText(timeFormat.format(cal.getTime()));
-    }
 }

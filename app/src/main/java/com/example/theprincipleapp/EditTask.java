@@ -1,5 +1,6 @@
 package com.example.theprincipleapp;
 
+import static com.example.theprincipleapp.helpers.Util.*;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
