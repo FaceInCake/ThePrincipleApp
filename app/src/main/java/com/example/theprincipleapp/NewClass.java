@@ -1,8 +1,6 @@
 package com.example.theprincipleapp;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
@@ -14,7 +12,6 @@ import android.widget.Toast;
 
 import com.example.theprincipleapp.db.Class;
 import com.example.theprincipleapp.db.Course;
-import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
 import com.google.android.material.snackbar.Snackbar;
 

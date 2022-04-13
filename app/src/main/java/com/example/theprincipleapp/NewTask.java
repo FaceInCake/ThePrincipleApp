@@ -27,8 +27,8 @@ import java.util.Locale;
 
 
 public class NewTask extends AppCompatActivity {
-    final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
-    final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
+    public static SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
     Button btnSubmit, btnCancel;
     EditText editTextDescription, editTextName, editTextLocation, editTextOpenDateDate,
@@ -44,9 +44,6 @@ public class NewTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
-
-        cid = getIntent().getIntExtra("cid", -1);
-        if (cid == -1) Util.alertError(this, R.string.err_invalid_class_for_task);
 
         btnSubmit = findViewById(R.id.btnSubmit);
         btnCancel = findViewById(R.id.btnCancel);
@@ -73,6 +70,13 @@ public class NewTask extends AppCompatActivity {
             -> showDatePicker(dueDateCalendar, editTextOpenDateDate));
         editTextDueDateTime.setOnClickListener(view
             -> showTimePicker(dueDateCalendar, editTextDueDateTime));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        cid = getIntent().getIntExtra("cid", -1);
+        if (cid == -1) Util.alertError(this, R.string.err_invalid_class_for_task);
     }
 
     protected void submit (View v) {
