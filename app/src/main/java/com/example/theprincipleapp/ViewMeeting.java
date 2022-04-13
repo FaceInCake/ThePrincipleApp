@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.theprincipleapp.db.Meeting;
@@ -46,7 +47,9 @@ public class ViewMeeting extends AppCompatActivity {
                 wds.setValue(m.weekdays.abbreviate());
                 start.setValue(m.start.toString());
                 end.setValue(m.end.toString());
-                local.setValue(m.location);
+                if (m.location.isEmpty())
+                     local.setVisibility(View.GONE);
+                else local.setValue(m.location);
             });
         });
     }
