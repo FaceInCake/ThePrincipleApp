@@ -56,10 +56,10 @@ public class EditTask extends AppCompatActivity {
         editTextDescription = findViewById(R.id.editTextMultilineDescription);
         editTextName = findViewById(R.id.editTextName);
         editTextLocation = findViewById(R.id.editTextLocation);
-        editTextOpenDateDate = findViewById(R.id.editTextOpenDateDate);
-        editTextOpenDateTime = findViewById(R.id.editTextOpenDateTime);
-        editTextDueDateDate = findViewById(R.id.editTextDueDateDate);
-        editTextDueDateTime = findViewById(R.id.editTextDueDateTime);
+        editTextOpenDateDate = findViewById(R.id.editTextOpenDate);
+        editTextOpenDateTime = findViewById(R.id.editTextOpenTime);
+        editTextDueDateDate = findViewById(R.id.editTextDueDate);
+        editTextDueDateTime = findViewById(R.id.editTextDueTime);
 
         spinnerTaskType = findViewById(R.id.spinnerTaskType);
         spinnerTaskType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TaskTypeEnum.values()));

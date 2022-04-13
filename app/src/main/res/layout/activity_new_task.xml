@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewTask"
-    tools:layout_editor_absoluteY="81dp">
-
+    android:layout_margin="16dp"
+    tools:context=".NewTask">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewHeader"
@@ -31,194 +21,189 @@
             android:text="@string/new_task_title"
             android:textSize="34sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_gravity="center"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="67dp">
-            <!--android:paddingVertical="40dp"-->
+            android:layout_marginTop="16dp"
+            android:text="@string/name"
+            android:textSize="24sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/enter_name_input_label"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/task_type_new_task_label"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/spinnerTaskType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/new_task_spinner_content_description"
+            android:minHeight="48dp"
+            android:padding="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/open_date_new_task_label"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/editTextOpenDate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/date"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:minHeight="48dp"
+                tools:ignore="DuplicateSpeakableTextCheck" />
 
-                android:orientation="vertical">
+            <EditText
+                android:id="@+id/editTextOpenTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/time"
+                android:importantForAutofill="no"
+                android:inputType="time"
+                android:minHeight="48dp"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15sp"
-                    android:text="@string/name"
-                    android:textSize="24sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/due_date_new_task_label"
+            android:textSize="24sp" />
 
-                <EditText
-                    android:id="@+id/editTextName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:layout_marginBottom="15sp"
-                    android:hint="@string/enter_name_input_label"
-                    android:inputType="textPersonName"
-                    android:textSize="16sp"
-                    android:autofillHints="" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15sp"
-                    android:text="@string/task_type_new_task_label"
-                    android:textSize="24sp" />
+            <EditText
+                android:id="@+id/editTextDueDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:importantForAutofill="no"
+                android:ems="10"
+                android:hint="@string/date"
+                android:inputType="date"
+                android:minHeight="48dp" />
 
-                <Spinner
-                    android:id="@+id/spinnerTaskType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15sp"
-                    android:contentDescription="@string/new_task_spinner_content_description" />
+            <EditText
+                android:id="@+id/editTextDueTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:importantForAutofill="no"
+                android:ems="10"
+                android:hint="@string/time"
+                android:inputType="time"
+                android:minHeight="48dp" />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15sp"
-                    android:text="@string/open_date_new_task_label"
-                    android:textSize="24sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/location_new_task_label"
+            android:textSize="24sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+        <EditText
+            android:id="@+id/editTextLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:autofillHints=""
+            android:hint="@string/enter_location_new_task_input_label"
+            android:inputType="textPostalAddress"
+            android:minHeight="48dp" />
 
-                    <EditText
-                        android:id="@+id/editTextOpenDateDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15sp"
-                        android:autofillHints=""
-                        android:ems="10"
-                        android:focusable="false"
-                        android:hint="@string/choose_year_new_task_input_label"
-                        android:inputType="datetime"
-                        android:minHeight="48dp"
-                        tools:ignore="DuplicateSpeakableTextCheck" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/description_new_task_input_label"
+            android:textSize="24sp" />
 
-                    <EditText
-                        android:id="@+id/editTextOpenDateTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15sp"
-                        android:autofillHints=""
-                        android:ems="10"
-                        android:focusable="false"
-                        android:hint="@string/choose_time_new_task_input_label"
-                        android:inputType="datetime"
-                        tools:ignore="DuplicateSpeakableTextCheck" />
-                </LinearLayout>
+        <EditText
+            android:id="@+id/editTextMultilineDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/enter_description_new_task_input_label"
+            android:inputType="textMultiLine"
+            android:importantForAutofill="no"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15sp"
-                    android:text="@string/due_date_new_task_label"
-                    android:textSize="24sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/grade"
+            android:textSize="24sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+        <EditText
+            android:id="@+id/editTextMultilineDescription2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:importantForAutofill="no"
+            android:hint="@string/enter_grade_percentage"
+            android:inputType="number" />
 
-                    <EditText
-                        android:id="@+id/editTextDueDateDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15sp"
-                        android:autofillHints=""
-                        android:ems="10"
-                        android:focusable="false"
-                        android:hint="@string/choose_year_new_task_input_label"
-                        android:inputType="datetime"
-                        android:minHeight="48dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                    <EditText
-                        android:id="@+id/editTextDueDateTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15sp"
-                        android:ems="10"
-                        android:focusable="false"
-                        android:hint="@string/choose_time_new_task_input_label"
-                        android:inputType="datetime"
-                        android:autofillHints="" />
-                </LinearLayout>
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                android:text="@string/submit"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnCancel"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15sp"
-                    android:text="@string/location_new_task_label"
-                    android:textSize="24sp" />
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="32dp"
+                android:text="@string/cancel"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnSubmit"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <EditText
-                    android:id="@+id/editTextLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:layout_marginBottom="15sp"
-                    android:hint="@string/enter_location_new_task_input_label"
-                    android:inputType="textPersonName"
-                    android:autofillHints="" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15sp"
-                    android:text="@string/description_new_task_input_label"
-                    android:textSize="24sp" />
-
-                <EditText
-                    android:id="@+id/editTextMultilineDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:layout_marginBottom="15sp"
-                    android:hint="@string/enter_description_new_task_input_label"
-                    android:inputType="textMultiLine"
-                    android:autofillHints="" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="bottom"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btnSubmit"
-                        android:layout_width="125dp"
-                        android:layout_height="65dp"
-                        android:text="@string/submit"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <Button
-                        android:id="@+id/btnCancel"
-                        android:layout_width="125dp"
-                        android:layout_height="65dp"
-                        android:text="@string/cancel"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
