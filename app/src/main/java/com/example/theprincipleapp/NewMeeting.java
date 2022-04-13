@@ -39,7 +39,6 @@ public class NewMeeting extends AppCompatActivity {
     final Calendar endCalendar = Calendar.getInstance();
     int cid;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +63,6 @@ public class NewMeeting extends AppCompatActivity {
         cb_friday = findViewById(R.id.cb_friday);
         cb_saturday = findViewById(R.id.cb_saturday);
 
-        cid = getIntent().getIntExtra("cid", -1);
-        if (cid < 0) Util.alertError(this, R.string.err_invalidMeeting);
-
         spinnerMeetingType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, MeetingTypeEnum.values()));
 
         btn_ok.setOnClickListener(this::attemptInsertion);
@@ -77,7 +73,14 @@ public class NewMeeting extends AppCompatActivity {
         et_endtime.setOnClickListener(view -> showTimePicker(this, endCalendar, et_endtime));
     }
 
-    private void attemptInsertion(View view) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        cid = getIntent().getIntExtra("cid", -1);
+        if (cid < 0) Util.alertError(this, R.string.err_invalidMeeting);
+    }
+
+    protected void attemptInsertion(View view) {
         AsyncTask.execute(() -> {
             try {
                 Meeting meeting = parseMeeting();
