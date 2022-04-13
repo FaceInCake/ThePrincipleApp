@@ -1,5 +1,6 @@
 package com.example.theprincipleapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -11,16 +12,16 @@ import android.widget.Toast;
 
 import com.example.theprincipleapp.db.Class;
 import com.example.theprincipleapp.db.Course;
-import com.example.theprincipleapp.db.Task;
 import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
+
 
 public class NewClass extends AppCompatActivity {
     public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
@@ -52,35 +53,43 @@ public class NewClass extends AppCompatActivity {
         et_endDate.setOnClickListener(view -> updateDate(end, et_endDate));
 
         button_ok.setOnClickListener(view -> {
-
-            UserClass userClass = new UserClass();
-
-            List<Task> tasks = new ArrayList<>();
-
-            Course course = new Course();
-            course.full_name = et_fullName.getText().toString();
-            course.code = et_classCode.getText().toString();
-            course.description = et_description.getText().toString();
-
-            userClass.course = course;
-            userClass.tasks = tasks;
-            userClass.meetings = null;
-
-            Class c = new Class();
-            c.professor = et_professor.getText().toString();
-            c.start = start;
-            c.end = end;
-            userClass.cls = c;
-
-            AsyncTask.execute(() -> {
-                UserDatabase.UDB.userClassDao().insert(userClass);
-                runOnUiThread(() ->
-                    Toast.makeText(getApplicationContext(),"Course successfully added", Toast.LENGTH_LONG).show()
-                );
-            });
-            finish();
+            String res = attemptInsertion();
+            if (res == null)
+                Toast.makeText(getApplicationContext(),
+                    "Course successfully added", Toast.LENGTH_SHORT).show();
+            else
+                Snackbar.make(this, view, res, Snackbar.LENGTH_SHORT).show();
         });
         button_cancel.setOnClickListener(view -> finish());
+    }
+
+    /**
+     * Parses the current state of the editable fields and inserts the course and class
+     * @return null on success, error message on error
+     */
+    @Nullable private String attemptInsertion () {
+        Course course = new Course();
+        course.full_name = et_fullName.getText().toString();
+        if (course.full_name.isEmpty()) return "Course name cannot be empty";
+        course.code = et_classCode.getText().toString();
+        if (course.code.isEmpty()) return "Course code cannot be empty";
+        course.description = et_description.getText().toString();
+        // Description can be empty
+        Class c = new Class();
+        c.professor = et_professor.getText().toString();
+        if (c.professor.isEmpty()) c.professor = "TBD";
+        try { c.start = sdf.parse(et_startDate.getText().toString());
+        } catch (ParseException e) { return "Invalid start date"; }
+        try { c.end = sdf.parse(et_endDate.getText().toString());
+        } catch (ParseException e) { return "Invalid end date"; }
+        if (c.start.after(c.end)) return "End date must take place after the start date";
+
+        AsyncTask.execute(() -> {
+            c.oid = (int) UserDatabase.UDB.courseDao().insert(course);
+            UserDatabase.UDB.classDao().insert(c);
+        });
+        finish();
+        return null;
     }
 
     public void updateDate (Date date, EditText et) {
