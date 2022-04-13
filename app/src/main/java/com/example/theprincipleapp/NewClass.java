@@ -4,8 +4,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,10 +27,10 @@ import java.util.Locale;
 
 public class NewClass extends AppCompatActivity {
     public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
-    EditText et_classCode, et_fullName, et_description, et_professor, et_startDate, et_endDate;
-    Calendar c;
-    Date start, end;
-    Button button_ok, button_cancel;
+    protected EditText et_classCode, et_fullName, et_description, et_professor, et_startDate, et_endDate;
+    protected Calendar c;
+    protected Date start, end;
+    protected Button button_ok, button_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,44 +54,63 @@ public class NewClass extends AppCompatActivity {
         et_startDate.setOnClickListener(view -> updateDate(start, et_startDate));
         et_endDate.setOnClickListener(view -> updateDate(end, et_endDate));
 
-        button_ok.setOnClickListener(view -> {
-            String res = attemptInsertion();
-            if (res == null)
-                Toast.makeText(getApplicationContext(),
-                    "Course successfully added", Toast.LENGTH_SHORT).show();
-            else
-                Snackbar.make(this, view, res, Snackbar.LENGTH_SHORT).show();
-        });
+        button_ok.setOnClickListener(this::attemptInsertion);
         button_cancel.setOnClickListener(view -> finish());
     }
 
-    /**
-     * Parses the current state of the editable fields and inserts the course and class
-     * @return null on success, error message on error
-     */
-    @Nullable private String attemptInsertion () {
+    protected Course parseCourse () throws ParseException {
         Course course = new Course();
         course.full_name = et_fullName.getText().toString();
-        if (course.full_name.isEmpty()) return "Course name cannot be empty";
+        if (course.full_name.isEmpty())
+            throw new ParseException("Course name cannot be empty", 0);
         course.code = et_classCode.getText().toString();
-        if (course.code.isEmpty()) return "Course code cannot be empty";
+        if (course.code.isEmpty())
+            throw new ParseException("Course code cannot be empty", 0);
         course.description = et_description.getText().toString();
         // Description can be empty
+        return course;
+    }
+
+    protected Class parseClass () throws ParseException {
         Class c = new Class();
         c.professor = et_professor.getText().toString();
         if (c.professor.isEmpty()) c.professor = "TBD";
         try { c.start = sdf.parse(et_startDate.getText().toString());
-        } catch (ParseException e) { return "Invalid start date"; }
+        } catch (ParseException e) {
+            throw new ParseException("Invalid start date", 0);
+        }
         try { c.end = sdf.parse(et_endDate.getText().toString());
-        } catch (ParseException e) { return "Invalid end date"; }
-        if (c.start.after(c.end)) return "End date must take place after the start date";
+        } catch (ParseException e) {
+            throw new ParseException("Invalid end date", 0);
+        }
+        if (c.start.after(c.end))
+            throw new ParseException("End date must take place after the start date", 0);
+        return c;
+    }
 
+    protected void attemptInsertion (View v) {
+        Course o; Class c;
+        try {
+            o = parseCourse();
+            c = parseClass();
+        } catch (ParseException e) {
+            String msg = e.getMessage();
+            Snackbar.make(this, v, msg==null?"Error":msg, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
         AsyncTask.execute(() -> {
-            c.oid = (int) UserDatabase.UDB.courseDao().insert(course);
-            UserDatabase.UDB.classDao().insert(c);
+            try {
+                c.oid = (int) UserDatabase.UDB.courseDao().insert(o);
+                UserDatabase.UDB.classDao().insert(c);
+            } catch (SQLiteConstraintException e) {
+                // Only possible constraint exception is a non-unique course code
+                Snackbar.make(this, v, "Course code must be unique", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+            runOnUiThread(() -> Toast.makeText(getApplicationContext(),
+                "Course successfully added", Toast.LENGTH_SHORT).show());
+            finish();
         });
-        finish();
-        return null;
     }
 
     public void updateDate (Date date, EditText et) {
