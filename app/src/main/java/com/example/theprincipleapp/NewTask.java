@@ -26,7 +26,8 @@ import java.util.Locale;
 public class NewTask extends AppCompatActivity {
 
     Button btnSubmit, btnCancel;
-    EditText editTextDescription, editTextName, editTextLocation, editTextOpenDateDate, editTextOpenDateTime, editTextDueDateDate, editTextDueDateTime;
+    EditText editTextDescription, editTextName, editTextLocation, editTextOpenDateDate,
+            editTextOpenDateTime, editTextDueDateDate, editTextDueDateTime, editTextGrade;
     Spinner spinnerTaskType;
 
     final Calendar openDateCalendar = Calendar.getInstance();
@@ -56,6 +57,7 @@ public class NewTask extends AppCompatActivity {
         editTextOpenDateTime = findViewById(R.id.editTextOpenTime);
         editTextDueDateDate = findViewById(R.id.editTextDueDate);
         editTextDueDateTime = findViewById(R.id.editTextDueTime);
+        editTextGrade = findViewById(R.id.taskGrade);
 
         spinnerTaskType = findViewById(R.id.spinnerTaskType);
         spinnerTaskType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TaskTypeEnum.values()));
@@ -72,6 +74,7 @@ public class NewTask extends AppCompatActivity {
                     task.location = editTextLocation.getText().toString();
                     task.name = editTextName.getText().toString();
                     task.description = editTextDescription.getText().toString();
+                    task.grade = Float.parseFloat(editTextGrade.getText().toString());
                     task.type = TaskTypeEnum.values()[spinnerSelectedPosition];
                     task.open = openDateCalendar.getTime();
                     task.due = dueDateCalendar.getTime();

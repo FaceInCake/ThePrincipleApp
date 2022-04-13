@@ -26,7 +26,8 @@ import java.util.Locale;
 
 public class EditTask extends AppCompatActivity {
     Button btnSubmit, btnCancel;
-    EditText editTextDescription, editTextName, editTextLocation, editTextOpenDateDate, editTextOpenDateTime, editTextDueDateDate, editTextDueDateTime;
+    EditText editTextDescription, editTextName, editTextLocation, editTextOpenDateDate,
+            editTextOpenDateTime, editTextDueDateDate, editTextDueDateTime, editTextGrade;
     TextView textViewHeader;
     Spinner spinnerTaskType;
 
@@ -45,6 +46,9 @@ public class EditTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
 
+        tid = getIntent().getIntExtra("tid", -1);
+        if (tid == -1) Util.alertError(this, R.string.err_invalid_task);
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Please select a valid task type.");
         AlertDialog dialog = alertDialogBuilder.create();
@@ -60,6 +64,7 @@ public class EditTask extends AppCompatActivity {
         editTextOpenDateTime = findViewById(R.id.editTextOpenTime);
         editTextDueDateDate = findViewById(R.id.editTextDueDate);
         editTextDueDateTime = findViewById(R.id.editTextDueTime);
+        editTextGrade = findViewById(R.id.taskGrade);
 
         spinnerTaskType = findViewById(R.id.spinnerTaskType);
         spinnerTaskType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TaskTypeEnum.values()));
@@ -70,23 +75,21 @@ public class EditTask extends AppCompatActivity {
 
 
         AsyncTask.execute(() -> {
-            tid = getIntent().getIntExtra("tid", -1);
-            if (tid == -1) Util.alertError(this, R.string.err_invalid_task);
-
             oldTask = userdb.taskDao().get(tid);
-            if (oldTask == null) Util.alertError(this, R.string.err_invalid_task);
-
-            openDateCalendar.setTime(oldTask.open);
-            dueDateCalendar.setTime(oldTask.due);
-            editTextDescription.setText(oldTask.description);
-            editTextName.setText(oldTask.name);
-            editTextLocation.setText(oldTask.location);
-            editTextOpenDateDate.setText(dateFormat.format(openDateCalendar.getTime()));
-            editTextOpenDateTime.setText(timeFormat.format(openDateCalendar.getTime()));
-            editTextDueDateDate.setText(dateFormat.format(dueDateCalendar.getTime()));
-            editTextDueDateTime.setText(timeFormat.format(dueDateCalendar.getTime()));
-            spinnerTaskType.setSelection(Arrays.asList(TaskTypeEnum.values()).indexOf(oldTask.type));
-
+            if (oldTask == null) runOnUiThread(() -> Util.alertError(this, R.string.err_invalid_task));
+            else {
+                openDateCalendar.setTime(oldTask.open);
+                dueDateCalendar.setTime(oldTask.due);
+                editTextDescription.setText(oldTask.description);
+                editTextName.setText(oldTask.name);
+                editTextLocation.setText(oldTask.location);
+                editTextGrade.setText(String.format(Locale.getDefault(), "%2.0f", oldTask.grade));
+                editTextOpenDateDate.setText(dateFormat.format(openDateCalendar.getTime()));
+                editTextOpenDateTime.setText(timeFormat.format(openDateCalendar.getTime()));
+                editTextDueDateDate.setText(dateFormat.format(dueDateCalendar.getTime()));
+                editTextDueDateTime.setText(timeFormat.format(dueDateCalendar.getTime()));
+                spinnerTaskType.setSelection(Arrays.asList(TaskTypeEnum.values()).indexOf(oldTask.type));
+            }
         });
 
         btnSubmit.setOnClickListener(view -> {
@@ -102,6 +105,7 @@ public class EditTask extends AppCompatActivity {
                     oldTask.location = editTextLocation.getText().toString();
                     oldTask.name = editTextName.getText().toString();
                     oldTask.description = editTextDescription.getText().toString();
+                    oldTask.grade = Float.parseFloat(editTextGrade.getText().toString());
                     oldTask.type = TaskTypeEnum.values()[spinnerSelectedPosition];
                     oldTask.open =  openDateCalendar.getTime();
                     oldTask.due = dueDateCalendar.getTime();
