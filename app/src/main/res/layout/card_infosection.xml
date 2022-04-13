@@ -31,12 +31,13 @@
 
     <TextView
         android:id="@+id/info_value"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/info_icon"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/info_section"
         app:layout_constraintBottom_toBottomOf="@id/info_icon"
-        android:layout_margin="4dp"
+        android:padding="10dp"
         android:textStyle="bold"
         android:text="@string/app_name" />
 

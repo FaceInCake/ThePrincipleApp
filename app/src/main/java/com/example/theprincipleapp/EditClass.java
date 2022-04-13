@@ -44,8 +44,8 @@ public class EditClass extends NewClass {
                 et_professor.setText(c.cls.professor);
                 start.setTime(c.cls.start);
                 end.setTime(c.cls.end);
-                et_startDate.setText(Util.sdf.format(start));
-                et_endDate.setText(Util.sdf.format(end));
+                et_startDate.setText(Util.sdf.format(start.getTime()));
+                et_endDate.setText(Util.sdf.format(end.getTime()));
             }
         });
     }
