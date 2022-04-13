@@ -64,7 +64,7 @@ public class EditTask extends AppCompatActivity {
         editTextOpenDateTime = findViewById(R.id.editTextOpenTime);
         editTextDueDateDate = findViewById(R.id.editTextDueDate);
         editTextDueDateTime = findViewById(R.id.editTextDueTime);
-        editTextGrade = findViewById(R.id.taskGrade);
+        editTextGrade = findViewById(R.id.editTextGrade);
 
         spinnerTaskType = findViewById(R.id.spinnerTaskType);
         spinnerTaskType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, TaskTypeEnum.values()));

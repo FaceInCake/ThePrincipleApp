@@ -170,13 +170,13 @@
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/editTextMultilineDescription2"
+            android:id="@+id/editTextGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:importantForAutofill="no"
             android:hint="@string/enter_grade_percentage"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
