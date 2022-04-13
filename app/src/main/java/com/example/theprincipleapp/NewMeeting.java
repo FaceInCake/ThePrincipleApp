@@ -1,11 +1,13 @@
 package com.example.theprincipleapp;
 
+import static com.example.theprincipleapp.helpers.Util.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,7 +21,9 @@ import com.example.theprincipleapp.db.UserDatabase;
 import com.example.theprincipleapp.db.Weekday;
 import com.example.theprincipleapp.db.Weekdays;
 import com.example.theprincipleapp.helpers.Util;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,27 +31,18 @@ import java.util.Locale;
 
 
 public class NewMeeting extends AppCompatActivity {
-
     Button btn_ok, btn_cancel;
     Spinner spinnerMeetingType;
     EditText et_section, et_location, et_startdate, et_starttime, et_enddate, et_endtime;
     CheckBox cb_sunday, cb_monday, cb_tuesday, cb_wednesday, cb_thursday, cb_friday, cb_saturday;
-
-    int section;
-    String location;
-    MeetingTypeEnum meetingTypeEnum;
-
     final Calendar startCalendar = Calendar.getInstance();
     final Calendar endCalendar = Calendar.getInstance();
-
-    Date startDate, endDate;
-
+    int cid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_meeting);
-
 
         spinnerMeetingType = findViewById(R.id.spinner_meetingtype);
         et_section = findViewById(R.id.et_section);
@@ -68,92 +63,68 @@ public class NewMeeting extends AppCompatActivity {
         cb_friday = findViewById(R.id.cb_friday);
         cb_saturday = findViewById(R.id.cb_saturday);
 
-
         spinnerMeetingType.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, MeetingTypeEnum.values()));
 
-        btn_ok.setOnClickListener(view -> {
-            int meetingSpinnerPosition = spinnerMeetingType.getLastVisiblePosition();
-            startDate = startCalendar.getTime();
-            endDate = endCalendar.getTime();
-            if(et_section.getText().toString().equals("")){
-                section = -1;
-            }else{
-                section = Integer.parseInt(et_section.getText().toString());
-            }
-            location = et_location.getText().toString();
-            meetingTypeEnum = MeetingTypeEnum.values()[meetingSpinnerPosition];
-
-            Weekdays weekdays = new Weekdays();
-            if(cb_sunday.isChecked())    weekdays.add(Weekday.SUNDAY);
-            if(cb_monday.isChecked())    weekdays.add(Weekday.MONDAY);
-            if(cb_tuesday.isChecked())   weekdays.add(Weekday.TUESDAY);
-            if(cb_wednesday.isChecked()) weekdays.add(Weekday.WEDNESDAY);
-            if(cb_thursday.isChecked())  weekdays.add(Weekday.THURSDAY);
-            if(cb_friday.isChecked())    weekdays.add(Weekday.FRIDAY);
-            if(cb_saturday.isChecked())  weekdays.add(Weekday.SATURDAY);
-
-            AsyncTask.execute(() -> {
-                int cid = getIntent().getIntExtra("cid", -1);
-                if (cid < 0) Util.alertError(this, R.string.err_invalidClass);
-
-                Meeting meeting = new Meeting();
-                meeting.type = meetingTypeEnum;
-                meeting.section = section;
-                meeting.weekdays = weekdays;
-                meeting.start = startDate;
-                meeting.end = endDate;
-                meeting.cid = cid;
-
-                UserDatabase.UDB.meetingDao().insert(meeting);
-
-                runOnUiThread(()->{
-                    Toast.makeText(getApplicationContext(),"Meeting successfully added", Toast.LENGTH_LONG).show();
-                });
-                finish();
-            });
-        });
-
+        btn_ok.setOnClickListener(this::attemptInsertion);
         btn_cancel.setOnClickListener(view -> finish());
+        et_startdate.setOnClickListener(view -> showDatePicker(this, startCalendar, et_startdate));
+        et_starttime.setOnClickListener(view -> showTimePicker(this, startCalendar, et_starttime));
+        et_enddate.setOnClickListener(view -> showDatePicker(this, endCalendar, et_enddate));
+        et_endtime.setOnClickListener(view -> showTimePicker(this, endCalendar, et_endtime));
+    }
 
-        // start listeners
-        DatePickerDialog.OnDateSetListener openDateDate = (view, year, month, day) -> {
-            startCalendar.set(Calendar.YEAR, year);
-            startCalendar.set(Calendar.MONTH,month);
-            startCalendar.set(Calendar.DAY_OF_MONTH,day);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
-            et_startdate.setText(dateFormat.format(startCalendar.getTime()));
-        };
+    @Override
+    protected void onStart() {
+        super.onStart();
+        cid = getIntent().getIntExtra("cid", -1);
+        if (cid < 0) Util.alertError(this, R.string.err_invalidMeeting);
+    }
 
-        TimePickerDialog.OnTimeSetListener openDateTime = (timePicker, i, i1) -> {
-            startCalendar.set(Calendar.MINUTE, timePicker.getMinute());
-            startCalendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-            et_starttime.setText(dateFormat.format(startCalendar.getTime()));
-        };
+    protected void attemptInsertion(View view) {
+        AsyncTask.execute(() -> {
+            try {
+                Meeting meeting = parseMeeting();
+                meeting.cid = cid;
+                UserDatabase.UDB.meetingDao().insert(meeting);
+            } catch (Exception e) {
+                String msg = e.getMessage();
+                Snackbar.make(this, view, msg==null?"Error":msg, Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+            runOnUiThread(() -> {
+                Toast.makeText(getApplicationContext(), "Meeting successfully added", Toast.LENGTH_SHORT).show();
+            });
+            finish();
+        });
+    }
 
-        et_startdate.setOnClickListener(view -> new DatePickerDialog(this, openDateDate, startCalendar.get(Calendar.YEAR), startCalendar.get(Calendar.MONTH), startCalendar.get(Calendar.DAY_OF_MONTH)).show());
-
-        et_starttime.setOnClickListener(view -> new TimePickerDialog(this, openDateTime, startCalendar.get(Calendar.MINUTE), startCalendar.get(Calendar.HOUR), false).show());
-
-
-        // end listeners
-        DatePickerDialog.OnDateSetListener dueDateDate = (view, year, month, day) -> {
-            endCalendar.set(Calendar.YEAR, year);
-            endCalendar.set(Calendar.MONTH,month);
-            endCalendar.set(Calendar.DAY_OF_MONTH,day);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
-            et_enddate.setText(dateFormat.format(endCalendar.getTime()));
-        };
-
-        TimePickerDialog.OnTimeSetListener dueDateTime = (timePicker, i, i1) -> {
-            endCalendar.set(Calendar.MINUTE, timePicker.getMinute());
-            endCalendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-            et_endtime.setText(dateFormat.format(endCalendar.getTime()));
-        };
-
-        et_enddate.setOnClickListener(view -> new DatePickerDialog(this, dueDateDate, endCalendar.get(Calendar.YEAR), endCalendar.get(Calendar.MONTH), endCalendar.get(Calendar.DAY_OF_MONTH)).show());
-
-        et_endtime.setOnClickListener(view -> new TimePickerDialog(this, dueDateTime, endCalendar.get(Calendar.MINUTE), endCalendar.get(Calendar.HOUR), false).show());
+    protected Meeting parseMeeting () throws ParseException {
+        Meeting meeting = new Meeting();
+        try { meeting.section = Integer.parseInt(et_section.getText().toString());
+        } catch (NumberFormatException e) {
+            throw new ParseException("Invalid section number: "+e.getMessage(), 0);
+        }
+        if (meeting.section < 0 || meeting.section > 999)
+            throw new ParseException("Invalid section number", 0);
+        int s = spinnerMeetingType.getLastVisiblePosition();
+        if (s < 0 || s > MeetingTypeEnum.values().length)
+            throw new ParseException("Please select a valid meeting type", 0);
+        meeting.type = MeetingTypeEnum.values()[s];
+        meeting.start = startCalendar.getTime();
+        meeting.end = endCalendar.getTime();
+        if (meeting.start.after(meeting.end))
+            throw new ParseException("End date-time must be after start date-time", 0);
+        meeting.location = et_location.getText().toString();
+        // Can be empty
+        Weekdays weekdays = new Weekdays();
+        if (cb_sunday.isChecked()) weekdays.add(Weekday.SUNDAY);
+        if (cb_monday.isChecked()) weekdays.add(Weekday.MONDAY);
+        if (cb_tuesday.isChecked()) weekdays.add(Weekday.TUESDAY);
+        if (cb_wednesday.isChecked()) weekdays.add(Weekday.WEDNESDAY);
+        if (cb_thursday.isChecked()) weekdays.add(Weekday.THURSDAY);
+        if (cb_friday.isChecked()) weekdays.add(Weekday.FRIDAY);
+        if (cb_saturday.isChecked()) weekdays.add(Weekday.SATURDAY);
+        meeting.weekdays = weekdays;
+        return meeting;
     }
 }

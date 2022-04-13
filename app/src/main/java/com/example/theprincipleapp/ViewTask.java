@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.theprincipleapp.db.Meeting;
@@ -47,12 +48,16 @@ public class ViewTask extends AppCompatActivity {
             Task t = UserDatabase.UDB.taskDao().get(tid);
             runOnUiThread(() -> {
                 name.setValue(t.name);
-                desc.setValue(t.description);
+                if (t.description.isEmpty())
+                     desc.setVisibility(View.GONE);
+                else desc.setValue(t.description);
                 type.setValue(t.type.toString());
                 open.setValue(t.open.toString());
                 close.setValue(t.due.toString());
-                local.setValue(t.location);
-                grade.setValue(String.format(Locale.getDefault(), "%%%.0f", 100*t.grade));
+                if (t.location.isEmpty())
+                     local.setVisibility(View.GONE);
+                else local.setValue(t.location);
+                grade.setValue(String.format(Locale.getDefault(), "%.2f%%", t.grade));
             });
         });
     }

@@ -1,7 +1,9 @@
 package com.example.theprincipleapp;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.example.theprincipleapp.helpers.Util.*;
 
+import androidx.appcompat.app.AppCompatActivity;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -11,20 +13,17 @@ import android.widget.Toast;
 
 import com.example.theprincipleapp.db.Class;
 import com.example.theprincipleapp.db.Course;
-import com.example.theprincipleapp.db.Task;
-import com.example.theprincipleapp.db.UserClass;
 import com.example.theprincipleapp.db.UserDatabase;
+import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.Calendar;
-import java.util.List;
+
 
 public class NewClass extends AppCompatActivity {
-
-    EditText et_classCode, et_fullName, et_description, et_professor;
-    Button button_ok, button_cancel;
-
-
+    protected EditText et_classCode, et_fullName, et_description, et_professor, et_startDate, et_endDate;
+    protected Calendar start, end;
+    protected Button button_ok, button_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,57 +34,74 @@ public class NewClass extends AppCompatActivity {
         et_fullName = findViewById(R.id.et_fullname);
         et_description = findViewById(R.id.et_description);
         et_professor = findViewById(R.id.et_professor);
+        et_startDate = findViewById(R.id.et_startDate);
+        et_endDate = findViewById(R.id.et_endDate);
         button_ok = findViewById(R.id.button_ok);
         button_cancel = findViewById(R.id.button_cancel);
 
-        button_ok.setOnClickListener(view -> {
+        start = Calendar.getInstance();
+        end = Calendar.getInstance();
+        end.roll(Calendar.MONTH, 4);
 
-            UserClass userClass = new UserClass();
+        et_startDate.setOnClickListener(view -> showDatePicker(this, start, et_startDate));
+        et_endDate.setOnClickListener(view -> showDatePicker(this, end, et_endDate));
 
-            List<Task> tasks = new ArrayList<>();
-
-            Course course = new Course();
-            course.full_name = et_fullName.getText().toString();
-            course.code = et_classCode.getText().toString();
-            course.description = et_description.getText().toString();
-
-            userClass.course = course;
-            userClass.tasks = tasks;
-            userClass.meetings = null;
-
-            Class c = new Class();
-            c.professor = et_professor.getText().toString();
-            c.start = Calendar.getInstance().getTime();
-            c.end = Calendar.getInstance().getTime();
-            userClass.cls = c;
-
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-
-
-                    UserDatabase.UDB.userClassDao().insert(userClass);
-
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),"Course successfully added", Toast.LENGTH_LONG).show();
-                            et_professor.setText("");
-                            et_fullName.setText("");
-                            et_description.setText("");
-                            et_classCode.setText("");
-                        }
-                    });
-                }
-            });
-        });
+        button_ok.setOnClickListener(this::attemptInsertion);
         button_cancel.setOnClickListener(view -> finish());
     }
 
-    void insertClass (View v) {
+    protected Course parseCourse () throws ParseException {
+        Course course = new Course();
+        course.full_name = et_fullName.getText().toString();
+        if (course.full_name.isEmpty())
+            throw new ParseException("Course name cannot be empty", 0);
+        course.code = et_classCode.getText().toString();
+        if (course.code.isEmpty())
+            throw new ParseException("Course code cannot be empty", 0);
+        course.description = et_description.getText().toString();
+        // Description can be empty
+        return course;
+    }
 
-        // TODO: Save
-        finish();
+    protected Class parseClass () throws ParseException {
+        Class c = new Class();
+        c.professor = et_professor.getText().toString();
+        if (c.professor.isEmpty()) c.professor = "TBD";
+        try { c.start = sdf.parse(et_startDate.getText().toString());
+        } catch (ParseException e) {
+            throw new ParseException("Invalid start date", 0);
+        }
+        try { c.end = sdf.parse(et_endDate.getText().toString());
+        } catch (ParseException e) {
+            throw new ParseException("Invalid end date", 0);
+        }
+        if (c.start.after(c.end))
+            throw new ParseException("End date must take place after the start date", 0);
+        return c;
+    }
+
+    protected void attemptInsertion (View v) {
+        Course o; Class c;
+        try {
+            o = parseCourse();
+            c = parseClass();
+        } catch (ParseException e) {
+            String msg = e.getMessage();
+            Snackbar.make(this, v, msg==null?"Error":msg, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        AsyncTask.execute(() -> {
+            try {
+                c.oid = (int) UserDatabase.UDB.courseDao().insert(o);
+                UserDatabase.UDB.classDao().insert(c);
+            } catch (SQLiteConstraintException e) {
+                // Only possible constraint exception is a non-unique course code
+                Snackbar.make(this, v, "Course code must be unique", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+            runOnUiThread(() -> Toast.makeText(getApplicationContext(),
+                "Course successfully added", Toast.LENGTH_SHORT).show());
+            finish();
+        });
     }
 }

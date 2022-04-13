@@ -1,12 +1,25 @@
 package com.example.theprincipleapp.helpers;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.widget.EditText;
+import android.widget.TimePicker;
 
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AlertDialog;
 import com.example.theprincipleapp.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+
 public class Util {
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
+    public static SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
     @UiThread
     public static void alertError (Activity act, int message_id) {
@@ -38,6 +51,37 @@ public class Util {
             }
         }
         return builder.toString();
+    }
+
+    public static void mapDate (Calendar cal, EditText view, int y, int m, int d) {
+        cal.set(y, m, d);
+        view.setText(dateFormat.format(cal.getTime()));
+    }
+
+    public static void mapTime (Calendar cal, EditText view, TimePicker timePicker) {
+        cal.set(Calendar.MINUTE, timePicker.getMinute());
+        cal.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+        view.setText(timeFormat.format(cal.getTime()));
+    }
+
+    public static void showDatePicker (Context context, Calendar cal, EditText view) {
+        new DatePickerDialog(
+                context,
+                (dp,y,m,d) -> mapDate(cal, view, y, m, d),
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+        ).show();
+    }
+
+    public static void showTimePicker (Context context, Calendar cal, EditText view) {
+        new TimePickerDialog(
+                context,
+                (tp,i,j) -> mapTime(cal, view, tp),
+                cal.get(Calendar.MINUTE),
+                cal.get(Calendar.HOUR),
+                false
+        ).show();
     }
 
 }
