@@ -15,7 +15,7 @@ import com.example.theprincipleapp.helpers.HomeRecAdapter;
 public class HomePage extends AppCompatActivity {
     RecyclerView recyclerView;
     HomeRecAdapter adapter;
-    Button btn_classes, btn_calendar, btn_tasks;
+    Button btn_classes, btn_tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,6 @@ public class HomePage extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.home_recview);
         btn_classes = findViewById(R.id.home_btn_allClasses);
-        btn_calendar =  findViewById(R.id.home_btn_calendar);
         btn_tasks = findViewById(R.id.home_btn_allTasks);
 
         adapter = new HomeRecAdapter(this);

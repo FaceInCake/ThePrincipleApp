@@ -58,7 +58,7 @@ public class NewTask extends AppCompatActivity {
         editTextOpenDateTime.setOnClickListener(view
             -> showTimePicker(this, openDateCalendar, editTextOpenDateTime));
         editTextDueDateDate.setOnClickListener(view
-            -> showDatePicker(this, dueDateCalendar, editTextOpenDateDate));
+            -> showDatePicker(this, dueDateCalendar, editTextDueDateDate));
         editTextDueDateTime.setOnClickListener(view
             -> showTimePicker(this, dueDateCalendar, editTextDueDateTime));
     }
