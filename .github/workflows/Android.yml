@@ -24,3 +24,17 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+      
+    # You may pin to the exact commit or the version.
+    # uses: mikepenz/action-junit-report@47c2b1d0baf4e9cd2e03bdf29325f1e9ec28994a
+    - name: JUnit Report Action
+      uses: mikepenz/action-junit-report@v3.0.1
+      with:
+        # Comma seperated list of source folders to ignore for lookup [/build/,/__pycache__/]
+        exclude_sources: /docs/,/gradle/,/app/build/,/app/libs/
+        # Regular expression for the named test suites
+        suite_regex: +*Test.java 
+        # Fail the build in case a test failure occurred [false]
+        fail_on_failure: true
+        # Fail if no test are found. [false]
+        require_tests: true
